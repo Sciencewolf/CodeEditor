@@ -27,17 +27,14 @@
     </h1>
     
 
-    <div class="inputs" id="inputs" onkeyup="appendLine(event)" onkeypress="changeColor()">
+    <div class="inputs" id="inputs" onkeyup="appendOrDeleteLine(event)" >
         <span class="span-content" id="span-content">
-            <p id="counter"></p>
-            <textarea rows="" cols="150" id="textarea"></textarea>
+            <p id="counter">1</p>
+            <input type="text" id="input-field" placeholder="To make a new line press [ENTER]">
         </span>
-    </div>
-
-    <div class="">
+        
         
     </div>
-
 
     <a href="help.html" target="_blank">Get syntax help</a>
 </body>
