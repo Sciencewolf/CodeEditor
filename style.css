@@ -11,6 +11,21 @@
     align-items: center;
 }
 
+.span-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 h1 {
     text-align: center;
+}
+
+textarea {
+    border: 3px solid aqua;
+}
+
+a {
+    display: flex;
+    justify-content: center;
 }
