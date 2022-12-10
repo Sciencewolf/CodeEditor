@@ -5,27 +5,36 @@
     font-family: 'Secular One', monospace
 }
 
-.inputs {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.span-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+body {
+    background-color: steelblue;
 }
 
 h1 {
     text-align: center;
 }
 
-textarea {
-    border: 3px solid aqua;
+input {
+    border: none;
+    background-color: lightskyblue;
+    width: 70rem;
+    height: 2rem;
+    font-size: large;
+}
+
+input:active {
+    border: none;
 }
 
 a {
     display: flex;
     justify-content: center;
+}
+
+
+span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 2rem;
 }
