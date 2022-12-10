@@ -1,55 +1,70 @@
-const appendLine = (event) => {
+let count = 0
+
+const appendOrDeleteLine = (event) => {
     const div_el = document.getElementById('inputs')
-    const span_el = document.getElementById('span-content')
-    const textArea = document.getElementById('textarea')
     const p_counter = document.getElementById('counter')
 
-    let count = 0
-    let newp = ""
-
     if(event.keyCode === 13) {
-        textArea.rows++
-        textArea.cols = 150
         count++
         console.log("Count: ", count)
 
-        //newh4 = document.createElement('h4')
-        p_counter.innerHTML = count
+        let new_span = document.createElement('span')
+        new_span.id = `span-content${count}`
+        new_span.className = `span-content${count}`
 
-        //newh4.innerHTML = count
-        //div_el.appendChild(newh4)
-        console.log("Log: ", p_counter.innerHTML)
+        let new_p = document.createElement('p')
+        new_p.id = "counter"
+        new_p.innerHTML = count
+
+        let new_input = document.createElement('input')
+        new_input.type = 'text'
+        new_input.id = "input-field"
+        new_input.className = "input-field"
+
+        new_span.appendChild(new_p)
+        new_span.appendChild(new_input)
+
+        div_el.appendChild(new_span)
+
+        new_input.focus()
+        
     }
 
-    if(event.keyCode === 8 && textArea.value.length < 2) {
-        textArea.rows--
+    if(event.keyCode === 8) {
         count--
         console.log("Count: another", count)
-        p_counter.innerHTML = count
-        console.log("Log: another", p_counter.innerHTML)
-        newp.innerHTML = ""
+
+        const get_elem_div = document.getElementById('inputs')
+        const get_elem_span = document.getElementById(`span-content${count}`)
+
+        get_elem_div.removeChild(get_elem_span)
 
     }
 }
 
 
 const changeColor = () => {
-    let KEYWORDS = {
-        "chislo": "red",
-        "holovna": "red",
-        "kity": "red",
-        "kity_net": "red",
-        "ajbo": "red",
-        "nekaj": "red",
-        "vhod": "red",
-    };
+
+    let KEYWORDS = ["chislo", "holovna", "kity", "kity_net", "ajbo", "nekaj", "vhod"]
 
     const div_el = document.getElementById('inputs')
-    const textArea = document.getElementById('textarea')
+    const input_field = document.getElementById('input-field')
 
-    if (textArea.value in KEYWORDS) {
-        textArea.style.color = "red"
-        console.log(KEYWORDS[textArea.value])
+    if (input_field.value in KEYWORDS) {
+        input_field.style.color = "red"
+        
+        console.log(KEYWORDS)
     }
     else textArea.style.color = "black"
+}
+
+
+// On button press copy all text
+const copyToClipboard = () => {
+
+}
+
+// On button press save to a list all text and make a file and save it on desktop
+const saveFile = () => {
+
 }
