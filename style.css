@@ -9,20 +9,25 @@ body {
     background-color: steelblue;
 }
 
-h1 {
+h1, h3 {
     text-align: center;
 }
 
 input {
     border: none;
     background-color: lightskyblue;
-    width: 70rem;
+    width: 70%;
     height: 2rem;
     font-size: large;
+    padding-left: 1%;
 }
 
 input:active {
     border: none;
+}
+
+input:focus::placeholder {
+    color: transparent;
 }
 
 a {
@@ -35,6 +40,35 @@ span {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 1%;
 
     height: 2rem;
+}
+
+button {
+    width: 4rem;
+    height: auto;
+    background-color: lightskyblue;
+    border: none;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 678px) {
+    input {
+        border: none;
+        font-size: small;
+        padding-left: 1%;
+        width: 80%;
+    }
+    input:active {
+        border: none;
+    }
+
+    a {
+        font-size: small;
+    }
+
+    h3 {
+        font-size: small;
+    }
 }
