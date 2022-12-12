@@ -1,5 +1,5 @@
 let index_of_the_line = 0
-let KEYWORDS = ["chislo", "holovna", "kity", "kity_net", "ajbo", "nekaj", "vhod"]
+let KEYWORDS = ["chislo", "holovna", "kity", "kity_net", "ajbo", "nekaj", "vhod"] // keywords of pozpp 
 
 let words = [] // list of words from input 
 const log = console.log  //rename console.log to log
@@ -70,16 +70,7 @@ const appendOrDeleteLine = (event) => {
 
         new_input.focus()
 
-        const input_field = document.getElementById(`input-field${index_of_the_line - 1}`)
-
-        let get_value = input_field.value
-        let get_words = get_value.split(" ")
-        log("append ", get_words)
-        words.push(get_words)
-        log("List", words)
-        //  added to list words
-
-        
+        addWordsToList() // function
     }
     else if(event.keyCode === 8 && index_of_the_line > 0) { // delete keycode
         log("Count: another", index_of_the_line)
@@ -99,16 +90,33 @@ const appendOrDeleteLine = (event) => {
                 const last_input = document.querySelector(`.span-content${count} > input`)
                 last_input.focus()
             }*/
+
+            removeWordsFromList()
         }
     }
 }
 
 const changeColor = () => {
     log('From changeColor function')
+}
 
+// Not fully finished, test is required
+function addWordsToList() {
+    const input_field = document.getElementById(`input-field${index_of_the_line - 1}`)
+
+    let get_value = input_field.value
+    let get_words = get_value.split(" ")
+    log("append ", get_words)
+    words.push(get_words)
+    log("List", words)
+    //  added to list words
 
 }
 
+// Required for implementation
+function removeWordsFromList() {
+
+}
 
 // On button press copy all text
 const copyToClipboard = () => {
