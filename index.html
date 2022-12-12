@@ -21,20 +21,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,100&family=Secular+One&display=swap" rel="stylesheet">
     
 </head>
-<body>
+<body onload="getTagsOnLoad()">
     <h1>
         CodeEditor
     </h1>
     
 
-    <div class="inputs" id="inputs" onkeyup="appendOrDeleteLine(event)" >
+    <div class="inputs" id="inputs" onkeyup="appendOrDeleteLine(event), changeColor()" >
         <span class="span-content" id="span-content">
-            <p id="counter">1</p>
-            <input type="text" id="input-field" placeholder="To make a new line press [ENTER]">
+            
         </span>
         
         
     </div>
+
+    <span class="btns" id="btns"></span>
 
     <a href="help.html" target="_blank">Get syntax help</a>
     <h3><em>* It may contains error/bug *</em></h3>
