@@ -1,5 +1,5 @@
 ## Code Editor for Pozakarpatskiy++ Programming Language Project
-* Link for [Pozakarpatskiy++ Programming Language](https://github.com/Sciencewolf/pozpp_beta) Project
+* Link to [Pozakarpatskiy++ Programming Language](https://github.com/Sciencewolf/pozpp_beta) Project
 
 # Date started => 12/09/2022
 
