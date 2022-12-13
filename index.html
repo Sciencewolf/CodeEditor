@@ -19,6 +19,9 @@
     <!-- Import Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,100&family=Secular+One&display=swap" rel="stylesheet">
+
+    <!-- Import favicon -->
+    <link rel="icon" sizes="32x32" href="https://img.icons8.com/color/48/null/source-code.png" />
     
 </head>
 <body onload="getTagsOnLoad()">
@@ -27,7 +30,7 @@
     </h1>
     
 
-    <div class="inputs" id="inputs" onkeyup="appendOrDeleteLine(event), changeColor()" >
+    <div class="inputs" id="inputs" onkeydown="appendOrDeleteLine(event), changeColor()" >
         <span class="span-content" id="span-content">
             
         </span>
@@ -36,6 +39,11 @@
     </div>
 
     <span class="btns" id="btns"></span>
+
+
+    <!--<div class="run-btn-div">
+        <button type="button" id="run-btn" class="run-btn">Run</button>
+    </div>-->
 
     <a href="help.html" target="_blank">Get syntax help</a>
     <h3><em>* It may contains error/bug *</em></h3>
