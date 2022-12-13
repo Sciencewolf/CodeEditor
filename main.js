@@ -1,7 +1,7 @@
 let index_of_the_line = 0
 let KEYWORDS = ["chislo", "holovna", "kity", "kity_net", "ajbo", "nekaj", "vhod"] // keywords of pozpp 
 
-let words = [] // list of words from input 
+let words = new Array() // list of words from input 
 const log = console.log  //rename console.log to log
 
 
@@ -43,6 +43,7 @@ const getTagsOnLoad = () => {
 
 }
 
+
 const appendOrDeleteLine = (event) => {
     const div_el = document.getElementById('inputs')
 
@@ -70,7 +71,7 @@ const appendOrDeleteLine = (event) => {
 
         new_input.focus()
 
-        addWordsToList() // function
+        addWordsToList()
     }
     else if(event.keyCode === 8 && index_of_the_line > 0) { // delete keycode
         log("Count: another", index_of_the_line)
@@ -80,25 +81,16 @@ const appendOrDeleteLine = (event) => {
             const get_input = document.getElementById(`input-field${index_of_the_line}`)
             // need to remove words or chars and rewrite list with new word
 
-            
+            div_el.removeChild(get_elem_span)
+            index_of_the_line--
+            const last_input = document.querySelector(`.span-content${index_of_the_line} > input`)
+            last_input.focus()
 
-
-            /*if (!(get_words.length > 1)) {
-                div_el.removeChild(get_elem_span)
-                count--
-            } else if (get_words.length === 1) {
-                const last_input = document.querySelector(`.span-content${count} > input`)
-                last_input.focus()
-            }*/
-
-            removeWordsFromList()
+            // removeWordsFromList()  omw to fix
         }
     }
 }
 
-const changeColor = () => {
-    log('From changeColor function')
-}
 
 // Not fully finished, test is required
 function addWordsToList() {
@@ -106,25 +98,33 @@ function addWordsToList() {
 
     let get_value = input_field.value
     let get_words = get_value.split(" ")
-    log("append ", get_words)
+
     words.push(get_words)
     log("List", words)
-    //  added to list words
+
+}
+
+const changeColor = (previous_index_of_the_line) => {
+    log('From changeColor function')
+    let previous_line = Array(words)
+    log("prev", previous_line)
+
 
 }
 
 // Required for implementation
-function removeWordsFromList() {
+const removeWordsFromList = () => {
+    const get_current_active_elem = document.activeElement
 
 }
 
-// On button press copy all text
+// On button press copy all text  required for implemetation
 const copyToClipboard = () => {
     log("From copy func")
 
 }
 
-// On button press save to a list all text and make a file and save it on desktop
+// On button press save to a list all text and make a file and save it on desktop   required for implementation
 const saveFile = () => {
     log("from save func")
 
