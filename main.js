@@ -19,6 +19,7 @@ const getTagsOnLoad = () => {
     input_tag.type = "text"
     input_tag.className = `input-field${index_of_the_line}`
     input_tag.placeholder = "To make a new line press [ENTER]"
+    input_tag.autocomplete = "none"
 
     span_el.appendChild(p_tag)
     span_el.appendChild(input_tag)
@@ -63,6 +64,7 @@ const appendOrDeleteLine = (event) => {
         new_input.type = 'text'
         new_input.id = `input-field${index_of_the_line}`
         new_input.className = `input-field${index_of_the_line}`
+        new_input.autocomplete = "none"
 
         new_span.appendChild(new_p)
         new_span.appendChild(new_input)
