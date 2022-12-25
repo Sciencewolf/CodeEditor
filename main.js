@@ -45,10 +45,10 @@ const getTagsOnLoad = () => {
 }
 
 
-const appendOrDeleteLine = (event) => {
+const appendOrDeleteLine = async(event) => {
     const div_el = document.getElementById('inputs')
 
-    if(event.keyCode === 13) { //enter keycode
+    if(event.key === 'Enter') { //enter keycode
         index_of_the_line++
         log("Count: ", index_of_the_line)
 
@@ -70,10 +70,11 @@ const appendOrDeleteLine = (event) => {
         new_span.appendChild(new_input)
 
         div_el.appendChild(new_span)
-
-        new_input.focus()
+ 
+        new_input.focus()  
 
         addWordsToList()
+        await changeColor()
     }
     else if(event.keyCode === 8 && index_of_the_line > 0) { // delete keycode
         log("Count: another", index_of_the_line)
@@ -106,11 +107,14 @@ function addWordsToList() {
 
 }
 
-const changeColor = (previous_index_of_the_line) => {
-    log('From changeColor function')
-    let previous_line = Array(words)
-    log("prev", previous_line)
+const changeColor = async() => {
+    let last_arr = words[words.length - 1]
 
+    for (const [indx, elem] of last_arr){
+        if (word[indx] === elem){
+            // implement 
+        }
+    }
 
 }
 
