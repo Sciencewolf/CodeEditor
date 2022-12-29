@@ -9,10 +9,14 @@ const error = console.error
 
 
 const getTagsOnLoad = () => {
+    let count_intervals = 0
+    let placeholders = [
+        "To make a new line press [ENTER]", ""
+    ]
+    let count_placeholder = 0
     index_of_the_line++
     const span_el = document.getElementById("span-content")
 
-    // Tags 
     let p_tag = document.createElement('p')
     p_tag.id = "counter"
     p_tag.innerHTML = index_of_the_line
@@ -21,7 +25,21 @@ const getTagsOnLoad = () => {
     input_tag_onload.type = "text"
     input_tag_onload.id = `input-field${index_of_the_line}`
     input_tag_onload.className = `input-field${index_of_the_line}`
-    input_tag_onload.placeholder = "To make a new line press [ENTER]"
+    const interval = setInterval(() => {
+        if(!input_tag_onload.matches(':focus')){
+            input_tag_onload.placeholder = placeholders[count_placeholder]
+            count_placeholder = (count_placeholder + 1) % placeholders.length
+            count_intervals++
+        }
+        else{
+            input_tag_onload.placeholder = ""
+        }
+
+        if(count_intervals === 10){
+            clearInterval(interval)
+        }
+    }, 1000)
+
     input_tag_onload.autocomplete = "none"
 
     span_el.appendChild(p_tag)
@@ -47,11 +65,7 @@ const getTagsOnLoad = () => {
     })
     btns.appendChild(button_copy)
     btns.appendChild(button_save)
-
-    input_tag_onload.focus()
-
 }
-
 
 const appendOrDeleteLine = (event) => {
     const div_el = document.getElementById('inputs')
@@ -78,27 +92,24 @@ const appendOrDeleteLine = (event) => {
         new_input.focus()
 
         addWordsToList()
+        scrollToTop()
     } else if (event.key === "Backspace" && index_of_the_line > 0) { // delete keycode
         if (index_of_the_line < 1) index_of_the_line = 1
         else {
             const get_elem_span = document.getElementById(`span-content${index_of_the_line}`)
             const get_input = document.getElementById(`input-field${index_of_the_line}`)
-            if (get_input.value !== "") {
-                let str = get_input.value
-                for (let char of str) {
-                    log('Deleting')
-                }
+            if (get_input.value === "") {
+                div_el.removeChild(get_elem_span)
+                index_of_the_line--
+                const last_input = document.querySelector(`.span-content${index_of_the_line} > input`)
+                last_input.focus()
+                scrollToTop()
             }
-
-            div_el.removeChild(get_elem_span)
-            index_of_the_line--
-            const last_input = document.querySelector(`.span-content${index_of_the_line} > input`)
-            last_input.focus()
         }
     }
 }
 
-// Not fully finished, test is required
+// Not fully finished
 function addWordsToList() {
     const input_field = document.getElementById(`input-field${index_of_the_line - 1}`)
     let get_value = input_field.value
@@ -118,8 +129,45 @@ const copyToClipboard = () => {
     }).catch((err) => {
         error("Fail", err)
     })
-
 }
 
-// On button press save to a list all text and make a file and save it on desktop   required for implementation
-const saveFile = () => {}
+const scrollToTop = () => {
+    const get_inputs = document.querySelectorAll('input')
+    const div_elem = document.getElementById('scroll')
+    const btn = document.createElement('button')
+    btn.className = "btn-scroll"
+    btn.id = "btn-scroll"
+    btn.innerHTML = "To Top"
+
+    if(get_inputs.length === 10){
+        div_elem.appendChild(btn)
+    }
+    else if(get_inputs.length === 9){
+        const get_btn = document.getElementById('btn-scroll')
+        div_elem.removeChild(get_btn)
+    }
+
+    btn.addEventListener('click', () => {
+        window.scrollTo(0, 0)
+    })
+}
+
+const saveFile = () => {
+    let lines = ""
+    const fileName = 'script.pozpp'
+    for (let word of words){
+        lines += word + '\n'
+    }
+
+    const blob = new Blob([lines], {type: "text/plain"})
+    const url = URL.createObjectURL(blob)
+
+    const a_tag = document.createElement('a')
+
+    a_tag.id = "a_tag"
+    a_tag.href = url
+    a_tag.download = fileName
+    a_tag.click()
+
+    URL.revokeObjectURL(url)
+}
