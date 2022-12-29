@@ -26,10 +26,6 @@ input:active {
     border: none;
 }
 
-input:focus::placeholder {
-    color: transparent;
-}
-
 a {
     display: flex;
     justify-content: center;
@@ -72,4 +68,20 @@ button {
     h3 {
         font-size: small;
     }
+}
+
+
+.scroll {
+    display: flex;
+    justify-content: center;
+    bottom: 5%;
+    right: 10%;
+}
+
+.scroll > button {
+    cursor: pointer;
+    width: auto;
+    height: auto;
+    background-color: lightskyblue;
+    border: none;
 }
