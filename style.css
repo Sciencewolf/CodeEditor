@@ -46,7 +46,7 @@ span {
 }
 
 button {
-    width: 4rem;
+    width: auto;
     height: auto;
     background-color: lightskyblue;
     border: none;
