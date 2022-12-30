@@ -5,6 +5,10 @@
     font-family: 'Secular One', monospace
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: steelblue;
 }
@@ -83,6 +87,7 @@ button {
     cursor: pointer;
     width: auto;
     height: auto;
-    background-color: lightskyblue;
+    background-color: orangered;
     border: none;
+    color: white;
 }
