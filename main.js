@@ -1,19 +1,14 @@
 let index_of_the_line = 0
-let KEYWORDS = [
-    "chislo", "holovna", "kity", "kity_net", "ajbo", "nekaj", "vhod"
-] // keywords of pozpp
-
-let words = [] // list of words from input
-const log = console.log  //rename console.log to log
+let words = []
+const log = console.log
 const error = console.error
-
 
 const getTagsOnLoad = () => {
     let count_intervals = 0
+    let count_placeholder = 0
     let placeholders = [
         "To make a new line press [ENTER]", ""
     ]
-    let count_placeholder = 0
     index_of_the_line++
     const span_el = document.getElementById("span-content")
 
@@ -25,27 +20,21 @@ const getTagsOnLoad = () => {
     input_tag_onload.type = "text"
     input_tag_onload.id = `input-field${index_of_the_line}`
     input_tag_onload.className = `input-field${index_of_the_line}`
+    input_tag_onload.autocomplete = "none"
+
     const interval = setInterval(() => {
         if(!input_tag_onload.matches(':focus')){
             input_tag_onload.placeholder = placeholders[count_placeholder]
             count_placeholder = (count_placeholder + 1) % placeholders.length
             count_intervals++
         }
-        else{
-            input_tag_onload.placeholder = ""
-        }
-
-        if(count_intervals === 10){
-            clearInterval(interval)
-        }
+        else{ input_tag_onload.placeholder = "" }
+        if(count_intervals === 10){ clearInterval(interval) }
     }, 1000)
-
-    input_tag_onload.autocomplete = "none"
 
     span_el.appendChild(p_tag)
     span_el.appendChild(input_tag_onload)
 
-    // Button's 
     const btns = document.getElementById('btns')
     let button_save = document.createElement('button')
     let button_copy = document.createElement('button')
@@ -53,16 +42,12 @@ const getTagsOnLoad = () => {
     button_copy.id = "btn-copy"
     button_copy.className = "btn-copy"
     button_copy.innerHTML = "Copy to Clipboard"
-    button_copy.addEventListener('click', () => {
-        copyToClipboard()
-    })
+    button_copy.addEventListener('click', () => { copyToClipboard() })
 
     button_save.id = "btn-save"
     button_save.className = "btn-save"
     button_save.innerHTML = "Save"
-    button_save.addEventListener('click', () => {
-        saveFile()
-    })
+    button_save.addEventListener('click', () => { saveFile() })
     btns.appendChild(button_copy)
     btns.appendChild(button_save)
 }
@@ -94,7 +79,7 @@ const appendOrDeleteLine = (event) => {
         addWordsToList()
         scrollToTop()
     } else if (event.key === "Backspace" && index_of_the_line > 0) { // delete keycode
-        if (index_of_the_line < 1) index_of_the_line = 1
+        if (index_of_the_line < 1){ index_of_the_line = 1 }
         else {
             const get_elem_span = document.getElementById(`span-content${index_of_the_line}`)
             const get_input = document.getElementById(`input-field${index_of_the_line}`)
@@ -109,7 +94,6 @@ const appendOrDeleteLine = (event) => {
     }
 }
 
-// Not fully finished
 function addWordsToList() {
     const input_field = document.getElementById(`input-field${index_of_the_line - 1}`)
     let get_value = input_field.value
@@ -117,21 +101,14 @@ function addWordsToList() {
     words.push(get_words)
 }
 
-//For the future  --freezedstatus
-// const changeColor = () => {}
 const copyToClipboard = () => {
     let str = ""
-    for (const line of words){
-        str += line + '\n'
-    }
-    navigator.clipboard.writeText(str).then(() => {
-        log("Success")
-    }).catch((err) => {
-        error("Fail", err)
-    })
+    for (const line of words){ str += line + '\n' }
+    navigator.clipboard.writeText(str).then(() => { log("Success") }).catch((err) => { error("Fail", err) })
 }
 
 const scrollToTop = () => {
+    let count = 0
     const get_inputs = document.querySelectorAll('input')
     const div_elem = document.getElementById('scroll')
     const btn = document.createElement('button')
@@ -139,31 +116,49 @@ const scrollToTop = () => {
     btn.id = "btn-scroll"
     btn.innerHTML = "To Top"
 
-    if(get_inputs.length === 10){
-        div_elem.appendChild(btn)
-    }
-    else if(get_inputs.length === 9){
+    if(get_inputs.length > 49){ div_elem.appendChild(btn) }
+    else if(get_inputs.length < 26){
         const get_btn = document.getElementById('btn-scroll')
         div_elem.removeChild(get_btn)
     }
 
     btn.addEventListener('click', () => {
         window.scrollTo(0, 0)
+        const interval = setInterval(() => {
+            if(count === 1){
+                clearInterval(interval)
+            }else if(count > 1) {
+                clearInterval(interval)
+            }
+            else{
+                addToBottomButton()
+                clearInterval(interval)
+                count++
+            }
+        }, 500)
     })
+}
+
+const addToBottomButton = () => {
+    const div_elem = document.getElementById('scroll')
+    const btn = document.createElement('button')
+    btn.className = "btn-scroll"
+    btn.id = "btn-scroll"
+    btn.innerHTML = "To Bottom"
+
+    div_elem.appendChild(btn)
+    btn.addEventListener('click', () => { window.scrollTo(0, document.body.scrollHeight) })
 }
 
 const saveFile = () => {
     let lines = ""
     const fileName = 'script.pozpp'
-    for (let word of words){
-        lines += word + '\n'
-    }
+    for (let word of words){ lines += word + '\n' }
 
     const blob = new Blob([lines], {type: "text/plain"})
     const url = URL.createObjectURL(blob)
 
     const a_tag = document.createElement('a')
-
     a_tag.id = "a_tag"
     a_tag.href = url
     a_tag.download = fileName
