@@ -72,6 +72,7 @@ button {
 
 
 .scroll {
+    position: fixed;
     display: flex;
     justify-content: center;
     bottom: 5%;
