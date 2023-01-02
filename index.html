@@ -26,13 +26,15 @@
 </head>
 <body onload="getTagsOnLoad()">
     <h1>CodeEditor</h1>
-    <div class="inputs" id="inputs" onkeydown="appendOrDeleteLine(event)" >
+    <div class="inputs" id="inputs" onkeydown="appendOrDeleteLine()" >
         <span class="span-content" id="span-content"></span>
     </div>
 
     <span class="btns" id="btns"></span>
     <div class="scroll" id="scroll"></div>
-    <div class="input_file_ext" id="input_file_ext"></div>
+    <div class="dialog" id="dialog">
+        <div class="input_file_ext" id="input_file_ext"></div>
+    </div>
 
     <a href="html/help.html" target="_blank">Get syntax help</a>
     <h3><em>* It may contains error/bug *</em></h3>
