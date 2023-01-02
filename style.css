@@ -74,6 +74,15 @@ button {
     }
 }
 
+.input_file_ext {
+    background-color: grey;
+    margin: auto;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    height: auto;
+}
+
 
 .scroll {
     position: fixed;
