@@ -75,11 +75,12 @@ button {
 }
 
 .input_file_ext {
+    /* Display is set in js file default -> flex, after-btn-click -> none */
+    justify-content: center;
+    align-items: center;
     background-color: grey;
     margin: auto;
     z-index: 2;
-    display: flex;
-    align-items: center;
     height: auto;
 }
 
