@@ -42,7 +42,16 @@ const getTagsOnLoad = () => {
     button_copy.id = "btn-copy"
     button_copy.className = "btn-copy"
     button_copy.innerHTML = "Copy to Clipboard"
-    button_copy.addEventListener('click', () => { copyToClipboard() })
+    button_copy.addEventListener('click', () => {
+        copyToClipboard()
+        setTimeout(() => {
+            button_copy.innerHTML = "Copied"
+        }, 200)
+        setTimeout(() => {
+            button_copy.innerHTML = "Copy to Clipboard"
+        }, 3500)
+
+    })
 
     button_save.id = "btn-save"
     button_save.className = "btn-save"
@@ -107,6 +116,27 @@ const copyToClipboard = () => {
     navigator.clipboard.writeText(str).then(() => { log("Success") }).catch((err) => { error("Fail", err) })
 }
 
+const dialog = () => {
+    const get_dialog_div = document.querySelector('.dialog')
+    const close_btn = document.createElement('button')
+    const ok_btn = document.createElement('button')
+
+    close_btn.id = "btn-close"
+    close_btn.className = "btn-close"
+    close_btn.innerHTML = "Close"
+    close_btn.addEventListener('click', () => {
+        get_dialog_div.close()
+    })
+
+    ok_btn.id = "btn-ok"
+    ok_btn.className = "btn-ok"
+    ok_btn.innerHTML = "Ok"
+    ok_btn.addEventListener('click', () => {
+        get_dialog_div.close()
+    })
+
+}
+
 const scrollToTopButton = () => {
     let count = 0
     const get_inputs = document.querySelectorAll('input')
@@ -163,7 +193,6 @@ const chooseFileExtension = () => {
     const get_file_ext = document.createElement('input')
     const choose_file_ext = document.createElement('select')
     const h2_tag = document.createElement('h2')
-    const button_tag = document.createElement('button')
     choose_file_ext.id = 'choose_file_ext'
 
     for(let opt = 0; opt < 12; opt++){
@@ -189,20 +218,9 @@ const chooseFileExtension = () => {
     inputFileExt_divtag.appendChild(h2_tag)
 
     inputFileExt_divtag.appendChild(choose_file_ext)
-
-    button_tag.id = "btn-ok"
-    button_tag.className = "btn-ok"
-    button_tag.innerHTML = "OK"
-    button_tag.addEventListener('click', () => {
-        inputFileExt_divtag.style.display = "none"
-        inputFileExt_divtag.textContent = ""
-    })
-    inputFileExt_divtag.appendChild(button_tag)
 }
 
-const saveFile = () => {
-
-    /*
+/*const saveFile = () => {
     let lines = ""
     const fileName = 'script.pozpp'
     for (let word of words){ lines += word + '\n' }
@@ -217,5 +235,4 @@ const saveFile = () => {
     a_tag.click()
 
     URL.revokeObjectURL(url)
-*/
-}
+}*/
