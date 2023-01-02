@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- required meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <!-- Title of the page -->
+    <title>Code Editor for Pozakarpatskiy++</title>
+
+    <!-- Import JS file -->
+    <script src="../js/main.js"></script>
+
+    <!-- Import CSS file -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Import Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,100&family=Secular+One&display=swap" rel="stylesheet">
+
+    <!-- Import favicon -->
+    <link rel="icon" sizes="32x32" href="https://img.icons8.com/color/48/null/source-code.png" />
+    
+</head>
+<body onload="getTagsOnLoad()">
+    <h1>CodeEditor</h1>
+    <div class="inputs" id="inputs" onkeydown="appendOrDeleteLine(event)" >
+        <span class="span-content" id="span-content"></span>
+    </div>
+
+    <span class="btns" id="btns"></span>
+    <div class="scroll" id="scroll"></div>
+    <div class="input_file_ext" id="input_file_ext"></div>
+
+    <a href="help.html" target="_blank">Get syntax help</a>
+    <h3><em>* It may contains error/bug *</em></h3>
+
+</body>
+</html>
