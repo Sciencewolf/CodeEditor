@@ -77,7 +77,7 @@ const appendOrDeleteLine = (event) => {
         new_input.focus()
 
         addWordsToList()
-        scrollToTop()
+        scrollToTopButton()
     } else if (event.key === "Backspace" && index_of_the_line > 0) { // delete keycode
         if (index_of_the_line < 1){ index_of_the_line = 1 }
         else {
@@ -88,7 +88,7 @@ const appendOrDeleteLine = (event) => {
                 index_of_the_line--
                 const last_input = document.querySelector(`.span-content${index_of_the_line} > input`)
                 last_input.focus()
-                scrollToTop()
+                scrollToTopButton()
             }
         }
     }
@@ -107,7 +107,7 @@ const copyToClipboard = () => {
     navigator.clipboard.writeText(str).then(() => { log("Success") }).catch((err) => { error("Fail", err) })
 }
 
-const scrollToTop = () => {
+const scrollToTopButton = () => {
     let count = 0
     const get_inputs = document.querySelectorAll('input')
     const div_elem = document.getElementById('scroll')
@@ -131,7 +131,7 @@ const scrollToTop = () => {
                 clearInterval(interval)
             }
             else{
-                addToBottomButton()
+                scrollToBottomButton()
                 clearInterval(interval)
                 count++
             }
@@ -139,7 +139,7 @@ const scrollToTop = () => {
     })
 }
 
-const addToBottomButton = () => {
+const scrollToBottomButton = () => {
     const div_elem = document.getElementById('scroll')
     const btn = document.createElement('button')
     btn.className = "btn-scroll"
@@ -150,7 +150,60 @@ const addToBottomButton = () => {
     btn.addEventListener('click', () => { window.scrollTo(0, document.body.scrollHeight) })
 }
 
+const chooseFileExtension = () => {
+    const listFileExt = [
+        "--Choose File Extension--", "(Pozakarpatskiy++) .pozpp",
+        "(Text Documents) .txt", "(Python) .py", "(C++) .cpp", "(C#) .cs",
+        "(Java) .java", "(Golang) .go", "(HTML) .html", "(CSS) .css",
+        "(JavaScript) .js", "(TypeScript) .ts"
+    ]
+
+    const inputFileExt_divtag = document.querySelector('.input_file_ext')
+    const get_file_ext = document.createElement('input')
+    const choose_file_ext = document.createElement('select')
+    const h2_tag = document.createElement('h2')
+    const br_tag = document.createElement('br')
+    const button_tag = document.createElement('button')
+    choose_file_ext.id = 'choose_file_ext'
+
+    for(let opt = 0; opt < 12; opt++){
+        const create_option = document.createElement('option')
+        create_option.id = `option${opt}`
+        create_option.className = `option${opt}`
+        create_option.value = `${opt}`
+        create_option.innerHTML =`${listFileExt[opt]}`
+
+        choose_file_ext.appendChild(create_option)
+    }
+
+    get_file_ext.type = 'text'
+    get_file_ext.id = 'get_file_ext'
+    get_file_ext.className = 'get_file_ext'
+    get_file_ext.autocomplete = 'none'
+    get_file_ext.placeholder = 'Enter file extension'
+    inputFileExt_divtag.appendChild(get_file_ext)
+
+    h2_tag.id = "text_h2"
+    h2_tag.className = "text_h2"
+    h2_tag.innerHTML = "---- Or choose from the list ----"
+    inputFileExt_divtag.appendChild(br_tag)
+    inputFileExt_divtag.appendChild(h2_tag)
+
+    inputFileExt_divtag.appendChild(choose_file_ext)
+
+    button_tag.id = "btn-ok"
+    button_tag.className = "btn-ok"
+    button_tag.innerHTML = "OK"
+    button_tag.addEventListener('click', () => {
+        inputFileExt_divtag.remove()
+    })
+    inputFileExt_divtag.appendChild(button_tag)
+}
+
 const saveFile = () => {
+    chooseFileExtension()
+
+    /*
     let lines = ""
     const fileName = 'script.pozpp'
     for (let word of words){ lines += word + '\n' }
@@ -165,4 +218,5 @@ const saveFile = () => {
     a_tag.click()
 
     URL.revokeObjectURL(url)
+*/
 }
