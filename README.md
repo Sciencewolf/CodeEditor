@@ -8,4 +8,13 @@
 * Version 0.3 12/29/2022
 * * Version 0.5 current
 
+# Preparing for Version 1.0
+## Tasks To Do:
+
+* Save file and let user choose file extension
+* Redesign the page
+* Add settings
+* Fix issue with inserting lines
+* Fix the bugs
+
 # In Future General Code Editor
