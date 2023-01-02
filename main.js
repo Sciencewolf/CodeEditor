@@ -47,7 +47,7 @@ const getTagsOnLoad = () => {
     button_save.id = "btn-save"
     button_save.className = "btn-save"
     button_save.innerHTML = "Save"
-    button_save.addEventListener('click', () => { saveFile() })
+    button_save.addEventListener('click', () => { chooseFileExtension() })
     btns.appendChild(button_copy)
     btns.appendChild(button_save)
 }
@@ -159,10 +159,10 @@ const chooseFileExtension = () => {
     ]
 
     const inputFileExt_divtag = document.querySelector('.input_file_ext')
+    inputFileExt_divtag.style.display = "flex"
     const get_file_ext = document.createElement('input')
     const choose_file_ext = document.createElement('select')
     const h2_tag = document.createElement('h2')
-    const br_tag = document.createElement('br')
     const button_tag = document.createElement('button')
     choose_file_ext.id = 'choose_file_ext'
 
@@ -186,7 +186,6 @@ const chooseFileExtension = () => {
     h2_tag.id = "text_h2"
     h2_tag.className = "text_h2"
     h2_tag.innerHTML = "---- Or choose from the list ----"
-    inputFileExt_divtag.appendChild(br_tag)
     inputFileExt_divtag.appendChild(h2_tag)
 
     inputFileExt_divtag.appendChild(choose_file_ext)
@@ -195,13 +194,13 @@ const chooseFileExtension = () => {
     button_tag.className = "btn-ok"
     button_tag.innerHTML = "OK"
     button_tag.addEventListener('click', () => {
-        inputFileExt_divtag.remove()
+        inputFileExt_divtag.style.display = "none"
+        inputFileExt_divtag.textContent = ""
     })
     inputFileExt_divtag.appendChild(button_tag)
 }
 
 const saveFile = () => {
-    chooseFileExtension()
 
     /*
     let lines = ""
