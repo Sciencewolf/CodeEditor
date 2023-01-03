@@ -59,6 +59,31 @@ const getTagsOnLoad = () => {
     button_save.addEventListener('click', () => { chooseFileExtension() })
     btns.appendChild(button_copy)
     btns.appendChild(button_save)
+    changeTheme()
+}
+
+const changeTheme = () => {
+    const get_body = document.querySelector('body')
+    const light_bgcolor_btn = document.getElementById('light-btn')
+    const dark_bgcolor_btn = document.getElementById('dark-btn')
+    const get_h1_tag = document.querySelector('h1')
+    const get_h3_tag = document.querySelector('h3')
+    const get_a_tag = document.getElementById('syntax')
+
+    light_bgcolor_btn.addEventListener('click', () => {
+        get_body.style.backgroundColor = "white"
+
+        get_h1_tag.style.color = 'black'
+        get_h3_tag.style.color = 'black'
+        get_a_tag.style.color = 'black'
+    })
+    dark_bgcolor_btn.addEventListener('click', () => {
+        get_body.style.backgroundColor = "#414A4C"
+
+        get_h1_tag.style.color = 'white'
+        get_h3_tag.style.color = 'white'
+        get_a_tag.style.color = 'white'
+    })
 }
 
 const appendOrDeleteLine = (event) => {
