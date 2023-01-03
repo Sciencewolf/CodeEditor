@@ -1,5 +1,11 @@
 let index_of_the_line = 0
 let words = []
+const listFileExt = [
+    "--Choose File Extension--", "(Pozakarpatskiy++) .pozpp",
+    "(Text Documents) .txt", "(Python) .py", "(C++) .cpp", "(C#) .cs",
+    "(Java) .java", "(Golang) .go", "(HTML) .html", "(CSS) .css",
+    "(JavaScript) .js", "(TypeScript) .ts"
+]
 const log = console.log
 const error = console.error
 
@@ -56,10 +62,22 @@ const getTagsOnLoad = () => {
     button_save.id = "btn-save"
     button_save.className = "btn-save"
     button_save.innerHTML = "Save"
-    button_save.addEventListener('click', () => { chooseFileExtension() })
+    button_save.addEventListener('click', () => {
+        const dialog_div = document.querySelector('.dialog')
+        dialog_div.style.display = 'block'
+        getFileExtension()
+    })
     btns.appendChild(button_copy)
     btns.appendChild(button_save)
     changeTheme()
+
+    // Hide Attention for errors/bugs
+    const hide_attention_text = document.getElementById('attention')
+    setTimeout(() => {
+        hide_attention_text.style.display = "none"
+    }, 20_000)
+
+    settings()
 }
 
 const appendOrDeleteLine = (event) => {
@@ -109,33 +127,12 @@ function addWordsToList() {
     let get_value = input_field.value
     let get_words = get_value.split(" ")
     words.push(get_words)
-}
+} // Get text only when save btn or copy btn is pressed
 
 const copyToClipboard = () => {
     let str = ""
     for (const line of words){ str += line + '\n' }
     navigator.clipboard.writeText(str).then(() => { log("Success") }).catch((err) => { error("Fail", err) })
-}
-
-const dialog = () => {
-    const get_dialog_div = document.querySelector('.dialog')
-    const close_btn = document.createElement('button')
-    const ok_btn = document.createElement('button')
-
-    close_btn.id = "btn-close"
-    close_btn.className = "btn-close"
-    close_btn.innerHTML = "Close"
-    close_btn.addEventListener('click', () => {
-        get_dialog_div.close()
-    })
-
-    ok_btn.id = "btn-ok"
-    ok_btn.className = "btn-ok"
-    ok_btn.innerHTML = "Ok"
-    ok_btn.addEventListener('click', () => {
-        get_dialog_div.close()
-    })
-
 }
 
 const scrollToTopButton = () => {
@@ -147,11 +144,18 @@ const scrollToTopButton = () => {
     btn.id = "btn-scroll"
     btn.innerHTML = "To Top"
 
-    if(get_inputs.length === 49){ div_elem.appendChild(btn) }
-    else if(get_inputs.length === 26){
-        const get_btn = document.getElementById('btn-scroll')
-        div_elem.removeChild(get_btn)
+
+    if(document.getElementById('btn-scroll') && get_inputs.length !== 20 && get_inputs.length !== 15) { log("btn exists") }
+    else {
+        if(get_inputs.length === 20){
+            div_elem.appendChild(btn)
+        }
+        else if(get_inputs.length === 15){
+            const get_btn = document.getElementById('btn-scroll')
+            div_elem.removeChild(get_btn)
+        }
     }
+
 
     btn.addEventListener('click', () => {
         window.scrollTo(0, 0)
@@ -173,27 +177,19 @@ const scrollToTopButton = () => {
 const scrollToBottomButton = () => {
     const div_elem = document.getElementById('scroll')
     const btn = document.createElement('button')
-    btn.className = "btn-scroll"
-    btn.id = "btn-scroll"
+    btn.className = "btn-scroll-bottom"
+    btn.id = "btn-scroll-bottom"
     btn.innerHTML = "To Bottom"
 
     div_elem.appendChild(btn)
     btn.addEventListener('click', () => { window.scrollTo(0, document.body.scrollHeight) })
 }
 
-const chooseFileExtension = () => {
-    const listFileExt = [
-        "--Choose File Extension--", "(Pozakarpatskiy++) .pozpp",
-        "(Text Documents) .txt", "(Python) .py", "(C++) .cpp", "(C#) .cs",
-        "(Java) .java", "(Golang) .go", "(HTML) .html", "(CSS) .css",
-        "(JavaScript) .js", "(TypeScript) .ts"
-    ]
-
+const getFileExtension = () => {
+    const dialog_div = document.querySelector('.dialog')
     const inputFileExt_divtag = document.querySelector('.input_file_ext')
-    inputFileExt_divtag.style.display = "flex"
     const get_file_ext = document.createElement('input')
     const choose_file_ext = document.createElement('select')
-    const h2_tag = document.createElement('h2')
     const button_tag = document.createElement('button')
     choose_file_ext.id = 'choose_file_ext'
 
@@ -214,11 +210,6 @@ const chooseFileExtension = () => {
     get_file_ext.placeholder = 'Enter file extension'
     inputFileExt_divtag.appendChild(get_file_ext)
 
-    h2_tag.id = "text_h2"
-    h2_tag.className = "text_h2"
-    h2_tag.innerHTML = "---- Or choose from the list ----"
-    inputFileExt_divtag.appendChild(h2_tag)
-
     button_tag.id = "btn-ok"
     button_tag.className = "btn-ok"
     button_tag.innerHTML = "OK"
@@ -228,16 +219,24 @@ const chooseFileExtension = () => {
 
     button_tag.addEventListener('click', () => {
         saveFile()
-        inputFileExt_divtag.style.display = "none"
+        dialog_div.style.display = "none"
         inputFileExt_divtag.textContent = ""
     })
 }
 
 const saveFile = () => {
     let lines = ""
+    let fileName = ""
     let fileExtToSave = OK_button_inputFileExt()
-    fileExtToSave = fileExtToSave.replace(" ", "")
-    const fileName = `code${fileExtToSave}`
+
+    if(fileExtToSave.startsWith("#")){
+        fileExtToSave = fileExtToSave.replace("#", "")
+        fileName = fileExtToSave
+    }
+    else{
+        fileExtToSave = fileExtToSave.replace(" ", "")
+        fileName = `code${fileExtToSave}`
+    }
     for (let word of words){ lines += word + '\n' }
 
     const blob = new Blob([lines], {type: "text/plain"})
@@ -282,6 +281,20 @@ const changeTheme = () => {
 
 const OK_button_inputFileExt = () => {
     const get_choosen_file_ext = document.getElementById('choose_file_ext')
+    const get_inputExt = document.querySelector('.get_file_ext')
     let get_text = get_choosen_file_ext.options[get_choosen_file_ext.selectedIndex].text
-    return get_text
+    let result = ""
+
+    if (get_inputExt.value !== "") result = "#" + get_inputExt.value
+    else if (get_text === "--Choose File Extension--") result = ".txt"
+    else result = get_text
+    return result
+}
+
+const settings = () => {
+    const settings = document.getElementById('open-settings')
+    const title_ofThePage = document.getElementById('title')
+    settings.addEventListener('click', () => {
+        title_ofThePage.innerHTML = "Settings"
+    })
 }
