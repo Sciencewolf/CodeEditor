@@ -1,5 +1,6 @@
 let index_of_the_line = 0
 let words = []
+let fileExtToSave = ""
 const log = console.log
 const error = console.error
 
@@ -60,30 +61,6 @@ const getTagsOnLoad = () => {
     btns.appendChild(button_copy)
     btns.appendChild(button_save)
     changeTheme()
-}
-
-const changeTheme = () => {
-    const get_body = document.querySelector('body')
-    const light_bgcolor_btn = document.getElementById('light-btn')
-    const dark_bgcolor_btn = document.getElementById('dark-btn')
-    const get_h1_tag = document.querySelector('h1')
-    const get_h3_tag = document.querySelector('h3')
-    const get_a_tag = document.getElementById('syntax')
-
-    light_bgcolor_btn.addEventListener('click', () => {
-        get_body.style.backgroundColor = "white"
-
-        get_h1_tag.style.color = 'black'
-        get_h3_tag.style.color = 'black'
-        get_a_tag.style.color = 'black'
-    })
-    dark_bgcolor_btn.addEventListener('click', () => {
-        get_body.style.backgroundColor = "#414A4C"
-
-        get_h1_tag.style.color = 'white'
-        get_h3_tag.style.color = 'white'
-        get_a_tag.style.color = 'white'
-    })
 }
 
 const appendOrDeleteLine = (event) => {
@@ -171,8 +148,8 @@ const scrollToTopButton = () => {
     btn.id = "btn-scroll"
     btn.innerHTML = "To Top"
 
-    if(get_inputs.length > 49){ div_elem.appendChild(btn) }
-    else if(get_inputs.length < 26){
+    if(get_inputs.length === 49){ div_elem.appendChild(btn) }
+    else if(get_inputs.length === 26){
         const get_btn = document.getElementById('btn-scroll')
         div_elem.removeChild(get_btn)
     }
@@ -218,6 +195,7 @@ const chooseFileExtension = () => {
     const get_file_ext = document.createElement('input')
     const choose_file_ext = document.createElement('select')
     const h2_tag = document.createElement('h2')
+    const button_tag = document.createElement('button')
     choose_file_ext.id = 'choose_file_ext'
 
     for(let opt = 0; opt < 12; opt++){
@@ -242,12 +220,22 @@ const chooseFileExtension = () => {
     h2_tag.innerHTML = "---- Or choose from the list ----"
     inputFileExt_divtag.appendChild(h2_tag)
 
+    button_tag.id = "btn-ok"
+    button_tag.className = "btn-ok"
+    button_tag.innerHTML = "OK"
+    button_tag.addEventListener('click', () => {
+        inputFileExt_divtag.style.display = "none"
+        inputFileExt_divtag.textContent = ""
+    })
     inputFileExt_divtag.appendChild(choose_file_ext)
+
+    inputFileExt_divtag.appendChild(button_tag)
+
 }
 
-/*const saveFile = () => {
+const saveFile = (fileExt) => {
     let lines = ""
-    const fileName = 'script.pozpp'
+    const fileName = `code.${fileExt}`
     for (let word of words){ lines += word + '\n' }
 
     const blob = new Blob([lines], {type: "text/plain"})
@@ -260,4 +248,32 @@ const chooseFileExtension = () => {
     a_tag.click()
 
     URL.revokeObjectURL(url)
-}*/
+}
+
+const changeTheme = () => {
+    const get_body = document.querySelector('body')
+    const light_bgcolor_btn = document.getElementById('light-btn')
+    const dark_bgcolor_btn = document.getElementById('dark-btn')
+
+    const get_h1_tag = document.querySelector('h1')
+    const get_h3_tag = document.querySelector('h3')
+    const get_h4_tag = document.querySelector('h4')
+    const get_a_tag = document.getElementById('syntax')
+
+    light_bgcolor_btn.addEventListener('click', () => {
+        get_body.style.backgroundColor = "#e6e6e6"
+
+        get_h1_tag.style.color = '#414A4C'
+        get_h3_tag.style.color = '#414A4C'
+        get_h4_tag.style.color = '#414A4C'
+        get_a_tag.style.color = '#414A4C'
+    })
+    dark_bgcolor_btn.addEventListener('click', () => {
+        get_body.style.backgroundColor = "#414A4C"
+
+        get_h1_tag.style.color = '#e6e6e6'
+        get_h3_tag.style.color = '#e6e6e6'
+        get_h4_tag.style.color = '#e6e6e6'
+        get_a_tag.style.color = '#e6e6e6'
+    })
+}
