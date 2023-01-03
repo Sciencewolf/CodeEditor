@@ -9,12 +9,12 @@ html {
     scroll-behavior: smooth;
 }
 
-body {
-    background-color: steelblue;
-}
-
 h1, h3 {
     text-align: center;
+}
+
+body {
+    transition: .3s all;
 }
 
 input {
@@ -26,6 +26,38 @@ input {
     padding-left: 1%;
 }
 
+.header {
+    margin: 25px 25px;
+}
+
+.btn-bgcolor {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.btn-bgcolor button {
+    width: 5em;
+    background-color: grey;
+    color: white;
+    transform: scale(1);
+    transition: .3s all;
+}
+
+.btn-bgcolor button:hover {
+    transform: scale(1.1);
+    transition: .3s all;
+}
+
+#dark-btn:hover {
+    background-color: #414A4C;
+}
+
+#light-btn:hover {
+    background-color: white;
+    color: #414A4C;
+}
+
 input:active {
     border: none;
 }
@@ -33,6 +65,7 @@ input:active {
 a {
     display: flex;
     justify-content: center;
+    color: black;
 }
 
 
