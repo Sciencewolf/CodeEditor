@@ -1,6 +1,5 @@
 let index_of_the_line = 0
 let words = []
-let fileExtToSave = ""
 const log = console.log
 const error = console.error
 
@@ -198,7 +197,7 @@ const chooseFileExtension = () => {
     const button_tag = document.createElement('button')
     choose_file_ext.id = 'choose_file_ext'
 
-    for(let opt = 0; opt < 12; opt++){
+    for(let opt = 0; opt < listFileExt.length; opt++){
         const create_option = document.createElement('option')
         create_option.id = `option${opt}`
         create_option.className = `option${opt}`
@@ -223,19 +222,22 @@ const chooseFileExtension = () => {
     button_tag.id = "btn-ok"
     button_tag.className = "btn-ok"
     button_tag.innerHTML = "OK"
+
+    inputFileExt_divtag.appendChild(choose_file_ext)
+    inputFileExt_divtag.appendChild(button_tag)
+
     button_tag.addEventListener('click', () => {
+        saveFile()
         inputFileExt_divtag.style.display = "none"
         inputFileExt_divtag.textContent = ""
     })
-    inputFileExt_divtag.appendChild(choose_file_ext)
-
-    inputFileExt_divtag.appendChild(button_tag)
-
 }
 
-const saveFile = (fileExt) => {
+const saveFile = () => {
     let lines = ""
-    const fileName = `code.${fileExt}`
+    let fileExtToSave = OK_button_inputFileExt()
+    fileExtToSave = fileExtToSave.replace(" ", "")
+    const fileName = `code${fileExtToSave}`
     for (let word of words){ lines += word + '\n' }
 
     const blob = new Blob([lines], {type: "text/plain"})
@@ -276,4 +278,10 @@ const changeTheme = () => {
         get_h4_tag.style.color = '#e6e6e6'
         get_a_tag.style.color = '#e6e6e6'
     })
+}
+
+const OK_button_inputFileExt = () => {
+    const get_choosen_file_ext = document.getElementById('choose_file_ext')
+    let get_text = get_choosen_file_ext.options[get_choosen_file_ext.selectedIndex].text
+    return get_text
 }
