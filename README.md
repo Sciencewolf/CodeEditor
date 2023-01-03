@@ -6,7 +6,8 @@
 * Version 0.1
 * Version 0.2 12/12/2022
 * Version 0.3 12/29/2022
-* * Version 0.5 current
+* * Version 0.5 12/29/2022
+* Version 0.6 01/03/2023
 
 # Preparing for Version 1.0
 ## Tasks To Do:
