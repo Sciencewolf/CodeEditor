@@ -25,8 +25,15 @@
     
 </head>
 <body onload="getTagsOnLoad()">
-    <h1>CodeEditor</h1>
-    <div class="inputs" id="inputs" onkeydown="appendOrDeleteLine()" >
+    <span class="header" id="header">
+        <h1>CodeEditor</h1>
+        <span class="btn-bgcolor" id="btn-bgcolor">
+            <button type="button" id="light-btn">Light</button>
+            <button type="button" id="dark-btn">Dark</button>
+        </span>
+    </span>
+
+    <div class="inputs" id="inputs" onkeydown="appendOrDeleteLine(event)" >
         <span class="span-content" id="span-content"></span>
     </div>
 
@@ -36,7 +43,7 @@
         <div class="input_file_ext" id="input_file_ext"></div>
     </div>
 
-    <a href="html/help.html" target="_blank">Get syntax help</a>
+    <a href="html/help.html" target="_blank" id="syntax">Get syntax help</a>
     <h3><em>* It may contains error/bug *</em></h3>
 
 </body>
