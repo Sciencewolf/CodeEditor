@@ -64,7 +64,7 @@ input {
     color: #414A4C;
 }
 
-#settings {
+#open-settings {
     width: auto;
     height: auto;
     background-color: transparent;
@@ -73,14 +73,14 @@ input {
     left: 1.5em;
 }
 
-#settings img {
+#open-settings img {
     width: 3em;
     height: 3em;
     transform: scale(1);
     transition: .4s all;
 }
 
-#settings img:hover {
+#open-settings img:hover {
     transform: scale(1.2) rotate(90deg);
     transition: .4s all;
 }
@@ -113,21 +113,46 @@ button {
     cursor: pointer;
 }
 
-.input_file_ext {
-    /* Display is set in js file default -> flex, after-btn-click -> none */
-    justify-content: center;
-    align-items: center;
-    background-color: grey;
+.dialog {
+    display: none;
+    position: fixed;
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 100px;
     margin: auto;
-    z-index: 2;
-    height: auto;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50em;
+    height: 40%;
+    overflow: auto;
 }
 
+.input_file_ext {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.input_file_ext > input {
+    width: 20em;
+}
+.input_file_ext > button {
+    width: 5em;
+    background-color: black;
+    color: lightsteelblue;
+    transform: scale(1);
+    transition: .4s all;
+}
+.input_file_ext > button:hover {
+    transform: scale(1.1);
+    transition: .4s all;
+}
 
 .scroll {
     position: fixed;
-    display: flex;
-    justify-content: center;
     bottom: 5%;
     right: 10%;
 }
@@ -139,6 +164,11 @@ button {
     background-color: lightskyblue;
     border: none;
     color: white;
+}
+
+.settings {
+    display: none;
+    z-index: 2;
 }
  /* Mobile version */
 @media screen and (max-width: 678px) {
@@ -152,11 +182,28 @@ button {
         border: none;
     }
 
-    a {
+    a, h3, h4 {
         font-size: small;
     }
 
-    h3 {
-        font-size: small;
+    .btn-bgcolor {
+        padding-top: 1.5rem;
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    #open-settings {
+        bottom: 2.5em;
+        left: 1.5em;
+    }
+
+    #open-settings img {
+        width:  2em;
+        height: 2em;
+    }
+
+    h4 {
+        bottom: 0em;
+        left: 1em;
     }
 }
