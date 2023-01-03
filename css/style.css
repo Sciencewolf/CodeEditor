@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,100&family=Secular+One&display=swap');
-
-*{
+* {
     box-sizing: border-box;
     font-family: 'Secular One', monospace
 }
@@ -13,8 +12,14 @@ h1, h3 {
     text-align: center;
 }
 
+h4 {
+    position: fixed;
+    bottom: 0em;
+    left: 1em;
+}
+
 body {
-    transition: .3s all;
+    transition: .4s all;
 }
 
 input {
@@ -38,24 +43,46 @@ input {
 
 .btn-bgcolor button {
     width: 5em;
-    background-color: grey;
-    color: white;
+    background-color: black;
+    color: lightsteelblue;
     transform: scale(1);
-    transition: .3s all;
+    transition: .4s all;
 }
 
 .btn-bgcolor button:hover {
     transform: scale(1.1);
-    transition: .3s all;
+    transition: .4s all;
 }
 
 #dark-btn:hover {
     background-color: #414A4C;
+    color: white;
 }
 
 #light-btn:hover {
     background-color: white;
     color: #414A4C;
+}
+
+#settings {
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    position: fixed;
+    bottom: 3em;
+    left: 1.5em;
+}
+
+#settings img {
+    width: 3em;
+    height: 3em;
+    transform: scale(1);
+    transition: .4s all;
+}
+
+#settings img:hover {
+    transform: scale(1.2) rotate(90deg);
+    transition: .4s all;
 }
 
 input:active {
@@ -86,27 +113,6 @@ button {
     cursor: pointer;
 }
 
-
-@media screen and (max-width: 678px) {
-    input {
-        border: none;
-        font-size: small;
-        padding-left: 1%;
-        width: 80%;
-    }
-    input:active {
-        border: none;
-    }
-
-    a {
-        font-size: small;
-    }
-
-    h3 {
-        font-size: small;
-    }
-}
-
 .input_file_ext {
     /* Display is set in js file default -> flex, after-btn-click -> none */
     justify-content: center;
@@ -130,7 +136,27 @@ button {
     cursor: pointer;
     width: auto;
     height: auto;
-    background-color: orangered;
+    background-color: lightskyblue;
     border: none;
     color: white;
+}
+ /* Mobile version */
+@media screen and (max-width: 678px) {
+    input {
+        border: none;
+        font-size: small;
+        padding-left: 1%;
+        width: 80%;
+    }
+    input:active {
+        border: none;
+    }
+
+    a {
+        font-size: small;
+    }
+
+    h3 {
+        font-size: small;
+    }
 }
