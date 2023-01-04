@@ -1,5 +1,7 @@
 let index_of_the_line = 0
 let words = []
+const light = '#e6e6e6'
+const dark = '#414A4C'
 const listFileExt = [
     "--Choose File Extension--", "(Pozakarpatskiy++) .pozpp",
     "(Text Documents) .txt", "(Python) .py", "(C++) .cpp", "(C#) .cs",
@@ -56,7 +58,6 @@ const getTagsOnLoad = () => {
         setTimeout(() => {
             button_copy.innerHTML = "Copy to Clipboard"
         }, 3500)
-
     })
 
     button_save.id = "btn-save"
@@ -69,15 +70,26 @@ const getTagsOnLoad = () => {
     })
     btns.appendChild(button_copy)
     btns.appendChild(button_save)
-    changeTheme()
+}
+
+const onLoad = () => {
+    getTagsOnLoad()
 
     // Hide Attention for errors/bugs
     const hide_attention_text = document.getElementById('attention')
     setTimeout(() => {
         hide_attention_text.style.display = "none"
-    }, 20_000)
+    }, 10_000)
 
-    settings()
+    // Open settings
+    const get_settings = document.querySelector('.settings')
+    const settings_btn = document.querySelector('#open-settings')
+    settings_btn.addEventListener('click', () => {
+        changeTitleOnSettings()
+        get_settings.style.display = 'block'
+    })
+    changeTheme()
+    itemsInSettings()
 }
 
 const appendOrDeleteLine = (event) => {
@@ -144,7 +156,6 @@ const scrollToTopButton = () => {
     btn.id = "btn-scroll"
     btn.innerHTML = "To Top"
 
-
     if(document.getElementById('btn-scroll') && get_inputs.length !== 20 && get_inputs.length !== 15) { log("btn exists") }
     else {
         if(get_inputs.length === 20){
@@ -155,7 +166,6 @@ const scrollToTopButton = () => {
             div_elem.removeChild(get_btn)
         }
     }
-
 
     btn.addEventListener('click', () => {
         window.scrollTo(0, 0)
@@ -190,7 +200,8 @@ const getFileExtension = () => {
     const inputFileExt_divtag = document.querySelector('.input_file_ext')
     const get_file_ext = document.createElement('input')
     const choose_file_ext = document.createElement('select')
-    const button_tag = document.createElement('button')
+    const ok_button_tag = document.createElement('button')
+    const cancel_button_tag = document.createElement('button')
     choose_file_ext.id = 'choose_file_ext'
 
     for(let opt = 0; opt < listFileExt.length; opt++){
@@ -207,18 +218,29 @@ const getFileExtension = () => {
     get_file_ext.id = 'get_file_ext'
     get_file_ext.className = 'get_file_ext'
     get_file_ext.autocomplete = 'none'
-    get_file_ext.placeholder = 'Enter file extension'
+    get_file_ext.placeholder = 'File Name'
     inputFileExt_divtag.appendChild(get_file_ext)
 
-    button_tag.id = "btn-ok"
-    button_tag.className = "btn-ok"
-    button_tag.innerHTML = "OK"
+    ok_button_tag.id = "btn-ok"
+    ok_button_tag.className = "btn-ok"
+    ok_button_tag.innerHTML = "OK"
 
     inputFileExt_divtag.appendChild(choose_file_ext)
-    inputFileExt_divtag.appendChild(button_tag)
+    inputFileExt_divtag.appendChild(ok_button_tag)
 
-    button_tag.addEventListener('click', () => {
+    cancel_button_tag.id = "btn-cancel"
+    cancel_button_tag.className = "btn-cancel"
+    cancel_button_tag.innerHTML = 'Cancel'
+
+    inputFileExt_divtag.appendChild(cancel_button_tag)
+
+    ok_button_tag.addEventListener('click', () => {
         saveFile()
+        dialog_div.style.display = "none"
+        inputFileExt_divtag.textContent = ""
+    })
+
+    cancel_button_tag.addEventListener('click', () => {
         dialog_div.style.display = "none"
         inputFileExt_divtag.textContent = ""
     })
@@ -235,7 +257,7 @@ const saveFile = () => {
     }
     else{
         fileExtToSave = fileExtToSave.replace(" ", "")
-        fileName = `code${fileExtToSave}`
+        fileName = `New File${fileExtToSave}`
     }
     for (let word of words){ lines += word + '\n' }
 
@@ -262,20 +284,18 @@ const changeTheme = () => {
     const get_a_tag = document.getElementById('syntax')
 
     light_bgcolor_btn.addEventListener('click', () => {
-        get_body.style.backgroundColor = "#e6e6e6"
-
-        get_h1_tag.style.color = '#414A4C'
-        get_h3_tag.style.color = '#414A4C'
-        get_h4_tag.style.color = '#414A4C'
-        get_a_tag.style.color = '#414A4C'
+        get_body.style.backgroundColor = light
+        get_h1_tag.style.color = dark
+        get_h3_tag.style.color = dark
+        get_h4_tag.style.color = dark
+        get_a_tag.style.color = dark
     })
     dark_bgcolor_btn.addEventListener('click', () => {
-        get_body.style.backgroundColor = "#414A4C"
-
-        get_h1_tag.style.color = '#e6e6e6'
-        get_h3_tag.style.color = '#e6e6e6'
-        get_h4_tag.style.color = '#e6e6e6'
-        get_a_tag.style.color = '#e6e6e6'
+        get_body.style.backgroundColor = dark
+        get_h1_tag.style.color = light
+        get_h3_tag.style.color = light
+        get_h4_tag.style.color = light
+        get_a_tag.style.color = light
     })
 }
 
@@ -287,14 +307,49 @@ const OK_button_inputFileExt = () => {
 
     if (get_inputExt.value !== "") result = "#" + get_inputExt.value
     else if (get_text === "--Choose File Extension--") result = ".txt"
-    else result = get_text
     return result
 }
 
-const settings = () => {
+const changeTitleOnSettings = () => {
     const settings = document.getElementById('open-settings')
     const title_ofThePage = document.getElementById('title')
     settings.addEventListener('click', () => {
         title_ofThePage.innerHTML = "Settings"
+    })
+}
+
+const itemsInSettings = () => {
+    const get_settings_style = document.querySelector('.settings')
+    const title_ofThePage = document.getElementById('title')
+
+    const get_settings_panel = document.querySelector('#settings-panel')
+    const ok_button = document.createElement('button')
+    const cancel_button = document.createElement('button')
+    const version = document.createElement('h5')
+
+    ok_button.id = "ok-btn"
+    ok_button.className = 'ok-btn'
+    ok_button.type = 'button'
+    ok_button.innerHTML = "OK"
+
+    cancel_button.id = 'cancel-btn'
+    cancel_button.className = 'cancel-btn'
+    cancel_button.type = 'button'
+    cancel_button.innerHTML = 'Cancel'
+
+    version.innerHTML = 'Version 0.7'
+
+    get_settings_panel.appendChild(ok_button)
+    get_settings_panel.appendChild(cancel_button)
+    get_settings_panel.appendChild(version)
+
+    ok_button.addEventListener('click', () => {
+        get_settings_style.style.display = 'none'
+        title_ofThePage.innerHTML = 'Code Editor(beta)'
+    })
+
+    cancel_button.addEventListener('click', () => {
+        get_settings_style.style.display = 'none'
+        title_ofThePage.innerHTML = 'Code Editor(beta)'
     })
 }
