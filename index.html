@@ -6,9 +6,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="theme-color" content="#1a5d8d">
 
     <!-- Title of the page -->
-    <title id="title">Code Editor for Pozakarpatskiy++(beta)</title>
+    <title id="title">Code Editor(beta)</title>
 
     <!-- Import JS file -->
     <script src="js/main.js"></script>
@@ -24,7 +25,7 @@
     <link rel="icon" sizes="32x32" href="https://img.icons8.com/color/48/null/source-code.png" />
     
 </head>
-<body onload="getTagsOnLoad()">
+<body onload="onLoad()">
     <!-- navbar -->
     <span id="navbar" class="navbar">
         <span class="btn-bgcolor" id="btn-bgcolor">
@@ -55,7 +56,9 @@
     </button>
     <h4>Settings</h4>
 
-    <div class="settings" id="settings"></div>
+    <div class="settings" id="settings">
+        <div class="settings-panel" id="settings-panel"></div>
+    </div>
 
 </body>
 </html>
