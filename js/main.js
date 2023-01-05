@@ -1,13 +1,21 @@
 let index_of_the_line = 0
 let words = []
+let global_get_default_file_ext = ""
 const light = '#e6e6e6'
 const dark = '#414A4C'
+
 const listFileExt = [
     "--Choose File Extension--", "(Pozakarpatskiy++) .pozpp",
     "(Text Documents) .txt", "(Python) .py", "(C++) .cpp", "(C#) .cs",
     "(Java) .java", "(Golang) .go", "(HTML) .html", "(CSS) .css",
     "(JavaScript) .js", "(TypeScript) .ts"
 ]
+const listDefaultFileExt = [
+    ".txt", ".html", ".css", ".js", ".ts",
+    ".cs", ".py", ".cpp", ".java", ".go",
+    ".pozpp"
+]
+
 const log = console.log
 const error = console.error
 
@@ -243,7 +251,7 @@ const okButtonInputFileExt = () => {
     let result = ""
 
     if (get_inputExt.value !== "") result = "#" + get_inputExt.value
-    else if (get_text === "--Choose File Extension--") result = ".txt"
+    else if (get_text === "--Choose File Extension--") result = `${global_get_default_file_ext}`
     return result
 }
 
@@ -284,8 +292,14 @@ const itemsInSettings = () => {
     const get_settings_style = document.querySelector('.settings')
     const title_ofThePage = document.getElementById('title')
     const option_for_theme = document.getElementById('select-theme')
-
     const get_settings_panel = document.querySelector('#settings-panel')
+    const select_default_fileExt = document.getElementById('select-default-file-ext')
+    const scroll_to_btn = document.getElementById('scroll')
+
+    const checkbox_show_line_numbers = document.getElementById('checkbox-show-line-numbers')
+    const checkbox_enable_smooth_scrolling = document.getElementById('checkbox-enable-smooth-scrolling')
+    const checkbox_hide_to_buttons = document.getElementById('checkbox-hide-to-buttons')
+
     const ok_button = document.createElement('button')
     const cancel_button = document.createElement('button')
 
@@ -299,6 +313,12 @@ const itemsInSettings = () => {
     cancel_button.type = 'button'
     cancel_button.innerHTML = 'Cancel'
 
+    for(let opt = 0; opt < listDefaultFileExt.length; opt++){
+        const option = document.createElement('option')
+        option.innerHTML = listDefaultFileExt[opt]
+        select_default_fileExt.appendChild(option)
+    }
+
     get_settings_panel.appendChild(ok_button)
     get_settings_panel.appendChild(cancel_button)
 
@@ -306,9 +326,8 @@ const itemsInSettings = () => {
         try {
             const first_line_number = document.getElementById('counter')
             const last_line_numbers = document.querySelectorAll('#counter-line')
-            const checkbox_show_line_numbers = document.getElementById('checkbox-show-line-numbers')
-            const checkbox_enable_smooth_scrolling = document.getElementById('checkbox-enable-smooth-scrolling')
             const html = document.querySelector('html')
+
             if(!checkbox_enable_smooth_scrolling.checked){
                 html.style.scrollBehavior = "unset"
             }
@@ -338,6 +357,16 @@ const itemsInSettings = () => {
         else {
             changeThemeToLight()
         }
+
+        global_get_default_file_ext = select_default_fileExt.options[select_default_fileExt.selectedIndex].text
+
+        if(checkbox_hide_to_buttons.enabled) {
+            scroll_to_btn.style.display = 'flex'
+        }
+        else {
+            scroll_to_btn.style.display = 'none'
+        }
+
         get_settings_style.style.display = 'none'
         title_ofThePage.innerHTML = 'Code Editor(beta)'
     })
