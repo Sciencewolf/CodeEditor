@@ -40,6 +40,19 @@ p {
     margin: 0.4em;
     padding: 0;
 }
+#text_def_file_ext {
+    display: flex;
+    align-items: center;
+    color: white;
+    position: relative;
+    top: 3em;
+    left: 3em;
+}
+#text_def_file_ext > hr {
+    width: 28.9em;
+    margin: 0.4em;
+    padding: 0;
+}
 h1, h3 {
     text-align: center;
 }
@@ -83,9 +96,9 @@ input[type="checkbox"], label {
     position: relative;
     width: 1em;
     height: 1em;
-    top: 3em;
-    left: 2.4em;
     margin: 0.5em;
+    top: 2.5em;
+    left: 1em;
 }
 label {
     color: white;
@@ -235,6 +248,9 @@ button {
     padding: 1em;
     width: 50%;
     height: 90%;
+    -webkit-box-shadow:0 1px 4px rgba(200, 200, 200, 0.9), 0 0 40px rgba(200, 200, 200, 0.3) inset;
+    -moz-box-shadow:0 1px 4px rgba(200, 200, 200, 0.9), 0 0 40px rgba(200, 200, 200, 0.3) inset;
+    box-shadow:0 1px 4px rgba(200, 200, 200, 0.9), 0 0 40px rgba(200, 200, 200, 0.3) inset;
 }
 .settings-panel > button[id="ok-btn"] {
     text-align: center;
@@ -258,6 +274,11 @@ button {
     width: 4.2em;
     transition: .4s all;
     transform: scale(1);
+}
+.settings-panel > #select-default-file-ext {
+    position: absolute;
+    bottom: 21em;
+    left: 5em;
 }
  /* Mobile version */
 @media screen and (max-width: 678px) {
