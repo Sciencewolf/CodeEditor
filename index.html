@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="theme-color" content="#1a5d8d">
+    <meta name="keywords" content="Code, code, editor, Editor, Code Editor, code editor, html, text editor">
 
     <!-- Title of the page -->
     <title id="title">Code Editor(beta)</title>
@@ -23,17 +24,14 @@
 
     <!-- Import favicon -->
     <link rel="icon" sizes="32x32" href="https://img.icons8.com/color/48/null/source-code.png" />
+
+    <!-- Icon's for Apple Safari -->
+    <link rel="shortcut icon" type="image/png" href="https://img.icons8.com/color/48/null/source-code.png" />
+    <link rel="apple-touch-icon" type="image/png" href="https://img.icons8.com/color/48/null/source-code.png" />
+    <link rel="apple-touch-startup-image" type="image/png" href="https://img.icons8.com/color/48/null/source-code.png" />
     
 </head>
 <body onload="onLoad()">
-    <!-- navbar -->
-    <span id="navbar" class="navbar">
-        <span class="btn-bgcolor" id="btn-bgcolor">
-            <button type="button" id="light-btn">Light</button>
-            <button type="button" id="dark-btn">Dark</button>
-        </span>
-    </span>
-
     <span class="header" id="header">
         <h1>CodeEditor</h1>
     </span>
@@ -43,12 +41,14 @@
     </div>
 
     <span class="btns" id="btns"></span>
-    <div class="scroll" id="scroll"></div>
+    <div class="scroll" id="scroll">
+        <button type="button" id="scroll_top" onclick="scrollToTopButton()">To Top</button>
+        <button type="button" id="scroll_bottom" onclick="scrollToBottomButton()">To Bottom</button>
+    </div>
     <div class="dialog" id="dialog">
         <div class="input_file_ext" id="input_file_ext"></div>
     </div>
 
-    <a href="html/help.html" target="_blank" id="syntax">Get syntax help</a>
     <h3 id="attention"><em>* It may contains error/bug *</em></h3>
 
     <button type="button" id="open-settings">
@@ -57,8 +57,23 @@
     <h4>Settings</h4>
 
     <div class="settings" id="settings">
-        <div class="settings-panel" id="settings-panel"></div>
+        <h3>Settings</h3>
+        <h5>Version 0.7</h5>
+        <div class="settings-panel" id="settings-panel">
+            <span class="btn-bgcolor" id="btn-bgcolor">
+                <h3 style="color: white">Theme: </h3>
+                <select id="select-theme">
+                    <option>Light</option>
+                    <option>Dark</option>
+                </select>
+            </span>
+            <input type="checkbox" checked id="checkbox-show-line-numbers">
+            <label>Show line numbers</label>
+            <h4 id="scrolling">Scrolling<hr></h4>
+            <br>
+            <input type="checkbox" checked id="checkbox-enable-smooth-scrolling">
+            <label>Enable smooth scrolling</label>
+        </div>
     </div>
-
 </body>
 </html>
