@@ -1,77 +1,143 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,100&family=Secular+One&display=swap');
+:root {
+    --darkcolor: rgb(40, 40, 40);
+}
 * {
     box-sizing: border-box;
     font-family: 'Secular One', monospace
 }
-
 html {
     scroll-behavior: smooth;
 }
-
+p {
+    width: 2em;
+    height: 2em;
+    border-right-color: var(--darkcolor);
+    border-right-width: 0.1em;
+    border-right-style: solid;
+    text-align: center;
+    color: grey;
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+}
+#scrolling {
+    display: flex;
+    align-items: center;
+    width: auto;
+    height: auto;
+    border-right-color: transparent;
+    border-right-width: unset;
+    border-right-style: none;
+    color: white;
+    text-align: unset;
+    position: relative;
+    top: 5em;
+    left: 3.1em;
+}
+#scrolling > hr {
+    width: 35em;
+    margin: 0.4em;
+    padding: 0;
+}
 h1, h3 {
     text-align: center;
 }
-
 h4 {
     position: fixed;
-    bottom: 0em;
+    bottom: 0;
     left: 1em;
 }
-
 h5 {
     color: white;
     position: absolute;
     bottom: 1em;
     right: 3em;
 }
-
 body {
     background-color: #e6e6e6;
     transition: .4s all;
 }
-
 input {
     border: none;
-    background-color: lightskyblue;
+    background-color: var(--darkcolor);
     width: 70%;
     height: 2rem;
     font-size: large;
     padding-left: 1%;
+    color: white;
 }
-
+input:focus {
+    outline: black;
+    background-color: lightslategrey;
+    transition: .4s;
+}
+input[type="checkbox"]:focus {
+    outline: none;
+    transition: none;
+}
+input[type="checkbox"]:checked {
+    outline-style: solid;
+}
+input[type="checkbox"], label {
+    position: relative;
+    width: 1em;
+    height: 1em;
+    top: 3em;
+    left: 2.4em;
+    margin: 0.5em;
+}
+label {
+    color: white;
+}
+a {
+    position: fixed;
+    color: black;
+    width: auto;
+    right: 2.2em;
+    bottom: 9em;
+}
+span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1%;
+    height: 2rem;
+}
+button {
+    width: auto;
+    height: auto;
+    background-color: lightskyblue;
+    border: none;
+    cursor: pointer;
+}
+.btn-copy {
+    transition: 0.4s all;
+    transform: scale(1);
+    width: 10em;
+}
+.btn-copy:hover {
+    transition: .4s all;
+    transform: scale(1.1);
+}
+.btn-save {
+    width: 5em;
+    transition: 0.4s all;
+    transform: scale(1);
+}
+.btn-save:hover {
+    transition: .4s all;
+    transform: scale(1.1);
+}
 .header {
     margin: 25px 25px;
 }
-
 .btn-bgcolor {
     position: absolute;
-    top: 10px;
-    right: 20px;
+    top: 1em;
+    left: 4em;
+    gap: 1em;
 }
-
-.btn-bgcolor button {
-    width: 5em;
-    background-color: black;
-    color: lightsteelblue;
-    transform: scale(1);
-    transition: .4s all;
-}
-
-.btn-bgcolor button:hover {
-    transform: scale(1.1);
-    transition: .4s all;
-}
-
-#dark-btn:hover {
-    background-color: #414A4C;
-    color: white;
-}
-
-#light-btn:hover {
-    background-color: white;
-    color: #414A4C;
-}
-
 #open-settings {
     width: auto;
     height: auto;
@@ -80,47 +146,12 @@ input {
     bottom: 3em;
     left: 1.5em;
 }
-
 #open-settings img {
     width: 3em;
     height: 3em;
     transform: scale(1);
     transition: .4s all;
 }
-
-#open-settings img:hover {
-    transform: scale(1.2) rotate(90deg);
-    transition: .4s all;
-}
-
-input:active {
-    border: none;
-}
-
-a {
-    display: flex;
-    justify-content: center;
-    color: black;
-}
-
-
-span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1%;
-
-    height: 2rem;
-}
-
-button {
-    width: auto;
-    height: auto;
-    background-color: lightskyblue;
-    border: none;
-    cursor: pointer;
-}
-
 .dialog {
     display: none;
     position: fixed;
@@ -136,7 +167,6 @@ button {
     overflow: auto;
     text-align: center;
 }
-
 .input_file_ext {
     background-color: #fefefe;
     margin: auto;
@@ -144,7 +174,6 @@ button {
     border: 1px solid #888;
     width: 80%;
 }
-
 .input_file_ext > input {
     width: 20em;
 }
@@ -157,30 +186,32 @@ button {
     transition: .4s all;
     margin: 1em;
 }
-.input_file_ext > button:hover {
-    transform: scale(1.1);
-    transition: .4s all;
-}
-
 .scroll {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
     position: fixed;
-    bottom: 5%;
-    right: 10%;
+    bottom: 15%;
+    left: 1%;
 }
-
 .scroll > button {
     cursor: pointer;
     width: auto;
     height: auto;
     background-color: lightskyblue;
     border: none;
-    color: white;
+    color: black;
+    transform: scale(1);
+    transition: 0.4s all;
 }
-
+.scroll > button:hover {
+    transition: .4s all;
+    transform: scale(1.1);
+}
 .settings {
     display: none;
     position: fixed;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0, 0, 0, 0.8);
     padding-top: 4em;
     margin: auto;
     z-index: 2;
@@ -191,42 +222,43 @@ button {
     height: 100%;
     overflow: auto;
 }
-
+.settings > h3 {
+    position: fixed;
+    top: 0em;
+    left: 2em;
+    color: white;
+}
 .settings-panel {
     position: relative;
-    background-color: rgba(50,50,50,0.6);
+    background-color: rgba(30, 150, 180, 0.6);
     margin: auto;
     padding: 1em;
-    width: 100%;
+    width: 50%;
     height: 90%;
 }
 .settings-panel > button[id="ok-btn"] {
+    text-align: center;
+    border: 1px solid white;
+    color: white;
+    background-color: cornflowerblue;
     position: absolute;
     bottom: 2em;
-    left: 10em;
-    width: 4em;
+    right: 6em;
+    width: 4.2em;
     transition: .4s all;
     transform: scale(1);
-    border-radius: 10%;
 }
-
-
 .settings-panel > button[id="cancel-btn"] {
+    border: 1px solid white;
+    background-color: transparent;
+    color: white;
     position: absolute;
     bottom: 2em;
-    left: 5em;
-    width: 4em;
+    right: 1em;
+    width: 4.2em;
     transition: .4s all;
     transform: scale(1);
-    border-radius: 10%;
 }
-
-.settings-panel > button:hover {
-    transition: .4s all;
-    transform: scale(1.1);
-}
-
-
  /* Mobile version */
 @media screen and (max-width: 678px) {
     input {
@@ -238,42 +270,51 @@ button {
     input:active {
         border: none;
     }
-
-    a, h3, h4 {
+    a, h3 {
         font-size: small;
     }
-
+    h4 {
+        font-size: small;
+        bottom: 0em;
+        left: 1em;
+    }
     .btn-bgcolor {
         padding-top: 1.5rem;
         flex-direction: column;
         gap: 1em;
     }
-
     #open-settings {
         bottom: 2.5em;
         left: 1.5em;
     }
-
     #open-settings img {
         width:  2em;
         height: 2em;
     }
-
-    h4 {
-        bottom: 0em;
-        left: 1em;
-    }
-
     .dialog {
         width: 40em;
         height: 30em;
         padding-top: 10em;
         text-align: center;
     }
-
     .input_file_ext > button {
         margin: 1em;
         background-color: lightskyblue;
         color: black;
+    }
+}
+/* Hover effect for only desktop version */
+@media (hover: hover) {
+    #open-settings img:hover {
+        transform: scale(1.2) rotate(90deg);
+        transition: .4s all;
+    }
+    .input_file_ext > button:hover {
+        transform: scale(1.1);
+        transition: .4s all;
+    }
+    .settings-panel > button:hover {
+        transition: .4s all;
+        transform: scale(1.1);
     }
 }
