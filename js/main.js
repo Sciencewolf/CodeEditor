@@ -64,6 +64,7 @@ const getTagsOnLoad = () => {
     button_save.className = "btn-save"
     button_save.innerHTML = "Save"
     button_save.addEventListener('click', () => {
+        addWordsToList()
         const dialog_div = document.querySelector('.dialog')
         dialog_div.style.display = 'block'
         getFileExtension()
@@ -88,12 +89,12 @@ const onLoad = () => {
         changeTitleOnSettings()
         get_settings.style.display = 'block'
     })
-    changeTheme()
     itemsInSettings()
 }
 
 const appendOrDeleteLine = (event) => {
     const div_el = document.getElementById('inputs')
+    const checkbox_show_line_numbers = document.getElementById('checkbox-show-line-numbers')
 
     if (event.key === 'Enter') { //enter keycode
         index_of_the_line++
@@ -102,8 +103,10 @@ const appendOrDeleteLine = (event) => {
         new_span.className = `span-content${index_of_the_line}`
 
         let new_p = document.createElement('p')
-        new_p.id = "counter"
+        new_p.id = "counter-line"
         new_p.innerHTML = index_of_the_line
+        if (!checkbox_show_line_numbers.checked) { new_p.style.display = 'none' }
+        else { new_p.style.display = 'block' }
 
         let new_input = document.createElement('input')
         new_input.type = 'text'
@@ -116,8 +119,6 @@ const appendOrDeleteLine = (event) => {
         div_el.appendChild(new_span)
         new_input.focus()
 
-        addWordsToList()
-        scrollToTopButton()
     } else if (event.key === "Backspace" && index_of_the_line > 0) { // delete keycode
         if (index_of_the_line < 1){ index_of_the_line = 1 }
         else {
@@ -128,18 +129,20 @@ const appendOrDeleteLine = (event) => {
                 index_of_the_line--
                 const last_input = document.querySelector(`.span-content${index_of_the_line} > input`)
                 last_input.focus()
-                scrollToTopButton()
             }
         }
     }
 }
 
 function addWordsToList() {
-    const input_field = document.getElementById(`input-field${index_of_the_line - 1}`)
-    let get_value = input_field.value
-    let get_words = get_value.split(" ")
-    words.push(get_words)
-} // Get text only when save btn or copy btn is pressed
+    words.length = 0
+    const input_fields = document.querySelectorAll('span > input')
+    input_fields.forEach((item) => {
+        let get_value = item.value
+        let get_words = get_value.split(" ")
+        words.push(get_words)
+    })
+}
 
 const copyToClipboard = () => {
     let str = ""
@@ -148,51 +151,11 @@ const copyToClipboard = () => {
 }
 
 const scrollToTopButton = () => {
-    let count = 0
-    const get_inputs = document.querySelectorAll('input')
-    const div_elem = document.getElementById('scroll')
-    const btn = document.createElement('button')
-    btn.className = "btn-scroll"
-    btn.id = "btn-scroll"
-    btn.innerHTML = "To Top"
-
-    if(document.getElementById('btn-scroll') && get_inputs.length !== 20 && get_inputs.length !== 15) { log("btn exists") }
-    else {
-        if(get_inputs.length === 20){
-            div_elem.appendChild(btn)
-        }
-        else if(get_inputs.length === 15){
-            const get_btn = document.getElementById('btn-scroll')
-            div_elem.removeChild(get_btn)
-        }
-    }
-
-    btn.addEventListener('click', () => {
-        window.scrollTo(0, 0)
-        const interval = setInterval(() => {
-            if(count === 1){
-                clearInterval(interval)
-            }else if(count > 1) {
-                clearInterval(interval)
-            }
-            else{
-                scrollToBottomButton()
-                clearInterval(interval)
-                count++
-            }
-        }, 500)
-    })
+    window.scrollTo(0, 0)
 }
 
 const scrollToBottomButton = () => {
-    const div_elem = document.getElementById('scroll')
-    const btn = document.createElement('button')
-    btn.className = "btn-scroll-bottom"
-    btn.id = "btn-scroll-bottom"
-    btn.innerHTML = "To Bottom"
-
-    div_elem.appendChild(btn)
-    btn.addEventListener('click', () => { window.scrollTo(0, document.body.scrollHeight) })
+    window.scrollTo(0, document.body.scrollHeight)
 }
 
 const getFileExtension = () => {
@@ -249,7 +212,7 @@ const getFileExtension = () => {
 const saveFile = () => {
     let lines = ""
     let fileName = ""
-    let fileExtToSave = OK_button_inputFileExt()
+    let fileExtToSave = okButtonInputFileExt()
 
     if(fileExtToSave.startsWith("#")){
         fileExtToSave = fileExtToSave.replace("#", "")
@@ -273,33 +236,7 @@ const saveFile = () => {
     URL.revokeObjectURL(url)
 }
 
-const changeTheme = () => {
-    const get_body = document.querySelector('body')
-    const light_bgcolor_btn = document.getElementById('light-btn')
-    const dark_bgcolor_btn = document.getElementById('dark-btn')
-
-    const get_h1_tag = document.querySelector('h1')
-    const get_h3_tag = document.querySelector('h3')
-    const get_h4_tag = document.querySelector('h4')
-    const get_a_tag = document.getElementById('syntax')
-
-    light_bgcolor_btn.addEventListener('click', () => {
-        get_body.style.backgroundColor = light
-        get_h1_tag.style.color = dark
-        get_h3_tag.style.color = dark
-        get_h4_tag.style.color = dark
-        get_a_tag.style.color = dark
-    })
-    dark_bgcolor_btn.addEventListener('click', () => {
-        get_body.style.backgroundColor = dark
-        get_h1_tag.style.color = light
-        get_h3_tag.style.color = light
-        get_h4_tag.style.color = light
-        get_a_tag.style.color = light
-    })
-}
-
-const OK_button_inputFileExt = () => {
+const okButtonInputFileExt = () => {
     const get_choosen_file_ext = document.getElementById('choose_file_ext')
     const get_inputExt = document.querySelector('.get_file_ext')
     let get_text = get_choosen_file_ext.options[get_choosen_file_ext.selectedIndex].text
@@ -318,14 +255,39 @@ const changeTitleOnSettings = () => {
     })
 }
 
+const changeThemeToLight = () => {
+    const get_body = document.querySelector('body')
+
+    const get_h1_tag = document.querySelector('#header > h1')
+    const get_h3_tag = document.querySelector('body > h3')
+    const get_h4_tag = document.querySelector('body > h4')
+
+    get_body.style.backgroundColor = light
+    get_h1_tag.style.color = dark
+    get_h3_tag.style.color = dark
+    get_h4_tag.style.color = dark
+}
+
+const changeThemeToDark = () => {
+    const get_body = document.querySelector('body')
+    const get_h1_tag = document.querySelector('#header > h1')
+    const get_h3_tag = document.querySelector('body > h3')
+    const get_h4_tag = document.querySelector('body > h4')
+
+    get_body.style.backgroundColor = dark
+    get_h1_tag.style.color = light
+    get_h3_tag.style.color = light
+    get_h4_tag.style.color = light
+}
+
 const itemsInSettings = () => {
     const get_settings_style = document.querySelector('.settings')
     const title_ofThePage = document.getElementById('title')
+    const option_for_theme = document.getElementById('select-theme')
 
     const get_settings_panel = document.querySelector('#settings-panel')
     const ok_button = document.createElement('button')
     const cancel_button = document.createElement('button')
-    const version = document.createElement('h5')
 
     ok_button.id = "ok-btn"
     ok_button.className = 'ok-btn'
@@ -337,13 +299,45 @@ const itemsInSettings = () => {
     cancel_button.type = 'button'
     cancel_button.innerHTML = 'Cancel'
 
-    version.innerHTML = 'Version 0.7'
-
     get_settings_panel.appendChild(ok_button)
     get_settings_panel.appendChild(cancel_button)
-    get_settings_panel.appendChild(version)
 
     ok_button.addEventListener('click', () => {
+        try {
+            const first_line_number = document.getElementById('counter')
+            const last_line_numbers = document.querySelectorAll('#counter-line')
+            const checkbox_show_line_numbers = document.getElementById('checkbox-show-line-numbers')
+            const checkbox_enable_smooth_scrolling = document.getElementById('checkbox-enable-smooth-scrolling')
+            const html = document.querySelector('html')
+            if(!checkbox_enable_smooth_scrolling.checked){
+                html.style.scrollBehavior = "unset"
+            }
+            else {
+                html.style.scrollBehavior = "smooth"
+            }
+            if(!checkbox_show_line_numbers.checked) {
+                last_line_numbers.forEach(item => {
+                    item.style.display = 'none'
+                })
+                first_line_number.style.display = 'none'
+            }
+            else {
+                last_line_numbers.forEach(item => {
+                    item.style.display = 'block'
+                })
+                first_line_number.style.display = 'block'
+            }
+        }catch (err) {
+            error("Error")
+        }
+
+        let get_option = option_for_theme.options[option_for_theme.selectedIndex].text
+        if (get_option === "Dark") {
+            changeThemeToDark()
+        }
+        else {
+            changeThemeToLight()
+        }
         get_settings_style.style.display = 'none'
         title_ofThePage.innerHTML = 'Code Editor(beta)'
     })
