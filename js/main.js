@@ -19,6 +19,25 @@ const listDefaultFileExt = [
 const log = console.log
 const error = console.error
 
+const onLoad = () => {
+    getTagsOnLoad()
+
+    // Hide Attention for errors/bugs
+    const hide_attention_text = document.getElementById('attention')
+    setTimeout(() => {
+        hide_attention_text.style.display = "none"
+    }, 10_000)
+
+    // Open settings
+    const get_settings = document.querySelector('.settings')
+    const settings_btn = document.querySelector('#open-settings')
+    settings_btn.addEventListener('click', () => {
+        changeTitleOnSettings()
+        get_settings.style.display = 'block'
+    })
+    itemsInSettings()
+}
+
 const getTagsOnLoad = () => {
     let count_intervals = 0
     let count_placeholder = 0
@@ -59,6 +78,11 @@ const getTagsOnLoad = () => {
     button_copy.className = "btn-copy"
     button_copy.innerHTML = "Copy to Clipboard"
     button_copy.addEventListener('click', () => {
+        changeTitleOnCopy()
+        setInterval(() => {
+            changeTitleToDefault()
+        }, 3500)
+
         copyToClipboard()
         setTimeout(() => {
             button_copy.innerHTML = "Copied"
@@ -72,6 +96,7 @@ const getTagsOnLoad = () => {
     button_save.className = "btn-save"
     button_save.innerHTML = "Save"
     button_save.addEventListener('click', () => {
+        changeTitleOnSave()
         addWordsToList()
         const dialog_div = document.querySelector('.dialog')
         dialog_div.style.display = 'block'
@@ -79,25 +104,6 @@ const getTagsOnLoad = () => {
     })
     btns.appendChild(button_copy)
     btns.appendChild(button_save)
-}
-
-const onLoad = () => {
-    getTagsOnLoad()
-
-    // Hide Attention for errors/bugs
-    const hide_attention_text = document.getElementById('attention')
-    setTimeout(() => {
-        hide_attention_text.style.display = "none"
-    }, 10_000)
-
-    // Open settings
-    const get_settings = document.querySelector('.settings')
-    const settings_btn = document.querySelector('#open-settings')
-    settings_btn.addEventListener('click', () => {
-        changeTitleOnSettings()
-        get_settings.style.display = 'block'
-    })
-    itemsInSettings()
 }
 
 const appendOrDeleteLine = (event) => {
@@ -145,11 +151,14 @@ const appendOrDeleteLine = (event) => {
 function addWordsToList() {
     words.length = 0
     const input_fields = document.querySelectorAll('span > input')
+    log('start write to file')
     input_fields.forEach((item) => {
         let get_value = item.value
         let get_words = get_value.split(" ")
+        log('Process')
         words.push(get_words)
     })
+    log('finished')
 }
 
 const copyToClipboard = () => {
@@ -206,12 +215,14 @@ const getFileExtension = () => {
     inputFileExt_divtag.appendChild(cancel_button_tag)
 
     ok_button_tag.addEventListener('click', () => {
+        changeTitleToDefault()
         saveFile()
         dialog_div.style.display = "none"
         inputFileExt_divtag.textContent = ""
     })
 
     cancel_button_tag.addEventListener('click', () => {
+        changeTitleToDefault()
         dialog_div.style.display = "none"
         inputFileExt_divtag.textContent = ""
     })
@@ -249,18 +260,37 @@ const okButtonInputFileExt = () => {
     const get_inputExt = document.querySelector('.get_file_ext')
     let get_text = get_choosen_file_ext.options[get_choosen_file_ext.selectedIndex].text
     let result = ""
+    let lastIndexOf = get_inputExt.value.lastIndexOf('.')
 
-    if (get_inputExt.value !== "") result = "#" + get_inputExt.value
-    else if (get_text === "--Choose File Extension--") result = `${global_get_default_file_ext}`
-    return result
+    if (get_inputExt.value !== "") return result = "#" + get_inputExt.value + global_get_default_file_ext
+    else if (lastIndexOf > 0) {
+        for (let i = lastIndexOf;i < get_inputExt.value.length; i++) {
+            result += i
+        }
+        return result
+    }
+    else if (get_text === "--Choose File Extension--") return result = `${global_get_default_file_ext}`
+    else return result = get_text
 }
 
 const changeTitleOnSettings = () => {
-    const settings = document.getElementById('open-settings')
-    const title_ofThePage = document.getElementById('title')
-    settings.addEventListener('click', () => {
-        title_ofThePage.innerHTML = "Settings"
-    })
+    const title_ofThePage = document.querySelector('title')
+    title_ofThePage.innerHTML = "Settings"
+}
+
+const changeTitleOnSave = () => {
+    const title_ofThePage = document.querySelector('title')
+    title_ofThePage.innerHTML = "Saved"
+}
+
+const changeTitleOnCopy = () => {
+    const title_ofThePage = document.querySelector('title')
+    title_ofThePage.innerHTML = "Copied"
+}
+
+const changeTitleToDefault = () => {
+    const title_ofThePage = document.querySelector('title')
+    title_ofThePage.innerHTML = "Code Editor(beta)"
 }
 
 const changeThemeToLight = () => {
@@ -328,12 +358,15 @@ const itemsInSettings = () => {
             const last_line_numbers = document.querySelectorAll('#counter-line')
             const html = document.querySelector('html')
 
+            // Smooth scrolling option
             if(!checkbox_enable_smooth_scrolling.checked){
                 html.style.scrollBehavior = "unset"
             }
             else {
                 html.style.scrollBehavior = "smooth"
             }
+
+            // Line numbers on/off
             if(!checkbox_show_line_numbers.checked) {
                 last_line_numbers.forEach(item => {
                     item.style.display = 'none'
@@ -346,25 +379,27 @@ const itemsInSettings = () => {
                 })
                 first_line_number.style.display = 'block'
             }
+
+            // Select Theme 
+            let get_option = option_for_theme.options[option_for_theme.selectedIndex].text
+            if (get_option === "Dark") {
+                changeThemeToDark()
+            }
+            else {
+                changeThemeToLight()
+            }
+
+            // Hide to top/bottom buttons
+            if(checkbox_hide_to_buttons.enabled) {
+                scroll_to_btn.style.display = 'flex'
+            }
+            else {
+                scroll_to_btn.style.display = 'none'
+            }
+
+            global_get_default_file_ext = select_default_fileExt.options[select_default_fileExt.selectedIndex].text
         }catch (err) {
-            error("Error")
-        }
-
-        let get_option = option_for_theme.options[option_for_theme.selectedIndex].text
-        if (get_option === "Dark") {
-            changeThemeToDark()
-        }
-        else {
-            changeThemeToLight()
-        }
-
-        global_get_default_file_ext = select_default_fileExt.options[select_default_fileExt.selectedIndex].text
-
-        if(checkbox_hide_to_buttons.enabled) {
-            scroll_to_btn.style.display = 'flex'
-        }
-        else {
-            scroll_to_btn.style.display = 'none'
+            error("Error", err)
         }
 
         get_settings_style.style.display = 'none'
