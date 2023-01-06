@@ -2,28 +2,14 @@ let index_of_the_line = 0
 let words = []
 let global_get_default_file_ext = ""
 
-const themes = {
-    Black        : "#000" ,
-    Dark         : '#414A4C' ,
-    Melon        : "#EBB3A9" ,
-    Tea_Green     : "#D1F0B1" ,
-    Blue_Sapphire : "#086788" ,
-    Ming         : "#407076" ,
-    Jet          : "#39393A" ,
-    Floral_White  : "#FFFCF2"
-}
-
 const listFileExt = [
     "--Choose File Extension--", "(Pozakarpatskiy++) .pozpp",
     "(Text Documents) .txt", "(Python) .py", "(C++) .cpp", "(C#) .cs",
     "(Java) .java", "(Golang) .go", "(HTML) .html", "(CSS) .css",
     "(JavaScript) .js", "(TypeScript) .ts"
 ]
-const listDefaultFileExt = [
-    ".txt", ".html", ".css", ".js", ".ts",
-    ".cs", ".py", ".cpp", ".java", ".go",
-    ".pozpp"
-]
+const title_ofThePage = document.querySelector('title')
+
 
 const log = console.log
 const error = console.error
@@ -160,28 +146,17 @@ const appendOrDeleteLine = (event) => {
 function addWordsToList() {
     words.length = 0
     const input_fields = document.querySelectorAll('span > input')
-    log('start write to file')
     input_fields.forEach((item) => {
         let get_value = item.value
         let get_words = get_value.split(" ")
-        log('Process')
         words.push(get_words)
     })
-    log('finished')
 }
 
 const copyToClipboard = () => {
     let str = ""
     for (const line of words){ str += line + '\n' }
     navigator.clipboard.writeText(str).then(() => { log("Success") }).catch((err) => { error("Fail", err) })
-}
-
-const scrollToTopButton = () => {
-    window.scrollTo(0, 0)
-}
-
-const scrollToBottomButton = () => {
-    window.scrollTo(0, document.body.scrollHeight)
 }
 
 const getFileExtension = () => {
@@ -282,26 +257,6 @@ const okButtonInputFileExt = () => {
     else return result = get_text
 }
 
-const changeTitleOnSettings = () => {
-    const title_ofThePage = document.querySelector('title')
-    title_ofThePage.innerHTML = "Settings"
-}
-
-const changeTitleOnSave = () => {
-    const title_ofThePage = document.querySelector('title')
-    title_ofThePage.innerHTML = "Saved"
-}
-
-const changeTitleOnCopy = () => {
-    const title_ofThePage = document.querySelector('title')
-    title_ofThePage.innerHTML = "Copied"
-}
-
-const changeTitleToDefault = () => {
-    const title_ofThePage = document.querySelector('title')
-    title_ofThePage.innerHTML = "Code Editor(beta)"
-}
-
 const changeThemeToChoosenColor = () => {
     const option_for_theme = document.getElementById('select-theme')
 
@@ -314,7 +269,6 @@ const changeThemeToChoosenColor = () => {
     if(text.indexOf(" ") > -1) {
         text = text.replace(" ", "_")
     }
-    log(text)
 
     get_body.style.backgroundColor = themes[text]
     get_h1_tag.style.color = themes["Black"]
@@ -324,8 +278,6 @@ const changeThemeToChoosenColor = () => {
 
 const itemsInSettings = () => {
     const get_settings_style = document.querySelector('.settings')
-    const title_ofThePage = document.getElementById('title')
-    const option_for_theme = document.getElementById('select-theme')
     const get_settings_panel = document.querySelector('#settings-panel')
     const select_default_fileExt = document.getElementById('select-default-file-ext')
     const scroll_to_btn = document.getElementById('scroll')
@@ -401,11 +353,18 @@ const itemsInSettings = () => {
         }
 
         get_settings_style.style.display = 'none'
-        title_ofThePage.innerHTML = 'Code Editor(beta)'
+        changeTitleToDefault()
     })
 
     cancel_button.addEventListener('click', () => {
         get_settings_style.style.display = 'none'
-        title_ofThePage.innerHTML = 'Code Editor(beta)'
+        changeTitleToDefault()
     })
 }
+
+const scrollToTopButton = () => window.scrollTo(0, 0)
+const scrollToBottomButton = () => window.scrollTo(0, document.body.scrollHeight)
+const changeTitleOnSettings = () => title_ofThePage.innerHTML = "Settings"
+const changeTitleOnSave = () => title_ofThePage.innerHTML = "Saved"
+const changeTitleOnCopy = () => title_ofThePage.innerHTML = "Copied"
+const changeTitleToDefault = () => title_ofThePage.innerHTML = "Code Editor(beta)"
