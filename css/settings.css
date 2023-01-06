@@ -1,0 +1,66 @@
+* {
+    box-sizing: border-box;
+}
+
+.settings {
+    display: none;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding-top: 4em;
+    margin: auto;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.settings-panel {
+    /*position: relative;
+    background-color: rgba(30, 150, 180, 0.6);
+    margin: auto;
+    padding: 1em;
+    width: 50%;
+    height: 90%;
+    */
+    display: grid;
+    align-items: center;
+    width: 50%;
+    height: 90%;
+    background-color: rgba(30, 150, 180, 0.6);
+    margin: auto;
+    padding: 1em;
+    box-shadow:0 1px 4px rgba(200, 200, 200, 0.9), 0 0 40px rgba(200, 200, 200, 0.3) inset;
+    -webkit-box-shadow:0 1px 4px rgba(200, 200, 200, 0.9), 0 0 40px rgba(200, 200, 200, 0.3) inset;
+    -moz-box-shadow:0 1px 4px rgba(200, 200, 200, 0.9), 0 0 40px rgba(200, 200, 200, 0.3) inset;
+}
+
+/*
+.settings-panel > button[id="ok-btn"] {
+    margin: 1em;
+    text-align: center;
+    border: 1px solid white;
+    color: white;
+    background-color: cornflowerblue;
+    position: absolute;
+    bottom: 5%;
+    right: 10%;
+    width: 7%;
+    transition: .4s all;
+    transform: scale(1);
+}
+
+.settings-panel > button[id="cancel-btn"] {
+    margin: 1em;
+    border: 1px solid white;
+    background-color: transparent;
+    color: white;
+    position: absolute;
+    bottom: 2em;
+    right: 2;
+    width: 4.2em;
+    transition: .4s all;
+    transform: scale(1);
+}*/
