@@ -2,13 +2,16 @@
 :root {
     --darkcolor: rgb(40, 40, 40);
 }
+
 * {
     box-sizing: border-box;
     font-family: 'Secular One', monospace
 }
+
 html {
     scroll-behavior: smooth;
 }
+
 p {
     width: 2em;
     height: 2em;
@@ -21,6 +24,7 @@ p {
     padding: 0;
     border-collapse: collapse;
 }
+
 #scrolling {
     display: flex;
     align-items: center;
@@ -35,11 +39,13 @@ p {
     top: 5em;
     left: 3.1em;
 }
+
 #scrolling > hr {
     width: 35em;
     margin: 0.4em;
     padding: 0;
 }
+
 #text_def_file_ext {
     display: flex;
     align-items: center;
@@ -48,29 +54,35 @@ p {
     top: 3em;
     left: 3em;
 }
+
 #text_def_file_ext > hr {
     width: 28.9em;
     margin: 0.4em;
     padding: 0;
 }
+
 h1, h3 {
     text-align: center;
 }
+
 h4 {
     position: fixed;
     bottom: 0;
     left: 1em;
 }
+
 h5 {
     color: white;
     position: absolute;
     bottom: 1em;
     right: 3em;
 }
+
 body {
     background-color: #e6e6e6;
     transition: .4s all;
 }
+
 input {
     border: none;
     background-color: var(--darkcolor);
@@ -80,18 +92,22 @@ input {
     padding-left: 1%;
     color: white;
 }
+
 input:focus {
     outline: black;
     background-color: lightslategrey;
     transition: .4s;
 }
+
 input[type="checkbox"]:focus {
     outline: none;
     transition: none;
 }
+
 input[type="checkbox"]:checked {
     outline-style: solid;
 }
+
 input[type="checkbox"], label {
     position: relative;
     width: 1em;
@@ -100,9 +116,11 @@ input[type="checkbox"], label {
     top: 2.5em;
     left: 1em;
 }
+
 label {
     color: white;
 }
+
 a {
     position: fixed;
     color: black;
@@ -110,6 +128,7 @@ a {
     right: 2.2em;
     bottom: 9em;
 }
+
 span {
     display: flex;
     justify-content: center;
@@ -117,6 +136,7 @@ span {
     gap: 1%;
     height: 2rem;
 }
+
 button {
     width: auto;
     height: auto;
@@ -124,33 +144,40 @@ button {
     border: none;
     cursor: pointer;
 }
+
 .btn-copy {
     transition: 0.4s all;
     transform: scale(1);
     width: 10em;
 }
+
 .btn-copy:hover {
     transition: .4s all;
     transform: scale(1.1);
 }
+
 .btn-save {
     width: 5em;
     transition: 0.4s all;
     transform: scale(1);
 }
+
 .btn-save:hover {
     transition: .4s all;
     transform: scale(1.1);
 }
+
 .header {
     margin: 25px 25px;
 }
+
 .btn-bgcolor {
     position: absolute;
     top: 1em;
     left: 4em;
     gap: 1em;
 }
+
 #open-settings {
     width: auto;
     height: auto;
@@ -159,12 +186,14 @@ button {
     bottom: 3em;
     left: 1.5em;
 }
+
 #open-settings img {
     width: 3em;
     height: 3em;
     transform: scale(1);
     transition: .4s all;
 }
+
 .dialog {
     display: none;
     position: fixed;
@@ -180,6 +209,7 @@ button {
     overflow: auto;
     text-align: center;
 }
+
 .input_file_ext {
     background-color: #fefefe;
     margin: auto;
@@ -187,9 +217,11 @@ button {
     border: 1px solid #888;
     width: 80%;
 }
+
 .input_file_ext > input {
     width: 20em;
 }
+
 .input_file_ext > button {
     width: 5em;
     height: 2em;
@@ -199,6 +231,7 @@ button {
     transition: .4s all;
     margin: 1em;
 }
+
 .scroll {
     display: flex;
     flex-direction: column;
@@ -207,6 +240,7 @@ button {
     bottom: 15%;
     left: 1%;
 }
+
 .scroll > button {
     cursor: pointer;
     width: auto;
@@ -217,10 +251,12 @@ button {
     transform: scale(1);
     transition: 0.4s all;
 }
+
 .scroll > button:hover {
     transition: .4s all;
     transform: scale(1.1);
 }
+
 .settings {
     display: none;
     position: fixed;
@@ -235,12 +271,14 @@ button {
     height: 100%;
     overflow: auto;
 }
+
 .settings > h3 {
     position: fixed;
     top: 0em;
     left: 2em;
     color: white;
 }
+
 .settings-panel {
     position: relative;
     background-color: rgba(30, 150, 180, 0.6);
@@ -252,6 +290,7 @@ button {
     -moz-box-shadow:0 1px 4px rgba(200, 200, 200, 0.9), 0 0 40px rgba(200, 200, 200, 0.3) inset;
     box-shadow:0 1px 4px rgba(200, 200, 200, 0.9), 0 0 40px rgba(200, 200, 200, 0.3) inset;
 }
+
 .settings-panel > button[id="ok-btn"] {
     text-align: center;
     border: 1px solid white;
@@ -264,6 +303,7 @@ button {
     transition: .4s all;
     transform: scale(1);
 }
+
 .settings-panel > button[id="cancel-btn"] {
     border: 1px solid white;
     background-color: transparent;
@@ -275,11 +315,19 @@ button {
     transition: .4s all;
     transform: scale(1);
 }
+
 .settings-panel > #select-default-file-ext {
     position: absolute;
     bottom: 21em;
     left: 5em;
 }
+
+.settings-panel > .div-show-line-numbers {
+    display: flex;
+    justify-content: center;
+    margin: 2em;
+}
+
  /* Mobile version */
 @media screen and (max-width: 678px) {
     input {
@@ -288,42 +336,51 @@ button {
         padding-left: 1%;
         width: 80%;
     }
+
     input:active {
         border: none;
     }
+
     a, h3 {
         font-size: small;
     }
+
     h4 {
         font-size: small;
         bottom: 0em;
         left: 1em;
     }
+
     .btn-bgcolor {
         padding-top: 1.5rem;
         flex-direction: column;
         gap: 1em;
     }
+
     #open-settings {
         bottom: 2.5em;
         left: 1.5em;
     }
+
     #open-settings img {
         width:  2em;
         height: 2em;
     }
+
     .dialog {
         width: 40em;
         height: 30em;
         padding-top: 10em;
         text-align: center;
     }
+
     .input_file_ext > button {
         margin: 1em;
         background-color: lightskyblue;
         color: black;
     }
 }
+
 /* Hover effect for only desktop version */
 @media (hover: hover) {
     #open-settings img:hover {
