@@ -7,10 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="theme-color" content="#1a5d8d">
-    <meta name="keywords" content="Code, code, editor, Editor, Code Editor, code editor, html, text editor">
+    <meta name="keywords" content="Code, code, Code Editor, code editor, html, text editor, css, js, javascript">
 
     <!-- Title of the page -->
-    <title id="title">Code Editor(beta)</title>
+    <title id="title"> Code Editor(beta)</title>
 
     <!-- Import JS file -->
     <script src="js/main.js"></script>
@@ -52,7 +52,7 @@
     <h3 id="attention"><em>* It may contains error/bug *</em></h3>
 
     <button type="button" id="open-settings">
-        <img src="https://img.icons8.com/fluency/48/null/gear.png" alt="settings"/>
+        <img src="https://img.icons8.com/fluency/48/null/gear.png" alt="settings" id="settings-img"/>
     </button>
     <h4>Settings</h4>
 
@@ -67,14 +67,20 @@
                     <option>Dark</option>
                 </select>
             </span>
-            <input type="checkbox" checked id="checkbox-show-line-numbers">
-            <label>Show line numbers</label>
+            <span class="div-show-line-numbers">
+                <input type="checkbox" checked id="checkbox-show-line-numbers">
+                <label id="label-show-line-numbers">Show line numbers</label>
+            </span>
+
             <input type="checkbox" checked id="checkbox-enable-smooth-scrolling">
-            <label>Enable smooth scrolling</label>
+            <label id="label-enable-smooth-scrolling">Enable smooth scrolling</label>
+
             <select id="select-default-file-ext"></select>
+
             <input type="checkbox" id="checkbox-hide-to-buttons">
             <label id="label-hide-to-buttons">Hide To Top/Bottom button's</label>
         </div>
     </div>
+
 </body>
 </html>
