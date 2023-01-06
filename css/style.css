@@ -333,8 +333,8 @@ button {
     input {
         border: none;
         font-size: small;
-        padding-left: 1%;
         width: 80%;
+        
     }
 
     input:active {
@@ -351,8 +351,17 @@ button {
         left: 1em;
     }
 
+    p {
+        position: absolute;
+        left: 1em;
+        text-align: center;
+        color: grey;
+        width: 3em;
+        text-align: left;
+    }
+
     .btn-bgcolor {
-        padding-top: 1.5rem;
+        padding: 1em;
         flex-direction: column;
         gap: 1em;
     }
@@ -368,9 +377,8 @@ button {
     }
 
     .dialog {
-        width: 40em;
+        width: 25em;
         height: 30em;
-        padding-top: 10em;
         text-align: center;
     }
 
@@ -378,6 +386,23 @@ button {
         margin: 1em;
         background-color: lightskyblue;
         color: black;
+    }
+
+    .settings-panel {
+        width: 90%;
+        height: 90%;
+    }
+
+    .scroll {
+        margin: 0;
+        width: auto;
+        padding: 0;
+        bottom: 4.5em;
+    }
+
+    .inputs > span > input {
+        position: absolute;
+        right: 1em;
     }
 }
 
