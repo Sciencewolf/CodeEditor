@@ -1,8 +1,17 @@
 let index_of_the_line = 0
 let words = []
 let global_get_default_file_ext = ""
-const light = '#e6e6e6'
-const dark = '#414A4C'
+
+const themes = {
+    Black        : "#000" ,
+    Dark         : '#414A4C' ,
+    Melon        : "#EBB3A9" ,
+    Tea_Green     : "#D1F0B1" ,
+    Blue_Sapphire : "#086788" ,
+    Ming         : "#407076" ,
+    Jet          : "#39393A" ,
+    Floral_White  : "#FFFCF2"
+}
 
 const listFileExt = [
     "--Choose File Extension--", "(Pozakarpatskiy++) .pozpp",
@@ -293,29 +302,24 @@ const changeTitleToDefault = () => {
     title_ofThePage.innerHTML = "Code Editor(beta)"
 }
 
-const changeThemeToLight = () => {
-    const get_body = document.querySelector('body')
+const changeThemeToChoosenColor = () => {
+    const option_for_theme = document.getElementById('select-theme')
 
-    const get_h1_tag = document.querySelector('#header > h1')
-    const get_h3_tag = document.querySelector('body > h3')
-    const get_h4_tag = document.querySelector('body > h4')
-
-    get_body.style.backgroundColor = light
-    get_h1_tag.style.color = dark
-    get_h3_tag.style.color = dark
-    get_h4_tag.style.color = dark
-}
-
-const changeThemeToDark = () => {
     const get_body = document.querySelector('body')
     const get_h1_tag = document.querySelector('#header > h1')
     const get_h3_tag = document.querySelector('body > h3')
     const get_h4_tag = document.querySelector('body > h4')
 
-    get_body.style.backgroundColor = dark
-    get_h1_tag.style.color = light
-    get_h3_tag.style.color = light
-    get_h4_tag.style.color = light
+    let text = option_for_theme.options[option_for_theme.selectedIndex].text
+    if(text.indexOf(" ") > -1) {
+        text = text.replace(" ", "_")
+    }
+    log(text)
+
+    get_body.style.backgroundColor = themes[text]
+    get_h1_tag.style.color = themes["Black"]
+    get_h3_tag.style.color = themes["Black"]
+    get_h4_tag.style.color = themes["Black"]
 }
 
 const itemsInSettings = () => {
@@ -381,13 +385,7 @@ const itemsInSettings = () => {
             }
 
             // Select Theme 
-            let get_option = option_for_theme.options[option_for_theme.selectedIndex].text
-            if (get_option === "Dark") {
-                changeThemeToDark()
-            }
-            else {
-                changeThemeToLight()
-            }
+            changeThemeToChoosenColor()
 
             // Hide to top/bottom buttons
             if(checkbox_hide_to_buttons.enabled) {
