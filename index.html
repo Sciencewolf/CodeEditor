@@ -56,13 +56,13 @@
     <button type="button" id="open-settings">
         <img src="https://img.icons8.com/fluency/48/null/gear.png" alt="settings" id="settings-img"/>
     </button>
-    <h4>Settings</h4>
 
     <div class="settings" id="settings">
         <h3>Settings</h3>
         <h5>Version 0.7</h5>
         <div class="settings-panel" id="settings-panel">
-            <span class="btn-bgcolor" id="btn-bgcolor">
+            
+            <div class="div-bgcolor" id="div-bgcolor">
                 <h3 style="color: white">Theme: </h3>
                 <select id="select-theme">
                     <option>Floral White</option>
@@ -73,26 +73,30 @@
                     <option>Ming</option>
                     <option>Jet</option>
                 </select>
-            </span>
-            <span class="span-show-line-numbers">
+            </div>
+            
+            <div class="div-show-line-numbers">
                 <input type="checkbox" checked id="checkbox-show-line-numbers">
                 <label id="label-show-line-numbers">Show line numbers</label>
-            </span>
-
-            <span class="span-enable-smooth-scrolling">
+            </div>
+            
+            <div class="div-enable-smooth-scrolling">
                 <input type="checkbox" checked id="checkbox-enable-smooth-scrolling">
-            <label id="label-enable-smooth-scrolling">Enable smooth scrolling</label>
-            </span>
-
+                <label id="label-enable-smooth-scrolling">Enable smooth scrolling</label>
+            </div>
+            
+            <div class="div-hide-scrollto-buttons">
+                <input type="checkbox" id="checkbox-hide-scrollto-buttons">
+                <label id="label-hide-scrollto-buttons">Hide To Top/Bottom button's</label>
+            </div>
+            
             <div class="div-default-file-ext">
+                <label id="label-select-default-file-ext">Default File Extension</label>
                 <select id="select-default-file-ext"></select>
             </div>
-
-            <span class="span-hide-scrollto-buttons">
-                <input type="checkbox" id="checkbox-hide-scrollto-buttons">
-            <label id="label-hide-scrollto-buttons">Hide To Top/Bottom button's</label>
-            </span>
-
+            
+            <span id="span-buttons"></span>
+            
         </div>
     </div>
 
