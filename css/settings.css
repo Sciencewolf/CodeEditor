@@ -4,7 +4,7 @@
 
 .settings {
     display: none;
-    position: fixed;
+    position: absolute;
     background-color: rgba(0, 0, 0, 0.8);
     padding-top: 4em;
     margin: auto;
@@ -12,22 +12,27 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
     overflow: auto;
 }
 
+.settings > h3 {
+    position: fixed;
+    top: 1em;
+    left: 1.7em;
+    color: white;
+}
+
+.settings > h5 {
+    position: fixed;
+    bottom: 1em;
+    right: 2em;
+}
+
 .settings-panel {
-    /*position: relative;
-    background-color: rgba(30, 150, 180, 0.6);
-    margin: auto;
-    padding: 1em;
-    width: 50%;
-    height: 90%;
-    */
-    display: grid;
-    align-items: center;
-    width: 50%;
+    position: relative;
+    width: 80%;
     height: 90%;
     background-color: rgba(30, 150, 180, 0.6);
     margin: auto;
@@ -35,32 +40,68 @@
     box-shadow:0 1px 4px rgba(200, 200, 200, 0.9), 0 0 40px rgba(200, 200, 200, 0.3) inset;
     -webkit-box-shadow:0 1px 4px rgba(200, 200, 200, 0.9), 0 0 40px rgba(200, 200, 200, 0.3) inset;
     -moz-box-shadow:0 1px 4px rgba(200, 200, 200, 0.9), 0 0 40px rgba(200, 200, 200, 0.3) inset;
+    overflow: auto;
 }
 
-/*
-.settings-panel > button[id="ok-btn"] {
+.div-bgcolor {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 2em;
     margin: 1em;
+    gap: 1em;
+}
+
+.div-show-line-numbers {
+    display: flex;
+    justify-content: flex-start;
+    margin: 1em;
+    gap: 1em;
+}
+
+.div-enable-smooth-scrolling {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 1em;
+    gap: 1em;
+}
+
+.div-hide-scrollto-buttons {
+    display: flex;
+    justify-content: flex-start;
+    margin: 1em;
+    gap: 1em;
+}
+
+.div-default-file-ext {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 1em;
+    gap: 1em;
+}
+
+#span-buttons {
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    gap: 1em;
     text-align: center;
+}
+
+#span-buttons > button {
+    width: 4em;
+    text-align: center;
+    color: black;
     border: 1px solid white;
-    color: white;
-    background-color: cornflowerblue;
-    position: absolute;
-    bottom: 5%;
-    right: 10%;
-    width: 7%;
-    transition: .4s all;
+    transition: 0.4s all;
     transform: scale(1);
 }
 
-.settings-panel > button[id="cancel-btn"] {
-    margin: 1em;
-    border: 1px solid white;
-    background-color: transparent;
-    color: white;
-    position: absolute;
-    bottom: 2em;
-    right: 2;
-    width: 4.2em;
-    transition: .4s all;
-    transform: scale(1);
-}*/
+@media (hover: hover) {
+    #span-buttons > button:hover {
+        transition: .4s all;
+        transform: scale(1.1);
+    }
+}
