@@ -58,13 +58,20 @@ input:focus {
     justify-content: center;
 }
 
-.inputs {
-    display: flex;
-    justify-content: center;
+.inputs > span > input {
+    width: 80em;
+    font-size: large;
 }
 
-.inputs > input {
-    width: 50em;
+.inputs {
+    width: 100%;
+}
+
+.span-content {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin: 1em;
 }
 
 .btns {
