@@ -34,7 +34,7 @@ const changeThemeToChosenColor = () => {
     get_h4_tag.style.color = themes["Black"]
 }
 
-const itemsInSettings = () => {
+function itemsInSettings() {
     const get_settings_style = document.querySelector('.settings')
     const span_buttons = document.querySelector('#span-buttons')
     const select_default_fileExt = document.getElementById('select-default-file-ext')
@@ -89,26 +89,41 @@ const itemsInSettings = () => {
     })
 }
 
-const actionsInSettings = () => {
-    const first_line_number = document.getElementById('counter')
-    const last_line_numbers = document.querySelectorAll('#counter-line')
-    const html = document.querySelector('html')
-    const scroll_to_btn = document.getElementById('scroll')
-    const select_default_fileExt = document.getElementById('select-default-file-ext')
-
-    const checkbox_show_line_numbers = document.getElementById('checkbox-show-line-numbers')
-    const checkbox_enable_smooth_scrolling = document.getElementById('checkbox-enable-smooth-scrolling')
-    const checkbox_hide_to_buttons = document.getElementById('checkbox-hide-to-buttons')
-
+function actionsInSettings() {
     // Smooth scrolling option
-    if(!checkbox_enable_smooth_scrolling.checked){
-        html.style.scrollBehavior = "unset"
-    }
-    else {
-        html.style.scrollBehavior = "smooth"
-    }
+    smoothScrolling()
 
     // Line numbers on/off
+    lineNumbersOnOff()
+
+    // Select Theme
+    changeThemeToChosenColor()
+
+    // Hide to top/bottom buttons
+    hideToTopBototmButtons()
+
+    // Set Default file extension
+    setDefaultFileExtension()
+
+}
+
+function hideToTopBototmButtons() {
+    const checkbox_hide_to_buttons = document.getElementById('checkbox-hide-to-buttons')
+    const scroll_to_btn = document.getElementById('scroll')
+
+    if(checkbox_hide_to_buttons.enabled) {
+        scroll_to_btn.style.display = 'flex'
+    }
+    else {
+        scroll_to_btn.style.display = 'none'
+    }
+}
+
+function lineNumbersOnOff() {
+    const checkbox_show_line_numbers = document.getElementById('checkbox-show-line-numbers')
+    const first_line_number = document.getElementById('counter')
+    const last_line_numbers = document.querySelectorAll('#counter-line')
+
     if(!checkbox_show_line_numbers.checked) {
         last_line_numbers.forEach(item => {
             item.style.display = 'none'
@@ -121,19 +136,22 @@ const actionsInSettings = () => {
         })
         first_line_number.style.display = 'block'
     }
+}
 
-    // Select Theme
-    changeThemeToChosenColor()
+function smoothScrolling() {
+    const checkbox_enable_smooth_scrolling = document.getElementById('checkbox-enable-smooth-scrolling')
+    const html = document.querySelector('html')
 
-    // Hide to top/bottom buttons
-    if(checkbox_hide_to_buttons.enabled) {
-        scroll_to_btn.style.display = 'flex'
+    if(!checkbox_enable_smooth_scrolling.checked){
+        html.style.scrollBehavior = "unset"
     }
     else {
-        scroll_to_btn.style.display = 'none'
+        html.style.scrollBehavior = "smooth"
     }
+}
 
-    // Set Default file extension
+function setDefaultFileExtension() {
+    const select_default_fileExt = document.getElementById('select-default-file-ext')
+
     global_get_default_file_ext = select_default_fileExt.options[select_default_fileExt.selectedIndex].text
-
 }
