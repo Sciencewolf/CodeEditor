@@ -99,6 +99,10 @@
     transform: scale(1);
 }
 
+@media screen and (max-width: 768px) {
+    
+}
+
 @media (hover: hover) {
     #span-buttons > button:hover {
         transition: .4s all;
