@@ -43,6 +43,7 @@ input:focus {
 textarea {
     position: relative;
     left: 9em;
+    font-size: medium;
 }
 
 .header {
