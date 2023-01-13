@@ -1,6 +1,6 @@
-let index_of_the_line = 0
 let words = []
 let global_get_default_file_ext = ""
+let global_textarea_cols = 150
 
 const listFileExt = [
     "--Choose File Extension--", "(Pozakarpatskiy++) .pozpp",
@@ -8,7 +8,6 @@ const listFileExt = [
     "(Java) .java", "(Golang) .go", "(HTML) .html", "(CSS) .css",
     "(JavaScript) .js", "(TypeScript) .ts"
 ]
-
 const themes = {
   Black: "#000",
   Dark: "#414A4C",
@@ -19,35 +18,24 @@ const themes = {
   Jet: "#39393A",
   Floral_White: "#FFFCF2",
 };
-
 const listDefaultFileExt = [
-  ".txt",
-  ".html",
-  ".css",
-  ".js",
-  ".ts",
-  ".cs",
-  ".py",
-  ".cpp",
-  ".java",
-  ".go",
-  ".pozpp",
+  ".txt", ".html", ".css", ".js",
+  ".ts", ".cs", ".py", ".cpp",
+  ".java", ".go", ".pozpp",
 ];
 
 const title_ofThePage = document.querySelector('title')
-
 const log = console.log
 const error = console.error
 
+
 const onLoad = () => {
     getTagsOnLoad()
-
     // Hide Attention for errors/bugs
     const hide_attention_text = document.getElementById('attention')
     setTimeout(() => {
         hide_attention_text.style.display = "none"
     }, 10_000)
-
     // Open settings
     const get_settings = document.querySelector('.settings')
     const settings_btn = document.querySelector('#open-settings')
@@ -59,37 +47,7 @@ const onLoad = () => {
 }
 
 const getTagsOnLoad = () => {
-    let count_intervals = 0
-    let count_placeholder = 0
-    let placeholders = [
-        "To make a new line press [ENTER]", ""
-    ]
-    index_of_the_line++
-    const span_el = document.getElementById("span-content")
-
-    let p_tag = document.createElement('p')
-    p_tag.id = "counter"
-    p_tag.innerHTML = index_of_the_line
-
-    let input_tag_onload = document.createElement('input')
-    input_tag_onload.type = "text"
-    input_tag_onload.id = `input-field${index_of_the_line}`
-    input_tag_onload.className = `input-field${index_of_the_line}`
-    input_tag_onload.autocomplete = "none"
-
-    const interval = setInterval(() => {
-        if(!input_tag_onload.matches(':focus')){
-            input_tag_onload.placeholder = placeholders[count_placeholder]
-            count_placeholder = (count_placeholder + 1) % placeholders.length
-            count_intervals++
-        }
-        else{ input_tag_onload.placeholder = "" }
-        if(count_intervals === 10){ clearInterval(interval) }
-    }, 1000)
-
-    span_el.appendChild(p_tag)
-    span_el.appendChild(input_tag_onload)
-
+    textArea()
     const btns = document.getElementById('btns')
     let button_save = document.createElement('button')
     let button_copy = document.createElement('button')
@@ -126,59 +84,78 @@ const getTagsOnLoad = () => {
     btns.appendChild(button_save)
 }
 
-const appendOrDeleteLine = (event) => {
-    const div_el = document.getElementById('inputs')
-    const checkbox_show_line_numbers = document.getElementById('checkbox-show-line-numbers')
+function textArea() {
+    const div_el_input = document.getElementById('inputs')
+    const div_textarea = document.createElement('div')
+    const textArea = document.createElement('textarea')
 
-    if (event.key === 'Enter') { //enter keycode
-        index_of_the_line++
-        let new_span = document.createElement('span')
-        new_span.id = `span-content${index_of_the_line}`
-        new_span.className = `span-content${index_of_the_line}`
+    div_textarea.id = "div-textarea"
+    div_textarea.className = "div=textarea"
 
-        let new_p = document.createElement('p')
-        new_p.id = "counter-line"
-        new_p.innerHTML = index_of_the_line
-        if (!checkbox_show_line_numbers.checked) { new_p.style.display = 'none' }
-        else { new_p.style.display = 'block' }
+    textArea.id = 'textarea'
+    textArea.className = 'textarea'
+    textArea.rows = 1
+    textArea.cols = global_textarea_cols
+    textArea.spellcheck = false
+    textArea.style.resize = "none"
 
-        let new_input = document.createElement('input')
-        new_input.type = 'text'
-        new_input.id = `input-field${index_of_the_line}`
-        new_input.className = `input-field${index_of_the_line}`
-        new_input.autocomplete = "none"
+    div_textarea.appendChild(textArea)
+    div_el_input.appendChild(div_textarea)
 
-        new_span.appendChild(new_p)
-        new_span.appendChild(new_input)
-        div_el.appendChild(new_span)
-        new_input.focus()
+    manipulateTextArea()
+}
 
-    } else if (event.key === "Backspace" && index_of_the_line > 0) { // delete keycode
-        if (index_of_the_line < 1){ index_of_the_line = 1 }
-        else {
-            const get_elem_span = document.getElementById(`span-content${index_of_the_line}`)
-            const get_input = document.getElementById(`input-field${index_of_the_line}`)
-            if (get_input.value === "") {
-                div_el.removeChild(get_elem_span)
-                index_of_the_line--
-                const last_input = document.querySelector(`.span-content${index_of_the_line} > input`)
-                last_input.focus()
-            }
+function manipulateTextArea() {
+    const get_textarea = document.getElementById('textarea')
+
+    // increase rows
+    get_textarea.addEventListener('keydown', function(event){
+        if(event.key === 'Enter') get_textarea.rows += 1
+    })
+
+    // decrease rows
+    get_textarea.addEventListener('keydown', (event) => {
+        if(event.key === 'Backspace') {
+            let text = get_textarea.value
+            let cursorPos = get_textarea.selectionStart
+            let substringBeforeCursor = text.substring(0, cursorPos);
+            let lastNewlineIndex = substringBeforeCursor.lastIndexOf("\n");
+            let currentLine = substringBeforeCursor.substring(lastNewlineIndex + 1, cursorPos);
+            if(currentLine.length > 0) return
+
+            get_textarea.rows -= 1
         }
-    }
+    })
+
+    // increase cols
+    get_textarea.addEventListener('input', () => {
+        let col = this.cols
+        let text = this.value
+        let lines = text.split('\n')
+
+        for(let i = 0;i < lines.length;i++) {
+            let lineLength = lines[i].length
+            if(lineLength > col) get_textarea.cols = lineLength
+        }
+    })
+
+    // decrease cols, delete until cols !== 50
+    get_textarea.addEventListener('keydown', (event) => {
+        if(event.key === 'Backspace') {
+            let cols = this.cols
+            if(cols > global_textarea_cols) this.cols -= 1
+        }
+    })
 }
 
 function addWordsToList() {
     words.length = 0
-    const input_fields = document.querySelectorAll('span > input')
-    input_fields.forEach((item) => {
-        let get_value = item.value
-        let get_words = get_value.split(" ")
-        words.push(get_words)
-    })
+    const get_textarea = document.getElementById('textarea')
+    let text = get_textarea.value
+    words.push(text)
 }
 
-const copyToClipboard = () => {
+function copyToClipboard() {
     let str = ""
     for (const line of words){ str += line + '\n' }
     navigator.clipboard.writeText(str).then(() => { log("Success") }).catch((err) => { error("Fail", err) })
@@ -265,9 +242,9 @@ const saveFile = () => {
 }
 
 const okButtonInputFileExt = () => {
-    const get_choosen_file_ext = document.getElementById('choose_file_ext')
+    const get_chosen_file_ext = document.getElementById('choose_file_ext')
     const get_inputExt = document.querySelector('.get_file_ext')
-    let get_text = get_choosen_file_ext.options[get_choosen_file_ext.selectedIndex].text
+    let get_text = get_chosen_file_ext.options[get_chosen_file_ext.selectedIndex].text
     let result = ""
     let lastIndexOf = get_inputExt.value.lastIndexOf('.')
 
@@ -282,33 +259,22 @@ const okButtonInputFileExt = () => {
     else return result = get_text
 }
 
-
-
-const changeThemeToChosenColor = () => {
+function changeThemeToChosenColor() {
   const option_for_theme = document.getElementById("select-theme");
 
   const get_body = document.querySelector("body");
-  const get_h1_tag = document.querySelector("#header > h1");
-  const get_h3_tag = document.querySelector("body > h3");
-  const get_h4_tag = document.querySelector("body > h4");
 
   let text = option_for_theme.options[option_for_theme.selectedIndex].text;
   if (text.indexOf(" ") > -1) {
     text = text.replace(" ", "_");
   }
-
-  get_body.style.backgroundColor = themes[text];
-  get_h1_tag.style.color = themes["Black"];
-  get_h3_tag.style.color = themes["Black"];
-  get_h4_tag.style.color = themes["Black"];
-};
+    get_body.style.backgroundColor = themes[text];
+}
 
 function itemsInSettings() {
   const get_settings_style = document.querySelector(".settings");
   const span_buttons = document.querySelector("#span-buttons");
-  const select_default_fileExt = document.getElementById(
-    "select-default-file-ext"
-  );
+  const select_default_fileExt = document.getElementById("select-default-file-ext");
 
   const ok_button = document.createElement("button");
   const cancel_button = document.createElement("button");
@@ -360,60 +326,30 @@ function itemsInSettings() {
   });
 }
 
-function actionsInSettings() {
+const actionsInSettings = () => {
   // Smooth scrolling option
   smoothScrolling();
-
-  // Line numbers on/off
-  lineNumbersOnOff();
 
   // Select Theme
   changeThemeToChosenColor();
 
   // Hide to top/bottom buttons
-  hideToTopBototmButtons();
+  hideToTopBottomButtons();
 
   // Set Default file extension
   setDefaultFileExtension();
 }
 
-function hideToTopBototmButtons() {
-  const checkbox_hide_to_buttons = document.getElementById(
-    "checkbox-hide-to-buttons"
-  );
-  const scroll_to_btn = document.getElementById("scroll");
+const hideToTopBottomButtons = () => {
+  const checkbox_hide_to_buttons = document.getElementById("checkbox-hide-scrollto-buttons");
+  const scroll_to_btn = document.querySelector('div.scroll')
 
-  if (checkbox_hide_to_buttons.enabled) {
-    scroll_to_btn.style.display = "flex";
-  } else {
-    scroll_to_btn.style.display = "none";
-  }
-}
-
-function lineNumbersOnOff() {
-  const checkbox_show_line_numbers = document.getElementById(
-    "checkbox-show-line-numbers"
-  );
-  const first_line_number = document.getElementById("counter");
-  const last_line_numbers = document.querySelectorAll("#counter-line");
-
-  if (!checkbox_show_line_numbers.checked) {
-    last_line_numbers.forEach((item) => {
-      item.style.display = "none";
-    });
-    first_line_number.style.display = "none";
-  } else {
-    last_line_numbers.forEach((item) => {
-      item.style.display = "block";
-    });
-    first_line_number.style.display = "block";
-  }
+  if (!checkbox_hide_to_buttons.checked) scroll_to_btn.style.display = "flex"
+  else scroll_to_btn.style.display = "none"
 }
 
 function smoothScrolling() {
-  const checkbox_enable_smooth_scrolling = document.getElementById(
-    "checkbox-enable-smooth-scrolling"
-  );
+  const checkbox_enable_smooth_scrolling = document.getElementById("checkbox-enable-smooth-scrolling");
   const html = document.querySelector("html");
 
   if (!checkbox_enable_smooth_scrolling.checked) {
