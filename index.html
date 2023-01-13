@@ -37,25 +37,31 @@
         <h1>CodeEditor</h1>
     </span>
 
-    <div class="inputs" id="inputs" onkeydown="appendOrDeleteLine(event)" >
-        <span class="span-content" id="span-content"></span>
-    </div>
+    <!-- Text Area -->
+    <div class="inputs" id="inputs" ></div>
 
+    <!-- Copy, Save button's -->
     <span class="btns" id="btns"></span>
-    <div class="scroll" id="scroll">
+    
+    <!-- Scroll to top/bottom button's -->
+    <div class="scroll" id="scroll" >
         <button type="button" id="scroll_top" onclick="scrollToTopButton()">To Top</button>
         <button type="button" id="scroll_bottom" onclick="scrollToBottomButton()">To Bottom</button>
     </div>
+    
+    <!-- Dialog for save file -->
     <div class="dialog" id="dialog">
         <div class="input_file_ext" id="input_file_ext"></div>
     </div>
 
     <h3 id="attention"><em>* It may contains error/bug *</em></h3>
 
+    <!-- Settings img/button -->
     <button type="button" id="open-settings">
         <img src="https://img.icons8.com/fluency/48/null/gear.png" alt="settings" id="settings-img" />
     </button>
 
+    <!-- Inside setting's -->
     <div class="settings" id="settings">
         <h3>Settings</h3>
         <h5>Version 0.7</h5>
@@ -74,11 +80,6 @@
                 </select>
             </div>
             
-            <div class="div-show-line-numbers">
-                <input type="checkbox" checked id="checkbox-show-line-numbers">
-                <label id="label-show-line-numbers">Show line numbers</label>
-            </div>
-            
             <div class="div-enable-smooth-scrolling">
                 <input type="checkbox" checked id="checkbox-enable-smooth-scrolling">
                 <label id="label-enable-smooth-scrolling">Enable smooth scrolling</label>
@@ -95,9 +96,7 @@
             </div>
             
             <span id="span-buttons"></span>
-            
         </div>
     </div>
-
 </body>
 </html>
