@@ -1,7 +1,4 @@
-## Code Editor for Pozakarpatskiy++ Programming Language Project
-* Link to [Pozakarpatskiy++ Programming Language](https://github.com/Sciencewolf/pozpp_beta) Project
-
-# Date started => 12/09/2022
+# Code Editor v0.8
 
 * Version 0.1
 * Version 0.2 12/12/2022
@@ -10,14 +7,15 @@
 ----
 * Version 0.6 01/03/2023
 * Version 0.7 01/04/2023
+* Version 0.8 01/13/2023
 
 # Preparing for Version 1.0
 ## Tasks To Do:
 
 * Save file and let user choose file extension and name ✅
 * Redesign the page
-* Add settings 
-* Fix issue with inserting lines
+* Add settings ✅
+* Fix issue with inserting lines ✅
 * Fix the bugs
 
-# In Future General Code Editor
+## Date started => 12/09/2022
