@@ -23,11 +23,21 @@ const listDefaultFileExt = [
   ".ts", ".cs", ".py", ".cpp",
   ".java", ".go", ".pozpp",
 ];
+const listFontSizes = [
+    "smaller", "small", "medium", "large", "larger"
+]
 
 const title_ofThePage = document.querySelector('title')
 const log = console.log
 const error = console.error
 
+/*const fetchJSONFile = async() => {
+    let JSON_data = ""
+    await fetch("data.json").then(response => response.json()).then(json => {JSON_data = json})
+    return JSON_data
+}*/
+
+/*const factory = () => { }*/
 
 const onLoad = () => {
     getTagsOnLoad()
@@ -35,7 +45,7 @@ const onLoad = () => {
     const hide_attention_text = document.getElementById('attention')
     setTimeout(() => {
         hide_attention_text.style.display = "none"
-    }, 10_000)
+    }, 5_000)
     // Open settings
     const get_settings = document.querySelector('.settings')
     const settings_btn = document.querySelector('#open-settings')
@@ -259,17 +269,6 @@ const okButtonInputFileExt = () => {
     else return result = get_text
 }
 
-function changeThemeToChosenColor() {
-  const option_for_theme = document.getElementById("select-theme");
-
-  const get_body = document.querySelector("body");
-
-  let text = option_for_theme.options[option_for_theme.selectedIndex].text;
-  if (text.indexOf(" ") > -1) {
-    text = text.replace(" ", "_");
-  }
-    get_body.style.backgroundColor = themes[text];
-}
 
 function itemsInSettings() {
   const get_settings_style = document.querySelector(".settings");
@@ -297,6 +296,10 @@ function itemsInSettings() {
 
   for (let opt = 0; opt < listDefaultFileExt.length; opt++) {
     const option = document.createElement("option");
+    if(listDefaultFileExt[opt] === ".txt") {
+        option.innerHTML = listDefaultFileExt[opt]
+        option.selected = true
+    }
     option.innerHTML = listDefaultFileExt[opt];
     select_default_fileExt.appendChild(option);
   }
@@ -327,25 +330,20 @@ function itemsInSettings() {
 }
 
 const actionsInSettings = () => {
-  // Smooth scrolling option
-  smoothScrolling();
+    // Smooth scrolling option
+    smoothScrolling();
 
-  // Select Theme
-  changeThemeToChosenColor();
+    // Select Theme
+    changeThemeToChosenColor();
 
-  // Hide to top/bottom buttons
-  hideToTopBottomButtons();
+    // Hide to top/bottom buttons
+    hideToTopBottomButtons();
 
-  // Set Default file extension
-  setDefaultFileExtension();
-}
+    // Set Default file extension
+    setDefaultFileExtension();
 
-const hideToTopBottomButtons = () => {
-  const checkbox_hide_to_buttons = document.getElementById("checkbox-hide-scrollto-buttons");
-  const scroll_to_btn = document.querySelector('div.scroll')
-
-  if (!checkbox_hide_to_buttons.checked) scroll_to_btn.style.display = "flex"
-  else scroll_to_btn.style.display = "none"
+    // Choose font size
+    chooseFontSize()
 }
 
 function smoothScrolling() {
@@ -359,13 +357,38 @@ function smoothScrolling() {
   }
 }
 
-function setDefaultFileExtension() {
-  const select_default_fileExt = document.getElementById(
-    "select-default-file-ext"
-  );
+function changeThemeToChosenColor() {
+    const option_for_theme = document.getElementById("select-theme");
 
-  global_get_default_file_ext =
-    select_default_fileExt.options[select_default_fileExt.selectedIndex].text;
+    const get_body = document.querySelector("body");
+
+    let text = option_for_theme.options[option_for_theme.selectedIndex].text;
+    if (text.indexOf(" ") > -1) {
+        text = text.replace(" ", "_");
+    }
+    get_body.style.backgroundColor = themes[text];
+}
+
+const hideToTopBottomButtons = () => {
+  const checkbox_hide_to_buttons = document.getElementById("checkbox-hide-scrollto-buttons");
+  const scroll_to_btn = document.querySelector('div.scroll')
+
+  if (!checkbox_hide_to_buttons.checked) scroll_to_btn.style.display = "flex"
+  else scroll_to_btn.style.display = "none"
+}
+
+
+function setDefaultFileExtension() {
+  const select_default_fileExt = document.getElementById("select-default-file-ext");
+  global_get_default_file_ext = select_default_fileExt.options[select_default_fileExt.selectedIndex].text;
+}
+
+function chooseFontSize() {
+    const select_choose_font_size = document.getElementById('select-choose-font-size')
+    const get_textarea = document.querySelector('textarea')
+
+    let option = select_choose_font_size.options[select_choose_font_size.selectedIndex].text.toLowerCase()
+    get_textarea.style.fontSize = option
 }
 
 const scrollToTopButton = () => window.scrollTo(0, 0)
