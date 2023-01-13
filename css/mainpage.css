@@ -13,19 +13,6 @@ html {
     scroll-behavior: smooth;
 }
 
-p {
-    width: 2em;
-    height: 2em;
-    border-right-color: var(--darkcolor);
-    border-right-width: 0.1em;
-    border-right-style: solid;
-    text-align: center;
-    color: grey;
-    margin: 0;
-    padding: 0;
-    border-collapse: collapse;
-}
-
 h3 {
     display: flex;
     justify-content: center;
@@ -53,6 +40,11 @@ input:focus {
     transition: .4s;
 }
 
+textarea {
+    position: relative;
+    left: 9em;
+}
+
 .header {
     display: flex;
     justify-content: center;
@@ -65,13 +57,6 @@ input:focus {
 
 .inputs {
     width: 100%;
-}
-
-.span-content {
-    display: flex;
-    justify-content: center;
-    gap: 1em;
-    margin: 1em;
 }
 
 .btns {
@@ -93,8 +78,7 @@ input:focus {
     cursor: pointer;
     width: auto;
     height: auto;
-    background-color: lightskyblue;
-    border: none;
+    border: 1px solid var(--darkcolor);
     color: black;
     transform: scale(1);
     transition: 0.4s all;
@@ -133,8 +117,8 @@ input:focus {
 }
 
 #open-settings img {
-    width: 3em;
-    height: 3em;
+    width: 4em;
+    height: 4em;
     transform: scale(1);
     transition: .4s all;
 }
