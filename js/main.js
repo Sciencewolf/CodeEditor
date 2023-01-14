@@ -33,7 +33,8 @@ const error = console.error
 
 /*const fetchJSONFile = async() => {
     let JSON_data = ""
-    await fetch("data.json").then(response => response.json()).then(json => {JSON_data = json})
+    await fetch("data.json")
+        .then(response => response.json()).then(json => {JSON_data = json})
     return JSON_data
 }*/
 
