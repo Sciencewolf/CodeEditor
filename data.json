@@ -1,3 +1,10 @@
 {
-    "Hello": "World"
+  "Black": "#000",
+  "Dark": "#414A4C",
+  "Melon": "#EBB3A9",
+  "Tea_Green": "#D1F0B1",
+  "Blue_Sapphire": "#086788",
+  "Ming": "#407076",
+  "Jet": "#39393A",
+  "Floral_White": "#FFFCF2"
 }
