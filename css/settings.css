@@ -94,6 +94,14 @@ label {
     gap: 1em;
 }
 
+.div-highlight-keywords {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 1em;
+    gap: 1em;
+}
+
 #span-buttons {
     position: absolute;
     bottom: 1em;
