@@ -1,6 +1,6 @@
 let words = []
 let global_get_default_file_ext = ""
-let global_textarea_cols = 150
+let global_textarea_cols = 100
 
 const listFileExt = [
     "--Choose File Extension--", "(Pozakarpatskiy++) .pozpp",
@@ -23,22 +23,17 @@ const listDefaultFileExt = [
   ".ts", ".cs", ".py", ".cpp",
   ".java", ".go", ".pozpp",
 ];
-const listFontSizes = [
-    "smaller", "small", "medium", "large", "larger"
-]
 
 const title_ofThePage = document.querySelector('title')
 const log = console.log
 const error = console.error
 
-/*const fetchJSONFile = async() => {
+const fetchJSONFile = async() => {
     let JSON_data = ""
     await fetch("data.json")
         .then(response => response.json()).then(json => {JSON_data = json})
     return JSON_data
-}*/
-
-/*const factory = () => { }*/
+}
 
 const onLoad = () => {
     getTagsOnLoad()
@@ -96,22 +91,10 @@ const getTagsOnLoad = () => {
 }
 
 function textArea() {
-    const div_el_input = document.getElementById('inputs')
-    const div_textarea = document.createElement('div')
-    const textArea = document.createElement('textarea')
-
-    div_textarea.id = "div-textarea"
-    div_textarea.className = "div=textarea"
-
-    textArea.id = 'textarea'
-    textArea.className = 'textarea'
-    textArea.rows = 1
-    textArea.cols = global_textarea_cols
-    textArea.spellcheck = false
-    textArea.style.resize = "none"
-
-    div_textarea.appendChild(textArea)
-    div_el_input.appendChild(div_textarea)
+    const textarea = document.getElementById('textarea')
+    textarea.rows = 1
+    textarea.cols = global_textarea_cols
+    textarea.style.resize = "none"
 
     manipulateTextArea()
 }
@@ -122,6 +105,7 @@ function manipulateTextArea() {
     // increase rows
     get_textarea.addEventListener('keydown', function(event){
         if(event.key === 'Enter') get_textarea.rows += 1
+        resizeTextareaDiv()
     })
 
     // decrease rows
@@ -135,28 +119,39 @@ function manipulateTextArea() {
             if(currentLine.length > 0) return
 
             get_textarea.rows -= 1
+            resizeTextareaDiv()
         }
     })
 
     // increase cols
     get_textarea.addEventListener('input', () => {
-        let col = this.cols
-        let text = this.value
+        let col = get_textarea.cols
+        let text = get_textarea.value
         let lines = text.split('\n')
 
         for(let i = 0;i < lines.length;i++) {
             let lineLength = lines[i].length
             if(lineLength > col) get_textarea.cols = lineLength
+            resizeTextareaDiv()
         }
     })
 
     // decrease cols, delete until cols !== 50
     get_textarea.addEventListener('keydown', (event) => {
         if(event.key === 'Backspace') {
-            let cols = this.cols
-            if(cols > global_textarea_cols) this.cols -= 1
+            let cols = get_textarea.cols
+            if(cols > global_textarea_cols) get_textarea.cols -= 1
+            resizeTextareaDiv()
         }
     })
+}
+
+function resizeTextareaDiv() {
+    const div_textarea = document.getElementById('div-textarea')
+    const textarea = document.querySelector('textarea')
+
+    div_textarea.style.width = textarea.offsetWidth + 'px'
+    div_textarea.style.height = textarea.offsetHeight + 'px'
 }
 
 function addWordsToList() {
@@ -345,6 +340,9 @@ const actionsInSettings = () => {
 
     // Choose font size
     chooseFontSize()
+
+    // Highlight keywords
+    highlightKeywords()
 }
 
 function smoothScrolling() {
@@ -360,14 +358,32 @@ function smoothScrolling() {
 
 function changeThemeToChosenColor() {
     const option_for_theme = document.getElementById("select-theme");
-
     const get_body = document.querySelector("body");
 
-    let text = option_for_theme.options[option_for_theme.selectedIndex].text;
-    if (text.indexOf(" ") > -1) {
-        text = text.replace(" ", "_");
+    let color = option_for_theme.options[option_for_theme.selectedIndex].text;
+    if (color.indexOf(" ") > -1) {
+        color = color.replace(" ", "_");
     }
-    get_body.style.backgroundColor = themes[text];
+    get_body.style.backgroundColor = themes[color];
+    changeColorOnDarkThemes(color)
+}
+
+function changeColorOnDarkThemes(color) {
+    if(color === "Dark" || color === "Jet"){
+        const h1 = document.querySelector('h1')
+        const buttons = document.querySelectorAll('button')
+        const textarea = document.querySelector('textarea')
+
+        h1.style.color = themes["Floral_White"]
+        buttons.forEach(button => {
+            if(!button.id.startsWith("open-settings")){
+                button.style.color = themes["Floral_White"]
+                button.style.backgroundColor = themes["Black"]
+            }
+        })
+        textarea.style.color = "black"
+        textarea.style.backgroundColor = themes["Floral_White"]
+    }
 }
 
 const hideToTopBottomButtons = () => {
@@ -388,8 +404,14 @@ function chooseFontSize() {
     const select_choose_font_size = document.getElementById('select-choose-font-size')
     const get_textarea = document.querySelector('textarea')
 
-    let option = select_choose_font_size.options[select_choose_font_size.selectedIndex].text.toLowerCase()
-    get_textarea.style.fontSize = option
+    get_textarea.style.fontSize = select_choose_font_size.options[select_choose_font_size.selectedIndex].text.toLowerCase()
+}
+
+function highlightKeywords() {
+    const checkbox_highlight_keywords = document.getElementById('checkbox-highlight-keywords')
+    if(checkbox_highlight_keywords.checked){
+        log('checked')
+    }
 }
 
 const scrollToTopButton = () => window.scrollTo(0, 0)
