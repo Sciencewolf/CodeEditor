@@ -38,7 +38,11 @@
     </span>
 
     <!-- Text Area -->
-    <div class="inputs" id="inputs" ></div>
+    <div class="inputs" id="inputs">
+        <div class="div-textarea" id="div-textarea">
+            <textarea id="textarea" class="textarea" spellcheck="false"></textarea>
+        </div>
+    </div>
 
     <!-- Copy, Save button's -->
     <span class="btns" id="btns"></span>
@@ -80,6 +84,22 @@
                     <option>Jet</option>
                 </select>
             </div>
+    
+            <div class="div-default-file-ext">
+                <label id="label-select-default-file-ext">Default file extension</label>
+                <select id="select-default-file-ext"></select>
+            </div>
+    
+            <div class="div-choose-font-size">
+                <label id="label-choose-font-size">Choose font size</label>
+                <select id="select-choose-font-size">
+                    <option>Smaller</option>
+                    <option>Small</option>
+                    <option selected="selected">Medium</option>
+                    <option>Large</option>
+                    <option>Larger</option>
+                </select>
+            </div>
             
             <div class="div-enable-smooth-scrolling">
                 <input type="checkbox" checked id="checkbox-enable-smooth-scrolling">
@@ -91,20 +111,9 @@
                 <label id="label-hide-scrollto-buttons">Hide to Top/Bottom button's</label>
             </div>
             
-            <div class="div-default-file-ext">
-                <label id="label-select-default-file-ext">Default file extension</label>
-                <select id="select-default-file-ext"></select>
-            </div>
-            
-            <div class="div-choose-font-size">
-                <label id="label-choose-font-size">Choose font size</label>
-                <select id="select-choose-font-size">
-                    <option>Smaller</option>
-                    <option>Small</option>
-                    <option selected="selected">Medium</option>
-                    <option>Large</option>
-                    <option>Larger</option>
-                </select>
+            <div class="div-highlight-keywords">
+                <input type="checkbox" id="checkbox-highlight-keywords">
+                <label id="label-highlight-keywords">Highlight keywords ![Not working yet]</label>
             </div>
             
             <span id="span-buttons"></span>
