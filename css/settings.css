@@ -6,6 +6,10 @@ label {
     color: floralwhite;
 }
 
+input[type="checkbox"] {
+    transform: scale(1.6);
+}
+
 .settings {
     display: none;
     position: absolute;
@@ -56,45 +60,15 @@ label {
     gap: 1em;
 }
 
-.div-show-line-numbers {
+.div-show-line-numbers, .div-hide-scrollto-buttons {
     display: flex;
     justify-content: flex-start;
     margin: 1em;
     gap: 1em;
 }
 
-.div-enable-smooth-scrolling {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin: 1em;
-    gap: 1em;
-}
-
-.div-hide-scrollto-buttons {
-    display: flex;
-    justify-content: flex-start;
-    margin: 1em;
-    gap: 1em;
-}
-
-.div-default-file-ext {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin: 1em;
-    gap: 1em;
-}
-
+.div-enable-smooth-scrolling, .div-default-file-ext,
 .div-choose-font-size {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin: 1em;
-    gap: 1em;
-}
-
-.div-highlight-keywords {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -124,6 +98,14 @@ label {
 }
 
 @media (hover: hover) {
+    label:hover {
+        cursor: pointer;
+    }
+
+    input[type="checkbox"]:hover {
+        cursor: pointer;
+    }
+
     #span-buttons > button:hover {
         transition: .4s all;
         transform: scale(1.1);

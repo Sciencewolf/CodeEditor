@@ -41,9 +41,8 @@ input:focus {
 }
 
 textarea {
-    position: relative;
-    left: 9em;
     font-size: medium;
+    background-color: transparent;
 }
 
 .header {
@@ -58,6 +57,7 @@ textarea {
 
 .inputs {
     width: 100%;
+    margin-bottom: 1em;
 }
 
 .btns {
@@ -163,7 +163,7 @@ textarea {
 }
 
 /* Mobile version */
-@media screen and (max-width: 678px) {
+@media screen and (max-width: 768px) {
     input {
         border: none;
         font-size: small;
