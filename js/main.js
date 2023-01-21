@@ -1,3 +1,4 @@
+"use strict"
 let words = []
 let global_get_default_file_ext = ""
 let global_textarea_cols = 100
@@ -28,13 +29,6 @@ const title_ofThePage = document.querySelector('title')
 const log = console.log
 const error = console.error
 
-const fetchJSONFile = async() => {
-    let JSON_data = ""
-    await fetch("data.json")
-        .then(response => response.json()).then(json => {JSON_data = json})
-    return JSON_data
-}
-
 const onLoad = () => {
     getTagsOnLoad()
     // Hide Attention for errors/bugs
@@ -52,7 +46,7 @@ const onLoad = () => {
     itemsInSettings()
 }
 
-const getTagsOnLoad = () => {
+function getTagsOnLoad() {
     textArea()
     const btns = document.getElementById('btns')
     let button_save = document.createElement('button')
@@ -80,7 +74,6 @@ const getTagsOnLoad = () => {
     button_save.className = "btn-save"
     button_save.innerHTML = "Save"
     button_save.addEventListener('click', () => {
-        changeTitleOnSave()
         addWordsToList()
         const dialog_div = document.querySelector('.dialog')
         dialog_div.style.display = 'block'
@@ -95,7 +88,6 @@ function textArea() {
     textarea.rows = 1
     textarea.cols = global_textarea_cols
     textarea.style.resize = "none"
-
     manipulateTextArea()
 }
 
@@ -305,14 +297,9 @@ function itemsInSettings() {
   span_buttons.appendChild(apply_button);
 
   ok_button.addEventListener("click", () => {
-    try {
-      actionsInSettings();
-    } catch (err) {
-      error("Error", err);
-    }
-
-    get_settings_style.style.display = "none";
-    changeTitleToDefault();
+      actionsInSettings()
+      get_settings_style.style.display = "none";
+      changeTitleToDefault();
   });
 
   cancel_button.addEventListener("click", () => {
@@ -320,40 +307,30 @@ function itemsInSettings() {
     changeTitleToDefault();
   });
 
-  apply_button.addEventListener("click", () => {
-    actionsInSettings();
-  });
+  apply_button.addEventListener("click", () => { actionsInSettings() });
 }
 
 const actionsInSettings = () => {
     // Smooth scrolling option
-    smoothScrolling();
+    smoothScrolling()
 
     // Select Theme
-    changeThemeToChosenColor();
+    changeThemeToChosenColor()
 
     // Hide to top/bottom buttons
-    hideToTopBottomButtons();
+    hideToTopBottomButtons()
 
     // Set Default file extension
-    setDefaultFileExtension();
+    setDefaultFileExtension()
 
     // Choose font size
     chooseFontSize()
-
-    // Highlight keywords
-    highlightKeywords()
 }
 
 function smoothScrolling() {
   const checkbox_enable_smooth_scrolling = document.getElementById("checkbox-enable-smooth-scrolling");
   const html = document.querySelector("html");
-
-  if (!checkbox_enable_smooth_scrolling.checked) {
-    html.style.scrollBehavior = "unset";
-  } else {
-    html.style.scrollBehavior = "smooth";
-  }
+  !checkbox_enable_smooth_scrolling.checked ? html.style.scrollBehavior = "unset" : html.style.scrollBehavior = "smooth"
 }
 
 function changeThemeToChosenColor() {
@@ -387,36 +364,28 @@ function changeColorOnDarkThemes(color) {
 }
 
 const hideToTopBottomButtons = () => {
-  const checkbox_hide_to_buttons = document.getElementById("checkbox-hide-scrollto-buttons");
-  const scroll_to_btn = document.querySelector('div.scroll')
-
-  if (!checkbox_hide_to_buttons.checked) scroll_to_btn.style.display = "flex"
-  else scroll_to_btn.style.display = "none"
+    const checkbox_hide_to_buttons = document.getElementById("checkbox-hide-scrollto-buttons");
+    const label = document.getElementById('label-hide-scrollto-buttons')
+    label.addEventListener('click', () => {
+        checkbox_hide_to_buttons.checked = true
+    })
+    const scroll_to_btn = document.querySelector('div.scroll')
+    !checkbox_hide_to_buttons.checked ? scroll_to_btn.style.display = "flex" : scroll_to_btn.style.display = "none"
 }
 
-
 function setDefaultFileExtension() {
-  const select_default_fileExt = document.getElementById("select-default-file-ext");
-  global_get_default_file_ext = select_default_fileExt.options[select_default_fileExt.selectedIndex].text;
+    const select_default_fileExt = document.getElementById("select-default-file-ext");
+    global_get_default_file_ext = select_default_fileExt.options[select_default_fileExt.selectedIndex].text;
 }
 
 function chooseFontSize() {
     const select_choose_font_size = document.getElementById('select-choose-font-size')
     const get_textarea = document.querySelector('textarea')
-
     get_textarea.style.fontSize = select_choose_font_size.options[select_choose_font_size.selectedIndex].text.toLowerCase()
 }
 
-function highlightKeywords() {
-    const checkbox_highlight_keywords = document.getElementById('checkbox-highlight-keywords')
-    if(checkbox_highlight_keywords.checked){
-        log('checked')
-    }
-}
-
-const scrollToTopButton = () => window.scrollTo(0, 0)
-const scrollToBottomButton = () => window.scrollTo(0, document.body.scrollHeight)
-const changeTitleOnSettings = () => title_ofThePage.innerHTML = "Settings"
-const changeTitleOnSave = () => title_ofThePage.innerHTML = "Saved"
-const changeTitleOnCopy = () => title_ofThePage.innerHTML = "Copied"
-const changeTitleToDefault = () => title_ofThePage.innerHTML = "Code Editor(beta)"
+function scrollToTopButton() { window.scrollTo(0, 0) }
+function scrollToBottomButton() { window.scrollTo(0, document.body.scrollHeight) }
+function changeTitleOnSettings() { title_ofThePage.innerHTML = "Settings" }
+function changeTitleOnCopy() { title_ofThePage.innerHTML = "Copied" }
+function changeTitleToDefault() { title_ofThePage.innerHTML = "Code Editor(beta)" }
