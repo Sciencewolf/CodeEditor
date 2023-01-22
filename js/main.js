@@ -40,6 +40,15 @@ const onLoad = () => {
     settings_btn.addEventListener('click', () => {
         changeTitleOnSettings()
         get_settings.style.display = 'block'
+
+        // Add Event for label
+        const labels = document.querySelectorAll('label')
+        labels.forEach(label => {
+            label.addEventListener('click', () => {
+                const checkbox = label.previousElementSibling
+                checkbox.checked = !checkbox.checked
+            })
+        })
     })
     itemsInSettings()
 }
@@ -324,7 +333,7 @@ function itemsInSettings() {
   apply_button.addEventListener("click", () => { actionsInSettings() });
 }
 
-const actionsInSettings = () => {
+function actionsInSettings() {
     // Select Theme
     changeThemeToChosenColor()
 
@@ -371,9 +380,9 @@ function chooseFontSize() {
 }
 
 function smoothScrolling() {
-  const checkbox_enable_smooth_scrolling = document.getElementById("checkbox-enable-smooth-scrolling");
-  const html = document.querySelector("html");
-  !checkbox_enable_smooth_scrolling.checked ? html.style.scrollBehavior = "unset" : html.style.scrollBehavior = "smooth"
+    const checkbox_enable_smooth_scrolling = document.getElementById("checkbox-enable-smooth-scrolling");
+    const html = document.querySelector("html");
+    !checkbox_enable_smooth_scrolling.checked ? html.style.scrollBehavior = "unset" : html.style.scrollBehavior = "smooth"
 }
 
 function hideToTopBottomButtons() {
@@ -392,6 +401,20 @@ function enableSpellcheck() {
     checkbox_enable_spellcheck.checked ? textarea.spellcheck = true : textarea.spellcheck = false
 }
 
+function LineColumnNumber() {
+    const checkbox_line_column_number = document.getElementById('checkbox-line_column-number')
+    const label = document.getElementById('label-line_column-number')
+    const span_line_column_number = document.getElementById('span-Line_Column-number')
+
+    label.addEventListener('click', () => {
+        const checkbox = label.previousElementSibling
+        checkbox.checked = !checkbox.checked
+        log('pressed label')
+    })
+    checkbox_line_column_number.checked ? span_line_column_number.style.display = "flex" : span_line_column_number.style.display = "none"
+}
+
+
 function changeColorOnDarkThemes(color) {
     const h1 = document.querySelector('h1')
     const buttons = document.querySelectorAll('button')
@@ -409,14 +432,6 @@ function changeColorOnDarkThemes(color) {
         textarea.style.backgroundColor = themes["Floral_White"]
     }
 }
-
-function LineColumnNumber() {
-    const checkbox_line_column_number = document.getElementById('checkbox-line_column-number')
-    const span_line_column_number = document.getElementById('span-Line_Column-number')
-
-    checkbox_line_column_number.checked ? span_line_column_number.style.display = "flex" : span_line_column_number.style.display = "none"
-}
-
 function scrollToTopButton() { window.scrollTo(0, 0) }
 function scrollToBottomButton() { window.scrollTo(0, document.body.scrollHeight) }
 function changeTitleOnSettings() { title_ofThePage.innerHTML = "Settings" }
