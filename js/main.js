@@ -1,7 +1,7 @@
 "use strict"
 let words = []
 let global_get_default_file_ext = ""
-let global_textarea_cols = 100
+let global_textarea_cols = 150
 
 const listFileExt = [
     "--Choose File Extension--", "(Pozakarpatskiy++) .pozpp",
@@ -34,11 +34,6 @@ const error = console.error
 
 const onLoad = () => {
     getTagsOnLoad()
-    // Hide Attention for errors/bugs
-    const hide_attention_text = document.getElementById('attention')
-    setTimeout(() => {
-        hide_attention_text.style.display = "none"
-    }, 5_000)
     // Open settings
     const get_settings = document.querySelector('.settings')
     const settings_btn = document.querySelector('#open-settings')
@@ -100,7 +95,6 @@ function manipulateTextArea() {
     // increase rows
     get_textarea.addEventListener('keydown', function(event){
         if(event.key === 'Enter') get_textarea.rows += 1
-        resizeTextareaDiv()
         updateCurrentLineColumnNumber()
     })
 
@@ -115,7 +109,6 @@ function manipulateTextArea() {
             if(currentLine.length > 0) return
 
             get_textarea.rows -= 1
-            resizeTextareaDiv()
             updateCurrentLineColumnNumber()
         }
     })
@@ -128,29 +121,20 @@ function manipulateTextArea() {
 
         for(let i = 0;i < lines.length;i++) {
             let lineLength = lines[i].length
-            if(lineLength > col) get_textarea.cols = lineLength
-            resizeTextareaDiv()
+            log(lineLength)
+            if(lineLength >= col) get_textarea.cols = lineLength
             updateCurrentLineColumnNumber()
         }
     })
 
-    // decrease cols, delete until cols !== 50
+    // decrease cols
     get_textarea.addEventListener('keydown', (event) => {
         if(event.key === 'Backspace') {
             let cols = get_textarea.cols
             if(cols > global_textarea_cols) get_textarea.cols -= 1
-            resizeTextareaDiv()
             updateCurrentLineColumnNumber()
         }
     })
-}
-
-function resizeTextareaDiv() {
-    const div_textarea = document.getElementById('div-textarea')
-    const textarea = document.querySelector('textarea')
-
-    div_textarea.style.width = textarea.offsetWidth + 'px'
-    div_textarea.style.height = textarea.offsetHeight + 'px'
 }
 
 function addWordsToList() {
@@ -252,15 +236,15 @@ function okButtonInputFileExt() {
     let result = ""
     let lastIndexOf = get_inputExt.value.lastIndexOf('.')
 
-    if (get_inputExt.value !== "") return result = "#" + get_inputExt.value + global_get_default_file_ext
+    if (get_inputExt.value !== "") result = "#" + get_inputExt.value + global_get_default_file_ext
     else if (lastIndexOf > 0) {
         for (let i = lastIndexOf;i < get_inputExt.value.length; i++) {
             result += i
         }
         return result
     }
-    else if (get_text === "--Choose File Extension--") return result = `${global_get_default_file_ext}`
-    else return result = get_text
+    else if (get_text === "--Choose File Extension--") result = `${global_get_default_file_ext}`
+    return result
 }
 
 const itemsFor_updateCurrentLineColumnNumber = (textarea, span_line, span_column) => {

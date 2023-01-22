@@ -50,27 +50,42 @@ input[type="checkbox"] {
     box-shadow:0 1px 4px rgba(200, 200, 200, 0.9), 0 0 40px rgba(200, 200, 200, 0.3) inset;
     -webkit-box-shadow:0 1px 4px rgba(200, 200, 200, 0.9), 0 0 40px rgba(200, 200, 200, 0.3) inset;
     -moz-box-shadow:0 1px 4px rgba(200, 200, 200, 0.9), 0 0 40px rgba(200, 200, 200, 0.3) inset;
-}
-
-.settings-panel > * {
-    padding: 0.7em;
-}
-
-.div-bgcolor {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    height: 2em;
-    margin: 1em;
-    gap: 1em;
+    justify-content: center;
+    align-items: flex-start;
+    flex: 2;
 }
 
-.settings-panel > div {
+.span-wrapper {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    margin: 1em;
+    gap: 15em;
+    width: fit-content;
+}
+
+.wrapper-for-select {
+    width: auto;
+    height: auto;
+}
+
+.wrapper-for-checkbox {
+    width: auto;
+    height: auto;
+}
+
+.wrapper-for-select > div {
+    display: flex;
+    align-items: center;
     gap: 1em;
+    padding-top: 1em;
+}
+
+.wrapper-for-checkbox > div {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    padding-top: 1em;
 }
 
 #span-buttons {
@@ -119,6 +134,10 @@ input[type="checkbox"] {
     #span-buttons {
         display: flex;
         gap: 0.5em;
+    }
+
+    .settings-panel {
+        flex: 1;
     }
 }
 

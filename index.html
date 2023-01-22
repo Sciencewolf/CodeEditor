@@ -57,8 +57,6 @@
     <div class="dialog" id="dialog">
         <div class="input_file_ext" id="input_file_ext"></div>
     </div>
-
-    <h3 id="attention"><em>* It may contains error/bug *</em></h3>
     
     <span id="span-Line_Column-number">
         <span id="line">1</span>
@@ -77,55 +75,66 @@
         <h5>Version 0.9</h5>
         
         <div class="settings-panel" id="settings-panel">
-            
-            <div class="div-bgcolor" id="div-bgcolor">
-                <h3 style="color: white">Theme: </h3>
-                <select id="select-theme">
-                    <option selected="selected">Floral White</option>
-                    <option>Tea Green</option>
-                    <option>Blue Sapphire</option>
-                    <option>Dark</option>
-                    <option>Melon</option>
-                    <option>Ming</option>
-                    <option>Jet</option>
-                </select>
-            </div>
-    
-            <div class="div-default-file-ext">
-                <label id="label-select-default-file-ext">Default file extension</label>
-                <select id="select-default-file-ext"></select>
-            </div>
-    
-            <div class="div-choose-font-size">
-                <label id="label-choose-font-size">Choose font size</label>
-                <select id="select-choose-font-size">
-                    <option>Smaller</option>
-                    <option>Small</option>
-                    <option selected="selected">Medium</option>
-                    <option>Large</option>
-                    <option>Larger</option>
-                </select>
-            </div>
-            
-            <div class="div-enable-smooth-scrolling">
-                <input type="checkbox" checked id="checkbox-enable-smooth-scrolling">
-                <label id="label-enable-smooth-scrolling">Enable smooth scrolling</label>
+            <span class="span-wrapper">
+                <div class="wrapper-for-select">
+                
+                <div class="div-bgcolor" id="div-bgcolor">
+                    <label id="label-theme">Theme</label>
+                    <select id="select-theme">
+                        <option selected="selected">Floral White</option>
+                        <option>Tea Green</option>
+                        <option>Blue Sapphire</option>
+                        <option>Dark</option>
+                        <option>Melon</option>
+                        <option>Ming</option>
+                        <option>Jet</option>
+                    </select>
+                </div>
+        
+                <div class="div-default-file-ext">
+                    <label id="label-select-default-file-ext">Default file extension</label>
+                    <select id="select-default-file-ext"></select>
+                </div>
+        
+                <div class="div-choose-font-size">
+                    <label id="label-choose-font-size">Choose font size</label>
+                    <select id="select-choose-font-size">
+                        <option>Smaller</option>
+                        <option>Small</option>
+                        <option selected="selected">Medium</option>
+                        <option>Large</option>
+                        <option>Larger</option>
+                    </select>
+                </div>
             </div>
             
-            <div class="div-hide-scrollto-buttons">
-                <input type="checkbox" id="checkbox-hide-scrollto-buttons">
-                <label id="label-hide-scrollto-buttons">Hide to Top/Bottom button's</label>
+                <div class="wrapper-for-checkbox">
+                <div class="div-enable-smooth-scrolling">
+                    <input type="checkbox" checked id="checkbox-enable-smooth-scrolling">
+                    <label id="label-enable-smooth-scrolling">Enable smooth scrolling</label>
+                </div>
+                
+                <div class="div-hide-scrollto-buttons">
+                    <input type="checkbox" id="checkbox-hide-scrollto-buttons">
+                    <label id="label-hide-scrollto-buttons">Hide to Top/Bottom button's</label>
+                </div>
+                
+                <div class="div-spellcheck">
+                    <input type="checkbox" id="checkbox-spellcheck">
+                    <label id="label-spellcheck">Enable spellcheck</label>
+                </div>
+                
+                <div class="div-line:column-number">
+                    <input type="checkbox" id="checkbox-line_column-number" checked>
+                    <label id="label-line_column-number">Line:Column number</label>
+                </div>
+                
+                <div class="div-show-line-numbers">
+                    <input type="checkbox" id="checkbox-show-line-numbers">
+                    <label id="label-show-line-numbers">Show line numbers</label>
+                </div>
             </div>
-            
-            <div class="div-spellcheck">
-                <input type="checkbox" id="checkbox-spellcheck">
-                <label id="label-spellcheck">Enable spellcheck</label>
-            </div>
-            
-            <div class="div-line:column-number">
-                <input type="checkbox" id="checkbox-line_column-number" checked>
-                <label id="label-line_column-number">Line:Column number</label>
-            </div>
+            </span>
             
             <span id="span-buttons"></span>
         </div>

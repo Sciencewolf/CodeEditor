@@ -13,11 +13,6 @@ html {
     scroll-behavior: smooth;
 }
 
-h3 {
-    display: flex;
-    justify-content: center;
-}
-
 h5 {
     color: white;
     position: absolute;
@@ -173,10 +168,6 @@ textarea {
 
     input:active {
         border: none;
-    }
-
-    h3 {
-        font-size: small;
     }
 
     #open-settings {
