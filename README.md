@@ -8,14 +8,15 @@
 * Version 0.6 01/03/2023
 * Version 0.7 01/04/2023
 * Version 0.8 01/13/2023
+* Version 0.9 01/22/2023
 
 # Preparing for Version 1.0
 ## Tasks To Do:
 
 * Save file and let user choose file extension and name ✅
-* Redesign the page
+* Redesign the page ✅
 * Add settings ✅
 * Fix issue with inserting lines ✅
-* Fix the bugs
+* Fix the bugs 🔥
 
 ## Date started => 12/09/2022
