@@ -4,6 +4,7 @@
 
 label {
     color: floralwhite;
+    font-size: 19px;
 }
 
 input[type="checkbox"] {
@@ -13,15 +14,15 @@ input[type="checkbox"] {
 .settings {
     display: none;
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
     padding-top: 4em;
     margin: auto;
     z-index: 2;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     overflow: auto;
 }
 
@@ -42,13 +43,17 @@ input[type="checkbox"] {
     position: relative;
     width: 80%;
     height: 90%;
-    background-color: rgba(30, 150, 180, 0.6);
+    background-color: rgba(20, 10, 20, 1);
     margin: auto;
-    padding: 1em;
+    padding: 4em;
+    overflow: auto;
     box-shadow:0 1px 4px rgba(200, 200, 200, 0.9), 0 0 40px rgba(200, 200, 200, 0.3) inset;
     -webkit-box-shadow:0 1px 4px rgba(200, 200, 200, 0.9), 0 0 40px rgba(200, 200, 200, 0.3) inset;
     -moz-box-shadow:0 1px 4px rgba(200, 200, 200, 0.9), 0 0 40px rgba(200, 200, 200, 0.3) inset;
-    overflow: auto;
+}
+
+.settings-panel > * {
+    padding: 0.7em;
 }
 
 .div-bgcolor {
@@ -60,15 +65,7 @@ input[type="checkbox"] {
     gap: 1em;
 }
 
-.div-show-line-numbers, .div-hide-scrollto-buttons {
-    display: flex;
-    justify-content: flex-start;
-    margin: 1em;
-    gap: 1em;
-}
-
-.div-enable-smooth-scrolling, .div-default-file-ext,
-.div-choose-font-size {
+.settings-panel > div {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -78,31 +75,55 @@ input[type="checkbox"] {
 
 #span-buttons {
     position: absolute;
-    bottom: 1em;
-    right: 1em;
+    bottom: 2em;
+    right: 1.5em;
+    display: flex;
     gap: 1em;
-    text-align: center;
 }
 
 #span-buttons > button {
-    width: 4em;
+    width: 4.5em;
     text-align: center;
     color: black;
-    border: 1px solid white;
     transition: 0.4s all;
     transform: scale(1);
 }
 
+#span-buttons > button[id=ok-btn] {
+    background-color: cornflowerblue;
+    border: none;
+    color: white;
+}
+
 @media screen and (max-width: 768px) {
-    
+    input[type=checkbox] {
+        width: 1em;
+        height: 1em;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    .settings > h5 {
+        bottom: 0.1em;
+        right: 0.1em;
+        font-size: 12px;
+    }
+
+    .settings > h3 {
+        top: 0.2em;
+        font-size: 18px;
+    }
+
+    #span-buttons {
+        display: flex;
+        gap: 0.5em;
+    }
 }
 
 @media (hover: hover) {
-    label:hover {
-        cursor: pointer;
-    }
-
-    input[type="checkbox"]:hover {
+    label:hover, input[type="checkbox"]:hover {
         cursor: pointer;
     }
 

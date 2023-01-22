@@ -91,20 +91,10 @@ textarea {
     width: 10em;
 }
 
-.btn-copy:hover {
-    transition: .4s all;
-    transform: scale(1.1);
-}
-
 .btn-save {
     width: 5em;
     transition: 0.4s all;
     transform: scale(1);
-}
-
-.btn-save:hover {
-    transition: .4s all;
-    transform: scale(1.1);
 }
 
 #open-settings {
@@ -162,10 +152,21 @@ textarea {
     margin: 1em;
 }
 
+#span-Line_Column-number {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+}
+
 /* Mobile version */
 @media screen and (max-width: 768px) {
+    textarea {
+        width: 80%;
+    }
+
     input {
-        border: none;
         font-size: small;
         width: 80%;
     }
@@ -178,34 +179,29 @@ textarea {
         font-size: small;
     }
 
-    p {
-        position: absolute;
-        left: 1em;
-        color: grey;
-        width: 3em;
-        text-align: left;
-    }
-
     #open-settings {
-        bottom: 2.5em;
-        left: 1.5em;
+        bottom: 1em;
+        left: 1em;
     }
 
     #open-settings img {
-        width:  2em;
-        height: 2em;
+        width:  3em;
+        height: 3em;
     }
 
     .dialog {
         width: 25em;
         height: 30em;
-        text-align: center;
+    }
+    
+    .input_file_ext > *{
+        margin: 0.5em;
     }
 
     .input_file_ext > button {
-        margin: 1em;
         background-color: lightskyblue;
         color: black;
+        border: none;
     }
 
     .scroll {
@@ -214,16 +210,10 @@ textarea {
         padding: 0;
         bottom: 4.5em;
     }
-
-    .inputs > span > input {
-        position: absolute;
-        right: 1em;
-    }
 }
 
 /* Hover effect for only desktop version */
 @media (hover: hover) {
-
     #open-settings img:hover {
         cursor: pointer;
         transform: scale(1.2) rotate(90deg);
@@ -239,6 +229,14 @@ textarea {
         cursor: pointer;
     }
     .scroll > button:hover {
+        transition: .4s all;
+        transform: scale(1.1);
+    }
+    .btn-copy:hover {
+        transition: .4s all;
+        transform: scale(1.1);
+    }
+    .btn-save:hover {
         transition: .4s all;
         transform: scale(1.1);
     }
