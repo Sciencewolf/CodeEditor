@@ -24,6 +24,9 @@ const listDefaultFileExt = [
   ".ts", ".cs", ".py", ".cpp",
   ".java", ".go", ".pozpp",
 ];
+const eventKeys = [
+    "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"
+]
 
 const title_ofThePage = document.querySelector('title')
 const log = console.log
@@ -98,6 +101,7 @@ function manipulateTextArea() {
     get_textarea.addEventListener('keydown', function(event){
         if(event.key === 'Enter') get_textarea.rows += 1
         resizeTextareaDiv()
+        updateCurrentLineColumnNumber()
     })
 
     // decrease rows
@@ -112,6 +116,7 @@ function manipulateTextArea() {
 
             get_textarea.rows -= 1
             resizeTextareaDiv()
+            updateCurrentLineColumnNumber()
         }
     })
 
@@ -125,6 +130,7 @@ function manipulateTextArea() {
             let lineLength = lines[i].length
             if(lineLength > col) get_textarea.cols = lineLength
             resizeTextareaDiv()
+            updateCurrentLineColumnNumber()
         }
     })
 
@@ -134,6 +140,7 @@ function manipulateTextArea() {
             let cols = get_textarea.cols
             if(cols > global_textarea_cols) get_textarea.cols -= 1
             resizeTextareaDiv()
+            updateCurrentLineColumnNumber()
         }
     })
 }
@@ -159,7 +166,7 @@ function copyToClipboard() {
     navigator.clipboard.writeText(str).then(() => { log("Success") }).catch((err) => { error("Fail", err) })
 }
 
-const getFileExtension = () => {
+function getFileExtension() {
     const dialog_div = document.querySelector('.dialog')
     const inputFileExt_divtag = document.querySelector('.input_file_ext')
     const get_file_ext = document.createElement('input')
@@ -212,9 +219,9 @@ const getFileExtension = () => {
     })
 }
 
-const saveFile = () => {
+function saveFile() {
     let lines = ""
-    let fileName = ""
+    let fileName
     let fileExtToSave = okButtonInputFileExt()
 
     if(fileExtToSave.startsWith("#")){
@@ -231,7 +238,6 @@ const saveFile = () => {
     const url = URL.createObjectURL(blob)
 
     const a_tag = document.createElement('a')
-    a_tag.id = "a_tag"
     a_tag.href = url
     a_tag.download = fileName
     a_tag.click()
@@ -239,7 +245,7 @@ const saveFile = () => {
     URL.revokeObjectURL(url)
 }
 
-const okButtonInputFileExt = () => {
+function okButtonInputFileExt() {
     const get_chosen_file_ext = document.getElementById('choose_file_ext')
     const get_inputExt = document.querySelector('.get_file_ext')
     let get_text = get_chosen_file_ext.options[get_chosen_file_ext.selectedIndex].text
@@ -257,6 +263,30 @@ const okButtonInputFileExt = () => {
     else return result = get_text
 }
 
+const itemsFor_updateCurrentLineColumnNumber = (textarea, span_line, span_column) => {
+    let cursorPos = textarea.selectionStart;
+    let textBeforeCursor = textarea.value.substring(0, cursorPos);
+    let currentRow = textBeforeCursor.split("\n").length;
+    let currentCol = cursorPos - textBeforeCursor.lastIndexOf("\n");
+    span_line.innerHTML = `${currentRow}`
+    span_column.innerHTML = `${currentCol}`
+}
+
+function updateCurrentLineColumnNumber() {
+    const textarea = document.querySelector('textarea')
+    const span_line = document.getElementById('line')
+    const span_column = document.getElementById('column')
+
+    textarea.addEventListener('click', () => {
+        itemsFor_updateCurrentLineColumnNumber(textarea, span_line, span_column)
+    })
+    textarea.addEventListener('keyup', (event) => {
+        if(eventKeys.includes(event.key)) {
+            itemsFor_updateCurrentLineColumnNumber(textarea, span_line, span_column)
+        }
+    })
+    itemsFor_updateCurrentLineColumnNumber(textarea, span_line, span_column)
+}
 
 function itemsInSettings() {
   const get_settings_style = document.querySelector(".settings");
@@ -311,26 +341,26 @@ function itemsInSettings() {
 }
 
 const actionsInSettings = () => {
-    // Smooth scrolling option
-    smoothScrolling()
-
     // Select Theme
     changeThemeToChosenColor()
-
-    // Hide to top/bottom buttons
-    hideToTopBottomButtons()
 
     // Set Default file extension
     setDefaultFileExtension()
 
     // Choose font size
     chooseFontSize()
-}
 
-function smoothScrolling() {
-  const checkbox_enable_smooth_scrolling = document.getElementById("checkbox-enable-smooth-scrolling");
-  const html = document.querySelector("html");
-  !checkbox_enable_smooth_scrolling.checked ? html.style.scrollBehavior = "unset" : html.style.scrollBehavior = "smooth"
+    // Smooth scrolling option
+    smoothScrolling()
+
+    // Hide to top/bottom buttons
+    hideToTopBottomButtons()
+
+    // Enable spellcheck
+    enableSpellcheck()
+
+    //Line:Column number
+    LineColumnNumber()
 }
 
 function changeThemeToChosenColor() {
@@ -345,12 +375,45 @@ function changeThemeToChosenColor() {
     changeColorOnDarkThemes(color)
 }
 
-function changeColorOnDarkThemes(color) {
-    if(color === "Dark" || color === "Jet"){
-        const h1 = document.querySelector('h1')
-        const buttons = document.querySelectorAll('button')
-        const textarea = document.querySelector('textarea')
+function setDefaultFileExtension() {
+    const select_default_fileExt = document.getElementById("select-default-file-ext");
+    global_get_default_file_ext = select_default_fileExt.options[select_default_fileExt.selectedIndex].text;
+}
 
+function chooseFontSize() {
+    const select_choose_font_size = document.getElementById('select-choose-font-size')
+    const get_textarea = document.querySelector('textarea')
+    get_textarea.style.fontSize = select_choose_font_size.options[select_choose_font_size.selectedIndex].text.toLowerCase()
+}
+
+function smoothScrolling() {
+  const checkbox_enable_smooth_scrolling = document.getElementById("checkbox-enable-smooth-scrolling");
+  const html = document.querySelector("html");
+  !checkbox_enable_smooth_scrolling.checked ? html.style.scrollBehavior = "unset" : html.style.scrollBehavior = "smooth"
+}
+
+function hideToTopBottomButtons() {
+    const checkbox_hide_to_buttons = document.getElementById("checkbox-hide-scrollto-buttons");
+    const label = document.getElementById('label-hide-scrollto-buttons')
+    label.addEventListener('click', () => {
+        checkbox_hide_to_buttons.checked = true
+    })
+    const scroll_to_btn = document.querySelector('div.scroll')
+    !checkbox_hide_to_buttons.checked ? scroll_to_btn.style.display = "flex" : scroll_to_btn.style.display = "none"
+}
+
+function enableSpellcheck() {
+    const textarea = document.querySelector('textarea')
+    const checkbox_enable_spellcheck = document.getElementById('checkbox-spellcheck')
+    checkbox_enable_spellcheck.checked ? textarea.spellcheck = true : textarea.spellcheck = false
+}
+
+function changeColorOnDarkThemes(color) {
+    const h1 = document.querySelector('h1')
+    const buttons = document.querySelectorAll('button')
+    const textarea = document.querySelector('textarea')
+
+    if(color === "Dark" || color === "Jet") {
         h1.style.color = themes["Floral_White"]
         buttons.forEach(button => {
             if(!button.id.startsWith("open-settings")){
@@ -363,25 +426,11 @@ function changeColorOnDarkThemes(color) {
     }
 }
 
-const hideToTopBottomButtons = () => {
-    const checkbox_hide_to_buttons = document.getElementById("checkbox-hide-scrollto-buttons");
-    const label = document.getElementById('label-hide-scrollto-buttons')
-    label.addEventListener('click', () => {
-        checkbox_hide_to_buttons.checked = true
-    })
-    const scroll_to_btn = document.querySelector('div.scroll')
-    !checkbox_hide_to_buttons.checked ? scroll_to_btn.style.display = "flex" : scroll_to_btn.style.display = "none"
-}
+function LineColumnNumber() {
+    const checkbox_line_column_number = document.getElementById('checkbox-line_column-number')
+    const span_line_column_number = document.getElementById('span-Line_Column-number')
 
-function setDefaultFileExtension() {
-    const select_default_fileExt = document.getElementById("select-default-file-ext");
-    global_get_default_file_ext = select_default_fileExt.options[select_default_fileExt.selectedIndex].text;
-}
-
-function chooseFontSize() {
-    const select_choose_font_size = document.getElementById('select-choose-font-size')
-    const get_textarea = document.querySelector('textarea')
-    get_textarea.style.fontSize = select_choose_font_size.options[select_choose_font_size.selectedIndex].text.toLowerCase()
+    checkbox_line_column_number.checked ? span_line_column_number.style.display = "flex" : span_line_column_number.style.display = "none"
 }
 
 function scrollToTopButton() { window.scrollTo(0, 0) }
