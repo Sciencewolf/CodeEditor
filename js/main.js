@@ -353,7 +353,7 @@ function actionsInSettings() {
     enableSpellcheck()
 
     //Line:Column number
-    LineColumnNumber()
+    showLineColumnNumber()
 }
 
 function changeThemeToChosenColor() {
@@ -401,7 +401,7 @@ function enableSpellcheck() {
     checkbox_enable_spellcheck.checked ? textarea.spellcheck = true : textarea.spellcheck = false
 }
 
-function LineColumnNumber() {
+function showLineColumnNumber() {
     const checkbox_line_column_number = document.getElementById('checkbox-line_column-number')
     const label = document.getElementById('label-line_column-number')
     const span_line_column_number = document.getElementById('span-Line_Column-number')

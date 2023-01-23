@@ -53,13 +53,13 @@ input[type="checkbox"] {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    flex: 2;
 }
 
 .span-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: row;
     gap: 15em;
     width: fit-content;
 }
@@ -136,8 +136,22 @@ input[type="checkbox"] {
         gap: 0.5em;
     }
 
+    .span-wrapper {
+        flex-direction: column;
+        gap: 2em;
+    }
+}
+
+@media screen and (max-width: 1024px) {
     .settings-panel {
-        flex: 1;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .span-wrapper {
+        gap: 2em;
     }
 }
 
