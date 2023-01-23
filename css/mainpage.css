@@ -109,6 +109,23 @@ textarea {
     transition: .4s all;
 }
 
+#open-plugins {
+    border: none;
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    position: fixed;
+    bottom: 1.4em;
+    left: 7em;
+}
+
+#open-plugins img {
+    width: 4em;
+    height: 4em;
+    transform: scale(1);
+    transition: .4s all;
+}
+
 .dialog {
     display: none;
     position: fixed;
@@ -176,6 +193,7 @@ textarea {
     }
 
     #open-settings img {
+        background-color: transparent;
         width:  3em;
         height: 3em;
     }
@@ -208,6 +226,11 @@ textarea {
     #open-settings img:hover {
         cursor: pointer;
         transform: scale(1.2) rotate(90deg);
+        transition: .4s all;
+    }
+    #open-plugins img:hover {
+        cursor: pointer;
+        transform: scale(1.2) rotate(45deg);
         transition: .4s all;
     }
     .input_file_ext > button:hover {
