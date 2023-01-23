@@ -50,7 +50,15 @@ const onLoad = () => {
             })
         })
     })
+    // Open plugins
+    const get_plugin = document.querySelector('.plugins')
+    const plugin_btn = document.querySelector('#open-plugins')
+    plugin_btn.addEventListener('click', () => {
+        changeTitleOnPlugins()
+        get_plugin.style.display = 'block'
+    })
     itemsInSettings()
+    itemsInPlugins()
 }
 
 function getTagsOnLoad() {
@@ -365,7 +373,10 @@ function changeThemeToChosenColor() {
         color = color.replace(" ", "_");
     }
     get_body.style.backgroundColor = themes[color];
-    changeColorOnDarkThemes(color)
+    if(color === "Dark" || color === "Jet"){
+        changeColorOnDarkThemes(color)
+    }
+    changeColorOnLightThemes()
 }
 
 function setDefaultFileExtension() {
@@ -411,11 +422,60 @@ function showLineColumnNumber() {
         checkbox.checked = !checkbox.checked
         log('pressed label')
     })
-    checkbox_line_column_number.checked ? span_line_column_number.style.display = "flex" : span_line_column_number.style.display = "none"
+    checkbox_line_column_number.checked ?
+        span_line_column_number.style.display = "flex" : span_line_column_number.style.display = "none"
+}
+
+function itemsInPlugins() {
+    const get_plugins_style = document.querySelector('.plugins')
+    const span_plugin_buttons = document.querySelector('#span-plugin-buttons')
+
+    const ok_button_plugin = document.createElement("button");
+    const cancel_button_plugin = document.createElement("button");
+    const apply_button_plugin = document.createElement("button");
+
+    ok_button_plugin.id = "ok-btn";
+    ok_button_plugin.className = "ok-btn";
+    ok_button_plugin.type = "button";
+    ok_button_plugin.innerHTML = "OK";
+
+    cancel_button_plugin.id = "cancel-btn";
+    cancel_button_plugin.className = "cancel-btn";
+    cancel_button_plugin.type = "button";
+    cancel_button_plugin.innerHTML = "Cancel";
+
+    apply_button_plugin.id = "apply-btn";
+    apply_button_plugin.className = "apply-btn";
+    apply_button_plugin.type = "button";
+    apply_button_plugin.innerHTML = "Apply";
+
+    span_plugin_buttons.appendChild(ok_button_plugin)
+    span_plugin_buttons.appendChild(cancel_button_plugin)
+    span_plugin_buttons.appendChild(apply_button_plugin)
+
+    ok_button_plugin.addEventListener('click', () => {
+        actionsInPlugins()
+        get_plugins_style.style.display = 'none'
+        changeTitleToDefault()
+    })
+    cancel_button_plugin.addEventListener('click', () => {
+        get_plugins_style.style.display = 'none'
+        changeTitleToDefault()
+    })
+    apply_button_plugin.addEventListener('click', () => { actionsInPlugins() })
+}
+
+function actionsInPlugins() {
+    // Prettier
+    prettier()
+}
+
+function prettier() {
+    log('prettier')
 }
 
 
-function changeColorOnDarkThemes(color) {
+function changeColorOnDarkThemes() {
     const h1 = document.querySelector('h1')
     const buttons = document.querySelectorAll('button')
     const textarea = document.querySelector('textarea')
@@ -432,8 +492,26 @@ function changeColorOnDarkThemes(color) {
         textarea.style.backgroundColor = themes["Floral_White"]
     }
 }
+
+function changeColorOnLightThemes() {
+    const h1 = document.querySelector('h1')
+    const buttons = document.querySelectorAll('button')
+    const textarea = document.querySelector('textarea')
+
+    h1.style.color = themes['Black']
+    buttons.forEach(button => {
+        if(!button.id.startsWith('open-plugins') && !button.id.startsWith('open-settings')) {
+            button.style.color = themes['Black']
+            button.style.backgroundColor = 'buttonface'
+        }
+    })
+    textarea.style.color = "transparent"
+    textarea.style.backgroundColor = "transparent"
+}
+
 function scrollToTopButton() { window.scrollTo(0, 0) }
 function scrollToBottomButton() { window.scrollTo(0, document.body.scrollHeight) }
 function changeTitleOnSettings() { title_ofThePage.innerHTML = "Settings" }
+function changeTitleOnPlugins() { title_ofThePage.innerHTML = "Plugin's" }
 function changeTitleOnCopy() { title_ofThePage.innerHTML = "Copied" }
 function changeTitleToDefault() { title_ofThePage.innerHTML = "Code Editor(beta)" }
