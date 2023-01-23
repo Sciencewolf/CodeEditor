@@ -1,4 +1,4 @@
-# Code Editor v0.8
+# Code Editor v0.9
 
 * Version 0.1
 * Version 0.2 12/12/2022
