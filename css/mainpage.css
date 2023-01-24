@@ -6,7 +6,8 @@
 
 * {
     box-sizing: border-box;
-    font-family: 'Secular One', monospace
+    font-family: 'Secular One', monospace;
+    -webkit-appearance: none;
 }
 
 html {
