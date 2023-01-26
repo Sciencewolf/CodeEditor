@@ -41,7 +41,7 @@ input:focus {
 textarea {
     font-size: medium;
     background-color: transparent;
-    height: 4em;
+    max-height: 800px;
     overflow: auto;
 }
 
@@ -73,27 +73,33 @@ textarea {
 
 .btn-copy {
     transition: 0.4s all;
-    transform: scale(1);
     width: 10em;
 }
 
 .btn-save {
     width: 5em;
     transition: 0.4s all;
-    transform: scale(1);
+}
+
+#open-settings {
+    background-color: transparent;
+    border: none;
 }
 
 #open-settings img {
     width: 4em;
     height: 4em;
-    transform: scale(1);
     transition: .4s all;
+}
+
+#open-plugins {
+    background-color: transparent;
+    border: none;
 }
 
 #open-plugins img {
     width: 4em;
     height: 4em;
-    transform: scale(1);
     transition: .4s all;
 }
 
@@ -130,7 +136,6 @@ textarea {
     height: 2em;
     background-color: black;
     color: lightsteelblue;
-    transform: scale(1);
     transition: .4s all;
     margin: 1em;
 }
@@ -157,8 +162,8 @@ textarea {
     gap: 1em;
     width: 99vw;
     position: absolute;
-    bottom: 0;
-    background-color: grey;
+    bottom: 0.1em;
+    background-color:aliceblue;
 }
 
 .footer::before {
@@ -213,12 +218,12 @@ textarea {
 @media (hover: hover) {
     #open-settings img:hover {
         cursor: pointer;
-        transform: scale(1.2) rotate(90deg);
+        transform: rotate(90deg);
         transition: .4s all;
     }
     #open-plugins img:hover {
         cursor: pointer;
-        transform: scale(1.2) rotate(45deg);
+        transform: rotate(45deg);
         transition: .4s all;
     }
     .input_file_ext > button:hover {
