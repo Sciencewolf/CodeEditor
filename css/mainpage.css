@@ -41,11 +41,14 @@ input:focus {
 textarea {
     font-size: medium;
     background-color: transparent;
+    height: 4em;
+    overflow: auto;
 }
 
 .header {
     display: flex;
     justify-content: center;
+    overflow: auto;
 }
 
 .inputs > span > input {
@@ -58,29 +61,14 @@ textarea {
     margin-bottom: 1em;
 }
 
+.div-textarea {
+    height: 20em
+}
+
 .btns {
     display: flex;
     justify-content: center;
     gap: 1em;
-}
-
-.scroll {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-    position: fixed;
-    bottom: 15%;
-    left: 1%;
-}
-
-.scroll > button {
-    cursor: pointer;
-    width: auto;
-    height: auto;
-    border: 1px solid var(--darkcolor);
-    color: black;
-    transform: scale(1);
-    transition: 0.4s all;
 }
 
 .btn-copy {
@@ -95,31 +83,11 @@ textarea {
     transform: scale(1);
 }
 
-#open-settings {
-    border: none;
-    width: auto;
-    height: auto;
-    background-color: transparent;
-    position: fixed;
-    bottom: 1em;
-    left: 1em;
-}
-
 #open-settings img {
     width: 4em;
     height: 4em;
     transform: scale(1);
     transition: .4s all;
-}
-
-#open-plugins {
-    border: none;
-    width: auto;
-    height: auto;
-    background-color: transparent;
-    position: fixed;
-    bottom: 1.4em;
-    left: 7em;
 }
 
 #open-plugins img {
@@ -175,6 +143,29 @@ textarea {
     right: 1em;
 }
 
+.scroll {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    gap: 1em;
+}
+
+.footer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1em;
+    width: 99vw;
+    position: absolute;
+    bottom: 0;
+    background-color: grey;
+}
+
+.footer::before {
+    content: "";
+    gap: 1em;
+}
+
 /* Mobile version */
 @media screen and (max-width: 768px) {
     textarea {
@@ -188,11 +179,6 @@ textarea {
 
     input:active {
         border: none;
-    }
-
-    #open-settings {
-        bottom: 1em;
-        left: 1em;
     }
 
     #open-settings img {
@@ -220,13 +206,6 @@ textarea {
         background-color: lightskyblue;
         color: black;
         border: none;
-    }
-
-    .scroll {
-        margin: 0;
-        width: auto;
-        padding: 0;
-        bottom: 4.5em;
     }
 }
 

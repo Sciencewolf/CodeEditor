@@ -102,8 +102,8 @@ function textArea() {
     const textarea = document.getElementById('textarea')
     textarea.rows = 1
     textarea.cols = global_textarea_cols
-    textarea.style.resize = "none"
     manipulateTextArea()
+    appendTextOnPaste()
 }
 
 function manipulateTextArea() {
@@ -138,7 +138,6 @@ function manipulateTextArea() {
 
         for(let i = 0;i < lines.length;i++) {
             let lineLength = lines[i].length
-            log(lineLength)
             if(lineLength >= col) get_textarea.cols = lineLength
             updateCurrentLineColumnNumber()
         }
@@ -154,6 +153,14 @@ function manipulateTextArea() {
     })
 }
 
+function appendTextOnPaste() {
+    const textarea = document.querySelector('textarea')
+    textarea.addEventListener('input', (event) => {
+        textarea.style.width = 'auto'
+        textarea.style.height = textarea.scrollHeight + 'px'
+    })
+}
+
 function addWordsToList() {
     words.length = 0
     const get_textarea = document.getElementById('textarea')
@@ -165,6 +172,7 @@ function copyToClipboard() {
     let str = ""
     for (const line of words){ str += line + '\n' }
     navigator.clipboard.writeText(str).then(() => { log("Success") }).catch((err) => { error("Fail", err) })
+    log(str)
 }
 
 function getFileExtension() {
@@ -475,7 +483,7 @@ function prettier() {
 }
 
 
-function changeColorOnDarkThemes() {
+function changeColorOnDarkThemes(color) {
     const h1 = document.querySelector('h1')
     const buttons = document.querySelectorAll('button')
     const textarea = document.querySelector('textarea')
