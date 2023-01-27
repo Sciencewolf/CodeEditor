@@ -72,7 +72,7 @@ function getTagsOnLoad() {
     button_copy.innerHTML = "Copy to Clipboard"
     button_copy.addEventListener('click', () => {
         changeTitleOnCopy()
-        setInterval(() => {
+        setTimeout(() => {
             changeTitleToDefault()
         }, 3500)
 
@@ -102,6 +102,7 @@ function textArea() {
     const textarea = document.getElementById('textarea')
     textarea.rows = 1
     textarea.cols = global_textarea_cols
+    textarea.style.resize = 'none'
     manipulateTextArea()
     appendTextOnPaste()
 }
@@ -180,9 +181,13 @@ function getFileExtension() {
     const inputFileExt_divtag = document.querySelector('.input_file_ext')
     const get_file_ext = document.createElement('input')
     const choose_file_ext = document.createElement('select')
+    const div_btn = document.createElement('div')
     const ok_button_tag = document.createElement('button')
     const cancel_button_tag = document.createElement('button')
     choose_file_ext.id = 'choose_file_ext'
+
+    div_btn.id = "div-btn-action"
+    div_btn.className = "div-btn-action"
 
     for(let opt = 0; opt < listFileExt.length; opt++){
         const create_option = document.createElement('option')
@@ -206,13 +211,14 @@ function getFileExtension() {
     ok_button_tag.innerHTML = "OK"
 
     inputFileExt_divtag.appendChild(choose_file_ext)
-    inputFileExt_divtag.appendChild(ok_button_tag)
+    div_btn.appendChild(ok_button_tag)
 
     cancel_button_tag.id = "btn-cancel"
     cancel_button_tag.className = "btn-cancel"
     cancel_button_tag.innerHTML = 'Cancel'
 
-    inputFileExt_divtag.appendChild(cancel_button_tag)
+    div_btn.appendChild(cancel_button_tag)
+    inputFileExt_divtag.appendChild(div_btn)
 
     ok_button_tag.addEventListener('click', () => {
         changeTitleToDefault()

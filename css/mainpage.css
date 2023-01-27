@@ -28,8 +28,10 @@ body {
 button {
     cursor: pointer;
 }
+
 button:is(.btn-copy, .btn-save) {
     -webkit-appearance: none;
+    border: 1px solid black;
 }
 
 input:focus {
@@ -41,8 +43,6 @@ input:focus {
 textarea {
     font-size: medium;
     background-color: transparent;
-    max-height: 800px;
-    overflow: auto;
 }
 
 .header {
@@ -59,10 +59,6 @@ textarea {
 .inputs {
     width: 100%;
     margin-bottom: 1em;
-}
-
-.div-textarea {
-    height: 20em
 }
 
 .btns {
@@ -87,8 +83,8 @@ textarea {
 }
 
 #open-settings img {
-    width: 4em;
-    height: 4em;
+    width: 3em;
+    height: 3em;
     transition: .4s all;
 }
 
@@ -98,8 +94,8 @@ textarea {
 }
 
 #open-plugins img {
-    width: 4em;
-    height: 4em;
+    width: 3em;
+    height: 3em;
     transition: .4s all;
 }
 
@@ -122,22 +118,34 @@ textarea {
 .input_file_ext {
     background-color: #fefefe;
     margin: auto;
-    padding: 20px;
     border: 1px solid #888;
     width: 80%;
+    padding: 15px;
 }
 
 .input_file_ext > input {
     width: 20em;
 }
 
-.input_file_ext > button {
+.input_file_ext > input + select {
+    margin-left: 50px;
+}
+
+.div-btn-action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    padding: 10px;
+}
+
+.div-btn-action button {
     width: 5em;
     height: 2em;
-    background-color: black;
-    color: lightsteelblue;
+    background-color: lightblue;
+    border: none;
     transition: .4s all;
-    margin: 1em;
+    transform: scale(1);
 }
 
 #span-Line_Column-number {
@@ -146,6 +154,7 @@ textarea {
     position: absolute;
     bottom: 1em;
     right: 1em;
+    z-index: 2;
 }
 
 .scroll {
@@ -153,6 +162,13 @@ textarea {
     justify-content:center;
     align-items: center;
     gap: 1em;
+}
+
+.scroll button:is(#scroll_top, #scroll_bottom) {
+    border: 1px solid black;
+    -webkit-appearance: none;
+    transition: .4s all;
+    transform: scale(1);
 }
 
 .footer {
@@ -218,33 +234,21 @@ textarea {
 @media (hover: hover) {
     #open-settings img:hover {
         cursor: pointer;
-        transform: rotate(90deg);
+        transform: rotate(45deg);
         transition: .4s all;
     }
     #open-plugins img:hover {
         cursor: pointer;
-        transform: rotate(45deg);
+        transform: rotate(15deg);
         transition: .4s all;
     }
     .input_file_ext > button:hover {
         transform: scale(1.1);
         transition: .4s all;
     }
-    .settings-panel > button:hover {
+    button:is(#scroll_bottom, #scroll_top, .btn-cancel, .btn-ok, .btn-save, .btn-copy):hover {
         transition: .4s all;
         transform: scale(1.1);
         cursor: pointer;
-    }
-    .scroll > button:hover {
-        transition: .4s all;
-        transform: scale(1.1);
-    }
-    .btn-copy:hover {
-        transition: .4s all;
-        transform: scale(1.1);
-    }
-    .btn-save:hover {
-        transition: .4s all;
-        transform: scale(1.1);
     }
 }
