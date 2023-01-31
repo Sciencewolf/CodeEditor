@@ -100,6 +100,7 @@ function getTagsOnLoad() {
 
 function textArea() {
     const textarea = document.getElementById('textarea')
+    textarea.focus()
     textarea.rows = 1
     textarea.cols = global_textarea_cols
     textarea.style.resize = 'none'
@@ -139,7 +140,7 @@ function manipulateTextArea() {
 
         for(let i = 0;i < lines.length;i++) {
             let lineLength = lines[i].length
-            if(lineLength >= col) get_textarea.cols = lineLength
+            if(lineLength > col) get_textarea.cols = lineLength
             updateCurrentLineColumnNumber()
         }
     })
@@ -157,7 +158,6 @@ function manipulateTextArea() {
 function appendTextOnPaste() {
     const textarea = document.querySelector('textarea')
     textarea.addEventListener('input', (event) => {
-        textarea.style.width = 'auto'
         textarea.style.height = textarea.scrollHeight + 'px'
     })
 }
@@ -519,8 +519,6 @@ function changeColorOnLightThemes() {
             button.style.backgroundColor = 'buttonface'
         }
     })
-    textarea.style.color = "transparent"
-    textarea.style.backgroundColor = "transparent"
 }
 
 function scrollToTopButton() { window.scrollTo(0, 0) }

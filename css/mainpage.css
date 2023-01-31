@@ -41,7 +41,6 @@ input:focus {
 }
 
 textarea {
-    font-size: medium;
     background-color: transparent;
 }
 
@@ -51,14 +50,17 @@ textarea {
     overflow: auto;
 }
 
-.inputs > span > input {
-    width: 80em;
-    font-size: large;
-}
-
 .inputs {
     width: 100%;
-    margin-bottom: 1em;
+    height: auto;
+}
+
+.div-textarea {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .btns {

@@ -5,6 +5,7 @@
 label {
     color: floralwhite;
     font-size: 19px;
+    user-select: none;
 }
 
 button:is(.cancel-btn, .apply-btn) {
