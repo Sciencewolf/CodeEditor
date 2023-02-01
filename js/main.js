@@ -2,6 +2,7 @@
 let words = []
 let global_get_default_file_ext = ""
 let global_textarea_cols = 150
+let statusIsAnyWindowIsOpened = false
 
 const listFileExt = [
     "--Choose File Extension--", "(Pozakarpatskiy++) .pozpp",
@@ -27,6 +28,7 @@ const listDefaultFileExt = [
 const eventKeys = [
     "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"
 ]
+let notification_list = []
 
 const title_ofThePage = document.querySelector('title')
 const log = console.log
@@ -63,7 +65,9 @@ const onLoad = () => {
 
 function getTagsOnLoad() {
     textArea()
+    notificationList()
     const btns = document.getElementById('btns')
+    const dialog_div = document.querySelector('.dialog')
     let button_save = document.createElement('button')
     let button_copy = document.createElement('button')
 
@@ -89,13 +93,54 @@ function getTagsOnLoad() {
     button_save.className = "btn-save"
     button_save.innerHTML = "Save"
     button_save.addEventListener('click', () => {
+        statusIsAnyWindowIsOpened = true
+        if(dialog_div.style.display === "block") {
+            notification('Dialog is opened', 1)
+            return
+        }
         addWordsToList()
-        const dialog_div = document.querySelector('.dialog')
         dialog_div.style.display = 'block'
         getFileExtension()
     })
     btns.appendChild(button_copy)
     btns.appendChild(button_save)
+}
+
+function notificationList() {
+    const button = document.querySelector('#notification-button')
+    const div_main = document.createElement('div')
+    const p = document.createElement('p')
+    const button_close = document.createElement('button')
+    const div_for_items = document.createElement('div')
+}
+
+function notification(text, z_index) {
+    if(statusIsAnyWindowIsOpened) {
+        const div = document.createElement('div')
+        const img = document.createElement('img')
+        const p = document.createElement('p')
+        const body = document.querySelector('body')
+
+        div.id = 'div_notification'
+        div.className = 'div-notification'
+        div.style.display = 'flex'
+        div.style.justifyContent = 'center'
+        div.style.alignItems = 'center'
+        div.style.gap = "2em"
+        div.style.zIndex = z_index
+
+        p.innerHTML = text
+
+        img.src = "icons8-alarm-24.png"
+
+        div.appendChild(img)
+        div.appendChild(p)
+        body.appendChild(div)
+
+        setTimeout(() => {
+            body.removeChild(div)
+        }, 2000)
+    }
 }
 
 function textArea() {
@@ -225,13 +270,17 @@ function getFileExtension() {
         saveFile()
         dialog_div.style.display = "none"
         inputFileExt_divtag.textContent = ""
+        statusIsAnyWindowIsOpened = false
     })
 
     cancel_button_tag.addEventListener('click', () => {
         changeTitleToDefault()
         dialog_div.style.display = "none"
         inputFileExt_divtag.textContent = ""
+        statusIsAnyWindowIsOpened = false
     })
+
+    detectClickOuterDialogDiv()
 }
 
 function saveFile() {
@@ -276,6 +325,21 @@ function okButtonInputFileExt() {
     }
     else if (get_text === "--Choose File Extension--") result = `${global_get_default_file_ext}`
     return result
+}
+
+function detectClickOuterDialogDiv() {
+    const dialog_div = document.getElementById('dialog')
+
+    window.addEventListener('click', (event) => {
+        if(!dialog_div.contains(event.target)) {
+            dialog_div.style.scale = `${1.1}`
+            dialog_div.style.transition = "0.4s all"
+            setTimeout(() => {
+                dialog_div.style.scale = `${1}`
+            }, 500)
+            notification("Save file", 0)
+        }
+    })
 }
 
 const itemsFor_updateCurrentLineColumnNumber = (textarea, span_line, span_column) => {

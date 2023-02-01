@@ -48,10 +48,37 @@ textarea {
     background-color: transparent;
 }
 
+.div-notification {
+    display: none;
+    position: absolute;
+    bottom: 4em;
+    right: 3em;
+    background-color: grey;
+    color: white;
+    font-family: Calibri, serif;
+    width: auto;
+    height: auto;
+    border: 2px solid black;
+    border-radius: 15px;
+    padding-left: 0.5em;
+}
+
+div.div-notification p {
+    margin-right: 0.5em;
+}
+
 .header {
+    position: relative;
     display: flex;
     justify-content: center;
     overflow: auto;
+}
+
+.header button {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    display: flex;
 }
 
 .inputs {
