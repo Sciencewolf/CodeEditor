@@ -48,23 +48,37 @@ textarea {
     background-color: transparent;
 }
 
-.div-notification {
+.span-notification {
     display: none;
     position: absolute;
-    bottom: 4em;
+    top: 4em;
     right: 3em;
     background-color: grey;
     color: white;
     font-family: Calibri, serif;
-    width: auto;
-    height: auto;
+    width: 25em;
+    height: 30em;
     border: 2px solid black;
     border-radius: 15px;
     padding-left: 0.5em;
+    overflow: auto;
 }
 
-div.div-notification p {
+.span-notification p {
     margin-right: 0.5em;
+    font-size: large;
+    position: absolute;
+    left: 1em;
+}
+
+.span-notification button {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    width: 3em;
+    height: 3em;
+    border: none;
+    border-radius: 8px;
 }
 
 .header {
@@ -87,8 +101,6 @@ div.div-notification p {
 }
 
 .div-textarea {
-    width: auto;
-    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;

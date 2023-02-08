@@ -3,6 +3,7 @@ let words = []
 let global_get_default_file_ext = ""
 let global_textarea_cols = 150
 let statusIsAnyWindowIsOpened = false
+let notification_list = []
 
 const listFileExt = [
     "--Choose File Extension--", "(Pozakarpatskiy++) .pozpp",
@@ -10,6 +11,7 @@ const listFileExt = [
     "(Java) .java", "(Golang) .go", "(HTML) .html", "(CSS) .css",
     "(JavaScript) .js", "(TypeScript) .ts"
 ]
+
 const themes = {
   Black: "#000",
   Dark: "#414A4C",
@@ -20,15 +22,14 @@ const themes = {
   Jet: "#39393A",
   Floral_White: "#FFFCF2",
 };
+
 const listDefaultFileExt = [
   ".txt", ".html", ".css", ".js",
   ".ts", ".cs", ".py", ".cpp",
   ".java", ".go", ".pozpp",
-];
-const eventKeys = [
-    "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"
 ]
-let notification_list = []
+
+const eventKeys = [ "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight" ]
 
 const title_ofThePage = document.querySelector('title')
 const log = console.log
@@ -108,13 +109,27 @@ function getTagsOnLoad() {
 
 function notificationList() {
     const button = document.querySelector('#notification-button')
-    const div_main = document.createElement('div')
-    const p = document.createElement('p')
-    const button_close = document.createElement('button')
-    const div_for_items = document.createElement('div')
+    const close_btn = document.querySelector("#btn-not-close")
+    const span_notification = document.querySelector('.span-notification')
+
+    button.addEventListener('click', () => {
+        span_notification.style.display = "flex"
+    })
+
+    close_btn.addEventListener('click', () => {
+        span_notification.style.display = "none"
+    })
+
+    if(notification_list.length > 0) {
+        button.style.backgroundColor = "yellow"
+    }
 }
 
 function notification(text, z_index) {
+    let date = new Date()
+    let hour = date.getHours()
+    let min = date.getMinutes()
+
     if(statusIsAnyWindowIsOpened) {
         const div = document.createElement('div')
         const img = document.createElement('img')
@@ -130,7 +145,6 @@ function notification(text, z_index) {
         div.style.zIndex = z_index
 
         p.innerHTML = text
-
         img.src = "icons8-alarm-24.png"
 
         div.appendChild(img)
@@ -141,6 +155,12 @@ function notification(text, z_index) {
             body.removeChild(div)
         }, 2000)
     }
+
+    let _date = `${hour} : ${min}`
+    notification_list.push(text)
+    notification_list.push(_date)
+
+    log(notification_list)
 }
 
 function textArea() {
@@ -150,7 +170,12 @@ function textArea() {
     textarea.cols = global_textarea_cols
     textarea.style.resize = 'none'
     manipulateTextArea()
-    appendTextOnPaste()
+
+    textarea.addEventListener('paste', () => {
+        appendTextOnPaste()
+    })
+
+    textarea.style.height = "unset"
 }
 
 function manipulateTextArea() {
@@ -202,8 +227,9 @@ function manipulateTextArea() {
 
 function appendTextOnPaste() {
     const textarea = document.querySelector('textarea')
-    textarea.addEventListener('input', (event) => {
+    textarea.addEventListener('input', () => {
         textarea.style.height = textarea.scrollHeight + 'px'
+        // textarea.style.height = "auto"
     })
 }
 
