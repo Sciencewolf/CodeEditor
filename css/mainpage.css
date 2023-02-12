@@ -48,6 +48,35 @@ textarea {
     background-color: transparent;
 }
 
+#notification-button {
+    width: 3em;
+    height: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+}
+
+.notification-count {
+    display: none;
+    position: absolute;
+    background-color: red;
+    width: 1em;
+    height: 1em;
+    z-index: 2;
+    top: .1em;
+    right: .2em;
+    color: white;
+}
+
+#counternotification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-family: Calibri, monospace;
+}
+
 .span-notification {
     display: none;
     position: absolute;
@@ -71,7 +100,7 @@ textarea {
     left: 1em;
 }
 
-.span-notification button {
+.span-notification button#btn-not-close {
     position: absolute;
     top: 1em;
     right: 1em;
@@ -79,6 +108,49 @@ textarea {
     height: 3em;
     border: none;
     border-radius: 8px;
+}
+
+.span-notification button#clear-btn-notification {
+    position: absolute;
+    top: 4em;
+    right: 1em;
+    border: none;
+    border-radius: 12px;
+    margin-top: 5px;
+}
+
+.div-notification {
+    position: absolute;
+    bottom: 3em;
+    right: 2em;
+    background-color: grey;
+    color: white;
+    display: flex;
+    justify-content: center;align-items: center;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 10px;
+    transition: 1s all;
+}
+
+.items-notification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #38363d;
+    width: 20em;
+    height: 20em;
+    overflow: auto;
+    position: absolute;
+    top: 6em;
+    left: 2em;
+    border-radius: 12px;
+}
+
+.items-notification .item-notification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .header {

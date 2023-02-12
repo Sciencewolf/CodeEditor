@@ -36,17 +36,20 @@
 <body onload="onLoad()">
     <span class="header" id="header">
         <h1>CodeEditor</h1>
-        <button type="button" id="notification-button">
-            <img src="icons8-alarm-24.png" alt="notification_icon">
+        <div class="notification-count"><span id="counternotification"></span></div>
+        <button type="button" id="notification-button" onclick="openNotificationWindow()">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAh0lEQVR4nO2QwQmEMBBF380itCAtRrEEyxO86Fm97Nawe40EIgyCYhJFgz74MBD4bzLwJCpAmVRBCSKgAAYh6IHcvHmRAJ0oXqYFYp/Nu41yKXH6SbmjfI4+oTWNhaB2EfwtBD8XgbLMKyC8E4WL8sz1gjVGUaLnw/kKwecMQWYkujw9Q3BPJvHFo8d1v1dEAAAAAElFTkSuQmCC">
         </button>
+        
     </span>
     
     <!-- Notification Window -->
     <span class="span-notification">
         <p id="p-notification">Notification</p>
         <button id="btn-not-close"><i class="fa fa-close"></i> </button>
+        <button type="button" id="clear-btn-notification">Clear All</button>
         
-        <div class="items"></div>
+        <div class="items-notification"></div>
     </span>
 
     <!-- Text Area -->

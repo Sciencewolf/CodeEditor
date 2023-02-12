@@ -42,6 +42,7 @@ const onLoad = () => {
     const settings_btn = document.querySelector('#open-settings')
     settings_btn.addEventListener('click', () => {
         changeTitleOnSettings()
+        vibrateOnMobileVersion()
         get_settings.style.display = 'block'
 
         // Add Event for label
@@ -58,6 +59,7 @@ const onLoad = () => {
     const plugin_btn = document.querySelector('#open-plugins')
     plugin_btn.addEventListener('click', () => {
         changeTitleOnPlugins()
+        vibrateOnMobileVersion()
         get_plugin.style.display = 'block'
     })
     itemsInSettings()
@@ -66,7 +68,6 @@ const onLoad = () => {
 
 function getTagsOnLoad() {
     textArea()
-    notificationList()
     const btns = document.getElementById('btns')
     const dialog_div = document.querySelector('.dialog')
     let button_save = document.createElement('button')
@@ -107,22 +108,16 @@ function getTagsOnLoad() {
     btns.appendChild(button_save)
 }
 
-function notificationList() {
+function openNotificationWindow() {
     const button = document.querySelector('#notification-button')
     const close_btn = document.querySelector("#btn-not-close")
     const span_notification = document.querySelector('.span-notification')
 
-    button.addEventListener('click', () => {
-        span_notification.style.display = "flex"
-    })
+    if(span_notification.style.display === 'flex') { span_notification.style.display = "none" }
+    else { span_notification.style.display = "flex" }
 
-    close_btn.addEventListener('click', () => {
-        span_notification.style.display = "none"
-    })
-
-    if(notification_list.length > 0) {
-        button.style.backgroundColor = "yellow"
-    }
+    close_btn.addEventListener('click', () => { span_notification.style.display = "none" })
+    if(notification_list.length > 0) { button.style.backgroundColor = "yellow" }
 }
 
 function notification(text, z_index) {
@@ -157,10 +152,40 @@ function notification(text, z_index) {
     }
 
     let _date = `${hour} : ${min}`
-    notification_list.push(text)
-    notification_list.push(_date)
+    notification_list.push({text, _date})
 
+    countNotifications()
     log(notification_list)
+
+    itemNotification()
+}
+
+function countNotifications() {
+    const counter_div = document.querySelector('.notification-count')
+    const counter_span = document.querySelector('#counternotification')
+
+    if(notification_list.length > 0) {
+        counter_div.style.display = "block"
+        counter_span.innerHTML = `${notification_list.length}`
+    }
+}
+
+function itemNotification() {
+    const notification_items = document.querySelector('.items-notification')
+    const create_divItemNotification = document.createElement('div')
+    const create_pNameItemNotification = document.createElement('p')
+    const create_pDateItemNotification = document.createElement('p')
+
+    create_divItemNotification.className = "item-notification"
+    create_pNameItemNotification.id = "pName"
+    create_pDateItemNotification.id = "pDate"
+
+    for(let item = 0; item < notification_list.length; item++) {
+        log("Item: ", notification_list[item])
+
+    }
+
+    notification_items.appendChild(create_divItemNotification)
 }
 
 function textArea() {
@@ -244,7 +269,6 @@ function copyToClipboard() {
     let str = ""
     for (const line of words){ str += line + '\n' }
     navigator.clipboard.writeText(str).then(() => { log("Success") }).catch((err) => { error("Fail", err) })
-    log(str)
 }
 
 function getFileExtension() {
@@ -524,7 +548,6 @@ function showLineColumnNumber() {
     label.addEventListener('click', () => {
         const checkbox = label.previousElementSibling
         checkbox.checked = !checkbox.checked
-        log('pressed label')
     })
     checkbox_line_column_number.checked ?
         span_line_column_number.style.display = "flex" : span_line_column_number.style.display = "none"
@@ -609,6 +632,13 @@ function changeColorOnLightThemes() {
             button.style.backgroundColor = 'buttonface'
         }
     })
+}
+
+function vibrateOnMobileVersion() {
+    if(navigator.vibrate) {
+        navigator.vibrate(500)
+    }
+    navigator.vibrate(0)
 }
 
 function scrollToTopButton() { window.scrollTo(0, 0) }
