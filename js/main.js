@@ -635,12 +635,15 @@ function changeColorOnLightThemes() {
 }
 
 function vibrateOnMobileVersion() {
-    if(navigator.vibrate) {
+    if(window.navigator.vibrate) {
+        log(navigator.platform)
         alert("Working")
-        navigator.vibrate(500)
+        navigator.vibrate(100)
     }
-    alert('Not working')
-    navigator.vibrate(0)
+    else {
+        alert('Not working')
+        window.navigator.vibrate(0)
+    }
 }
 
 function scrollToTopButton() { window.scrollTo(0, 0) }
