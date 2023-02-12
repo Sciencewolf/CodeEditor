@@ -636,8 +636,10 @@ function changeColorOnLightThemes() {
 
 function vibrateOnMobileVersion() {
     if(navigator.vibrate) {
+        alert("Working")
         navigator.vibrate(500)
     }
+    alert('Not working')
     navigator.vibrate(0)
 }
 
