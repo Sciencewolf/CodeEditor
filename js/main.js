@@ -634,6 +634,7 @@ function changeColorOnLightThemes() {
     })
 }
 
+//  Need to develop
 function vibrateOnMobileVersion() {
     if(window.navigator.vibrate) {
         log(navigator.platform)
