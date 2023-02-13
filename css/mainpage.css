@@ -151,6 +151,22 @@ textarea {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: red;
+    color: white;
+    margin: 1em;
+    padding: 1em;
+}
+
+.item-notification p#pName {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+}
+
+.item-notification p#pDate {
+    position: absolute;
+    top: 1em;
+    right: 1em;
 }
 
 .header {
@@ -200,17 +216,6 @@ textarea {
 }
 
 #open-settings img {
-    width: 3em;
-    height: 3em;
-    transition: .4s all;
-}
-
-#open-plugins {
-    background-color: transparent;
-    border: none;
-}
-
-#open-plugins img {
     width: 3em;
     height: 3em;
     transition: .4s all;
@@ -325,12 +330,6 @@ textarea {
         height: 3em;
     }
 
-    #open-plugins img {
-        background-color: transparent;
-        width: 3em;
-        height: 3em;
-    }
-
     .dialog {
         width: 25em;
         height: 30em;
@@ -354,11 +353,7 @@ textarea {
         transform: rotate(45deg);
         transition: .4s all;
     }
-    #open-plugins img:hover {
-        cursor: pointer;
-        transform: rotate(15deg);
-        transition: .4s all;
-    }
+
     .input_file_ext > button:hover {
         transform: scale(1.1);
         transition: .4s all;

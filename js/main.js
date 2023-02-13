@@ -41,7 +41,7 @@ const onLoad = () => {
     const get_settings = document.querySelector('.settings')
     const settings_btn = document.querySelector('#open-settings')
     settings_btn.addEventListener('click', () => {
-        changeTitleOnSettings()
+        changeTitleTo("Settings")
         vibrateOnMobileVersion()
         get_settings.style.display = 'block'
 
@@ -54,16 +54,8 @@ const onLoad = () => {
             })
         })
     })
-    // Open plugins
-    const get_plugin = document.querySelector('.plugins')
-    const plugin_btn = document.querySelector('#open-plugins')
-    plugin_btn.addEventListener('click', () => {
-        changeTitleOnPlugins()
-        vibrateOnMobileVersion()
-        get_plugin.style.display = 'block'
-    })
     itemsInSettings()
-    itemsInPlugins()
+    notification("New version is available", true, "2023 feb 13")
 }
 
 function getTagsOnLoad() {
@@ -77,9 +69,9 @@ function getTagsOnLoad() {
     button_copy.className = "btn-copy"
     button_copy.innerHTML = "Copy to Clipboard"
     button_copy.addEventListener('click', () => {
-        changeTitleOnCopy()
+        changeTitleTo("Copied")
         setTimeout(() => {
-            changeTitleToDefault()
+            changeTitleTo("Code Editor(beta)")
         }, 3500)
 
         copyToClipboard()
@@ -97,7 +89,7 @@ function getTagsOnLoad() {
     button_save.addEventListener('click', () => {
         statusIsAnyWindowIsOpened = true
         if(dialog_div.style.display === "block") {
-            notification('Dialog is opened', 1)
+            notification('Dialog is opened', false, "")
             return
         }
         addWordsToList()
@@ -120,7 +112,7 @@ function openNotificationWindow() {
     if(notification_list.length > 0) { button.style.backgroundColor = "yellow" }
 }
 
-function notification(text, z_index) {
+function notification(text, isVersion, versionDate) {
     let date = new Date()
     let hour = date.getHours()
     let min = date.getMinutes()
@@ -137,7 +129,7 @@ function notification(text, z_index) {
         div.style.justifyContent = 'center'
         div.style.alignItems = 'center'
         div.style.gap = "2em"
-        div.style.zIndex = z_index
+        div.style.zIndex = `${1}`
 
         p.innerHTML = text
         img.src = "icons8-alarm-24.png"
@@ -152,11 +144,18 @@ function notification(text, z_index) {
     }
 
     let _date = `${hour} : ${min}`
-    notification_list.push({text, _date})
+    if(isVersion) {
+        notification_list.push([text, versionDate])
+    }
+    else if(!isVersion) {
+        notification_list.push([text, _date])
+    }
 
-    countNotifications()
+    log(notification_list[0].flat()[0])
+    log(notification_list[0].flat()[1])
+
     log(notification_list)
-
+    countNotifications()
     itemNotification()
 }
 
@@ -181,11 +180,27 @@ function itemNotification() {
     create_pDateItemNotification.id = "pDate"
 
     for(let item = 0; item < notification_list.length; item++) {
-        log("Item: ", notification_list[item])
+        let it = notification_list[item]
+        let val = Object.values(it)
+
+        create_pNameItemNotification.innerHTML = `${val[0]}`
+        create_pDateItemNotification.innerHTML = `${val[1]}`
+
+        create_divItemNotification.appendChild(create_pNameItemNotification)
+        create_divItemNotification.appendChild(create_pDateItemNotification)
 
     }
 
     notification_items.appendChild(create_divItemNotification)
+    clearNotification()
+}
+
+function clearNotification() {
+    const items = document.querySelectorAll('.items-notification > *')
+
+    items.forEach(item => {
+        item.remove()
+    })
 }
 
 function textArea() {
@@ -254,7 +269,6 @@ function appendTextOnPaste() {
     const textarea = document.querySelector('textarea')
     textarea.addEventListener('input', () => {
         textarea.style.height = textarea.scrollHeight + 'px'
-        // textarea.style.height = "auto"
     })
 }
 
@@ -316,7 +330,7 @@ function getFileExtension() {
     inputFileExt_divtag.appendChild(div_btn)
 
     ok_button_tag.addEventListener('click', () => {
-        changeTitleToDefault()
+        changeTitleTo("Code Editor(beta)")
         saveFile()
         dialog_div.style.display = "none"
         inputFileExt_divtag.textContent = ""
@@ -324,7 +338,7 @@ function getFileExtension() {
     })
 
     cancel_button_tag.addEventListener('click', () => {
-        changeTitleToDefault()
+        changeTitleTo("Code Editor(beta)")
         dialog_div.style.display = "none"
         inputFileExt_divtag.textContent = ""
         statusIsAnyWindowIsOpened = false
@@ -387,7 +401,6 @@ function detectClickOuterDialogDiv() {
             setTimeout(() => {
                 dialog_div.style.scale = `${1}`
             }, 500)
-            notification("Save file", 0)
         }
     })
 }
@@ -458,12 +471,12 @@ function itemsInSettings() {
   ok_button.addEventListener("click", () => {
       actionsInSettings()
       get_settings_style.style.display = "none";
-      changeTitleToDefault();
+      changeTitleTo("Code Editor(beta)");
   });
 
   cancel_button.addEventListener("click", () => {
     get_settings_style.style.display = "none";
-    changeTitleToDefault();
+    changeTitleTo("Code Editor(beta)");
   });
 
   apply_button.addEventListener("click", () => { actionsInSettings() });
@@ -553,55 +566,6 @@ function showLineColumnNumber() {
         span_line_column_number.style.display = "flex" : span_line_column_number.style.display = "none"
 }
 
-function itemsInPlugins() {
-    const get_plugins_style = document.querySelector('.plugins')
-    const span_plugin_buttons = document.querySelector('#span-plugin-buttons')
-
-    const ok_button_plugin = document.createElement("button");
-    const cancel_button_plugin = document.createElement("button");
-    const apply_button_plugin = document.createElement("button");
-
-    ok_button_plugin.id = "ok-btn";
-    ok_button_plugin.className = "ok-btn";
-    ok_button_plugin.type = "button";
-    ok_button_plugin.innerHTML = "OK";
-
-    cancel_button_plugin.id = "cancel-btn";
-    cancel_button_plugin.className = "cancel-btn";
-    cancel_button_plugin.type = "button";
-    cancel_button_plugin.innerHTML = "Cancel";
-
-    apply_button_plugin.id = "apply-btn";
-    apply_button_plugin.className = "apply-btn";
-    apply_button_plugin.type = "button";
-    apply_button_plugin.innerHTML = "Apply";
-
-    span_plugin_buttons.appendChild(ok_button_plugin)
-    span_plugin_buttons.appendChild(cancel_button_plugin)
-    span_plugin_buttons.appendChild(apply_button_plugin)
-
-    ok_button_plugin.addEventListener('click', () => {
-        actionsInPlugins()
-        get_plugins_style.style.display = 'none'
-        changeTitleToDefault()
-    })
-    cancel_button_plugin.addEventListener('click', () => {
-        get_plugins_style.style.display = 'none'
-        changeTitleToDefault()
-    })
-    apply_button_plugin.addEventListener('click', () => { actionsInPlugins() })
-}
-
-function actionsInPlugins() {
-    // Prettier
-    prettier()
-}
-
-function prettier() {
-    log('prettier')
-}
-
-
 function changeColorOnDarkThemes(color) {
     const h1 = document.querySelector('h1')
     const buttons = document.querySelectorAll('button')
@@ -636,20 +600,19 @@ function changeColorOnLightThemes() {
 
 //  Need to develop
 function vibrateOnMobileVersion() {
-    if(window.navigator.vibrate) {
-        log(navigator.platform)
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if(window.navigator.vibrate && isMobile) {
         alert("Working")
         navigator.vibrate(100)
     }
+    else if(!isMobile) {
+        log("Not working")
+    }
     else {
-        alert('Not working')
-        window.navigator.vibrate(0)
+        alert("Not working")
     }
 }
 
 function scrollToTopButton() { window.scrollTo(0, 0) }
 function scrollToBottomButton() { window.scrollTo(0, document.body.scrollHeight) }
-function changeTitleOnSettings() { title_ofThePage.innerHTML = "Settings" }
-function changeTitleOnPlugins() { title_ofThePage.innerHTML = "Plugin's" }
-function changeTitleOnCopy() { title_ofThePage.innerHTML = "Copied" }
-function changeTitleToDefault() { title_ofThePage.innerHTML = "Code Editor(beta)" }
+function changeTitleTo(text) { title_ofThePage.innerHTML = `${text}` }
