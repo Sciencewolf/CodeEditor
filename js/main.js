@@ -36,6 +36,11 @@ const log = console.log
 const error = console.error
 
 const onLoad = () => {
+    let _date = new Date()
+    let _year = _date.getUTCFullYear()
+    let _month = _date.getUTCMonth() + 1
+    let _day = _date.getUTCDate()
+
     getTagsOnLoad()
     // Open settings
     const get_settings = document.querySelector('.settings')
@@ -55,7 +60,10 @@ const onLoad = () => {
         })
     })
     itemsInSettings()
-    notification("New version is available", true, "2023 feb 13")
+
+    if(_year < 2024 && _month < 3 && _day < 22) {
+        notification("New version is available", true, "2023 feb 14", "Version 0.9.2 <br> <a href='https://github.com/Sciencewolf' target='_blank'>See more</a>")
+    }
 }
 
 function getTagsOnLoad() {
@@ -89,7 +97,7 @@ function getTagsOnLoad() {
     button_save.addEventListener('click', () => {
         statusIsAnyWindowIsOpened = true
         if(dialog_div.style.display === "block") {
-            notification('Dialog is opened', false, "")
+            notification('Dialog is opened', false, "", "")
             return
         }
         addWordsToList()
@@ -108,11 +116,17 @@ function openNotificationWindow() {
     if(span_notification.style.display === 'flex') { span_notification.style.display = "none" }
     else { span_notification.style.display = "flex" }
 
-    close_btn.addEventListener('click', () => { span_notification.style.display = "none" })
+    close_btn.addEventListener('click', () => {
+        span_notification.style.display = "none"
+        if(notification_list.length === 0) { button.style.backgroundColor = "buttonface" }
+        countNotifications()
+    })
     if(notification_list.length > 0) { button.style.backgroundColor = "yellow" }
+    else if(notification_list.length === 0) { button.style.backgroundColor = "buttonface" }
+    countNotifications()
 }
 
-function notification(text, isVersion, versionDate) {
+function notification(text, isVersion, versionDate, info) {
     let date = new Date()
     let hour = date.getHours()
     let min = date.getMinutes()
@@ -144,17 +158,10 @@ function notification(text, isVersion, versionDate) {
     }
 
     let _date = `${hour} : ${min}`
-    if(isVersion) {
-        notification_list.push([text, versionDate])
-    }
-    else if(!isVersion) {
-        notification_list.push([text, _date])
-    }
+    if(isVersion) { notification_list.push([text, versionDate, info]) }
+    else if(!isVersion) { notification_list.push([text, _date, info]) }
 
-    log(notification_list[0].flat()[0])
-    log(notification_list[0].flat()[1])
-
-    log(notification_list)
+    // log(notification_list[0].flat()[0])
     countNotifications()
     itemNotification()
 }
@@ -167,6 +174,7 @@ function countNotifications() {
         counter_div.style.display = "block"
         counter_span.innerHTML = `${notification_list.length}`
     }
+    else if(notification_list.length === 0) { counter_div.style.display = "none" }
 }
 
 function itemNotification() {
@@ -174,32 +182,43 @@ function itemNotification() {
     const create_divItemNotification = document.createElement('div')
     const create_pNameItemNotification = document.createElement('p')
     const create_pDateItemNotification = document.createElement('p')
+    const create_PInfoItemNotification = document.createElement('p')
 
     create_divItemNotification.className = "item-notification"
     create_pNameItemNotification.id = "pName"
     create_pDateItemNotification.id = "pDate"
+    create_PInfoItemNotification.id = "pInfo"
 
     for(let item = 0; item < notification_list.length; item++) {
         let it = notification_list[item]
         let val = Object.values(it)
 
-        create_pNameItemNotification.innerHTML = `${val[0]}`
-        create_pDateItemNotification.innerHTML = `${val[1]}`
+        create_pNameItemNotification.innerHTML = `${val[0]} <br>`
+        create_pDateItemNotification.innerHTML = `${val[1]} <br>`
+        create_PInfoItemNotification.innerHTML = `${val[2]} <br>`
 
         create_divItemNotification.appendChild(create_pNameItemNotification)
         create_divItemNotification.appendChild(create_pDateItemNotification)
+        create_divItemNotification.appendChild(create_PInfoItemNotification)
 
     }
-
     notification_items.appendChild(create_divItemNotification)
-    clearNotification()
 }
 
 function clearNotification() {
-    const items = document.querySelectorAll('.items-notification > *')
+    const items = document.querySelectorAll('.items-notification > .item-notification')
+    const button_clear = document.querySelector('#clear-btn-notification')
+    const button = document.querySelector('#notification-button')
+    const span_notification = document.querySelector('.span-notification')
 
     items.forEach(item => {
         item.remove()
+    })
+    notification_list.length = 0
+
+    button_clear.addEventListener('click', () => {
+        span_notification.style.display = "none"
+        if(notification_list.length === 0) { button.style.backgroundColor = "buttonface" }
     })
 }
 

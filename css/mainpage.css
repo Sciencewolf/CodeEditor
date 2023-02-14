@@ -93,7 +93,7 @@ textarea {
     overflow: auto;
 }
 
-.span-notification p {
+.span-notification > p {
     margin-right: 0.5em;
     font-size: large;
     position: absolute;
@@ -134,9 +134,6 @@ textarea {
 }
 
 .items-notification {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: #38363d;
     width: 20em;
     height: 20em;
@@ -145,28 +142,47 @@ textarea {
     top: 6em;
     left: 2em;
     border-radius: 12px;
+    display: grid;
+    place-items: center;
 }
 
 .items-notification .item-notification {
+    z-index: 2;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: red;
+    background-color: black;
     color: white;
     margin: 1em;
-    padding: 1em;
+    width: 15em;
+    height: 8em;
+    position: relative;
+}
+
+.item-notification p {
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
 }
 
 .item-notification p#pName {
     position: absolute;
-    top: 1em;
-    left: 1em;
+    top: 10px;
+    left: 2px;
+
 }
 
 .item-notification p#pDate {
     position: absolute;
-    top: 1em;
-    right: 1em;
+    top: 0;
+    right: 2px;
+}
+
+.item-notification p#pInfo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .header {

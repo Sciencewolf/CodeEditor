@@ -1,4 +1,4 @@
-# Code Editor v0.9.1
+# Code Editor v0.9.2
 
 * Version 0.1
 * Version 0.2 12/12/2022
@@ -10,14 +10,15 @@
 * Version 0.8 01/13/2023
 * Version 0.9 01/22/2023
 * Version 0.9.1. 02/01/2023
+* Version 0.9.2. 02/14/2023
 
 # Preparing for Version 1.0
 ## Tasks To Do:
 
-* Save file and let user choose file extension and name ✅
+* Save file and let user choose file extension and name ✅❌
 * Redesign the page ✅
 * Add settings ✅
 * Fix issue with inserting lines ✅
-* Fix the bugs 🔥
+* Fix the bugs ❌
 
 ## Date started => 12/09/2022
