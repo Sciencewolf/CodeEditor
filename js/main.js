@@ -13,20 +13,20 @@ const listFileExt = [
 ]
 
 const themes = {
-  Black: "#000",
-  Dark: "#414A4C",
-  Melon: "#EBB3A9",
-  Tea_Green: "#D1F0B1",
-  Blue_Sapphire: "#086788",
-  Ming: "#407076",
-  Jet: "#39393A",
-  Floral_White: "#FFFCF2",
+    Black: "#000",
+    Dark: "#414A4C",
+    Melon: "#EBB3A9",
+    Tea_Green: "#D1F0B1",
+    Blue_Sapphire: "#086788",
+    Ming: "#407076",
+    Jet: "#39393A",
+    Floral_White: "#FFFCF2",
 };
 
 const listDefaultFileExt = [
-  ".txt", ".html", ".css", ".js",
-  ".ts", ".cs", ".py", ".cpp",
-  ".java", ".go", ".pozpp",
+    ".txt", ".html", ".css", ".js",
+    ".ts", ".cs", ".py", ".cpp",
+    ".java", ".go", ".pozpp",
 ]
 
 const eventKeys = [ "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight" ]
@@ -230,10 +230,7 @@ function textArea() {
     textarea.style.resize = 'none'
     manipulateTextArea()
 
-    textarea.addEventListener('paste', () => {
-        appendTextOnPaste()
-    })
-
+    textarea.addEventListener('paste', () => { appendTextOnPaste() })
     textarea.style.height = "unset"
 }
 
@@ -362,8 +359,6 @@ function getFileExtension() {
         inputFileExt_divtag.textContent = ""
         statusIsAnyWindowIsOpened = false
     })
-
-    detectClickOuterDialogDiv()
 }
 
 function saveFile() {
@@ -395,6 +390,7 @@ function saveFile() {
 function okButtonInputFileExt() {
     const get_chosen_file_ext = document.getElementById('choose_file_ext')
     const get_inputExt = document.querySelector('.get_file_ext')
+
     let get_text = get_chosen_file_ext.options[get_chosen_file_ext.selectedIndex].text
     let result = ""
     let lastIndexOf = get_inputExt.value.lastIndexOf('.')
@@ -408,20 +404,6 @@ function okButtonInputFileExt() {
     }
     else if (get_text === "--Choose File Extension--") result = `${global_get_default_file_ext}`
     return result
-}
-
-function detectClickOuterDialogDiv() {
-    const dialog_div = document.getElementById('dialog')
-
-    window.addEventListener('click', (event) => {
-        if(!dialog_div.contains(event.target)) {
-            dialog_div.style.scale = `${1.1}`
-            dialog_div.style.transition = "0.4s all"
-            setTimeout(() => {
-                dialog_div.style.scale = `${1}`
-            }, 500)
-        }
-    })
 }
 
 const itemsFor_updateCurrentLineColumnNumber = (textarea, span_line, span_column) => {
@@ -442,63 +424,60 @@ function updateCurrentLineColumnNumber() {
         itemsFor_updateCurrentLineColumnNumber(textarea, span_line, span_column)
     })
     textarea.addEventListener('keyup', (event) => {
-        if(eventKeys.includes(event.key)) {
-            itemsFor_updateCurrentLineColumnNumber(textarea, span_line, span_column)
-        }
+        if(eventKeys.includes(event.key)) { itemsFor_updateCurrentLineColumnNumber(textarea, span_line, span_column) }
     })
     itemsFor_updateCurrentLineColumnNumber(textarea, span_line, span_column)
 }
 
 function itemsInSettings() {
-  const get_settings_style = document.querySelector(".settings");
-  const span_buttons = document.querySelector("#span-buttons");
-  const select_default_fileExt = document.getElementById("select-default-file-ext");
+    const get_settings_style = document.querySelector(".settings");
+    const span_buttons = document.querySelector("#span-buttons");
+    const select_default_fileExt = document.getElementById("select-default-file-ext");
 
-  const ok_button = document.createElement("button");
-  const cancel_button = document.createElement("button");
-  const apply_button = document.createElement("button");
+    const ok_button = document.createElement("button");
+    const cancel_button = document.createElement("button");
+    const apply_button = document.createElement("button");
 
-  ok_button.id = "ok-btn";
-  ok_button.className = "ok-btn";
-  ok_button.type = "button";
-  ok_button.innerHTML = "OK";
+    ok_button.id = "ok-btn";
+    ok_button.className = "ok-btn";
+    ok_button.type = "button";
+    ok_button.innerHTML = "OK";
 
-  cancel_button.id = "cancel-btn";
-  cancel_button.className = "cancel-btn";
-  cancel_button.type = "button";
-  cancel_button.innerHTML = "Cancel";
+    cancel_button.id = "cancel-btn";
+    cancel_button.className = "cancel-btn";
+    cancel_button.type = "button";
+    cancel_button.innerHTML = "Cancel";
 
-  apply_button.id = "apply-btn";
-  apply_button.className = "apply-btn";
-  apply_button.type = "button";
-  apply_button.innerHTML = "Apply";
+    apply_button.id = "apply-btn";
+    apply_button.className = "apply-btn";
+    apply_button.type = "button";
+    apply_button.innerHTML = "Apply";
 
-  for (let opt = 0; opt < listDefaultFileExt.length; opt++) {
-    const option = document.createElement("option");
-    if(listDefaultFileExt[opt] === ".txt") {
-        option.innerHTML = listDefaultFileExt[opt]
-        option.selected = true
+    for (let opt = 0; opt < listDefaultFileExt.length; opt++) {
+        const option = document.createElement("option");
+        if(listDefaultFileExt[opt] === ".txt") {
+            option.innerHTML = listDefaultFileExt[opt]
+            option.selected = true
+        }
+        option.innerHTML = listDefaultFileExt[opt];
+        select_default_fileExt.appendChild(option);
     }
-    option.innerHTML = listDefaultFileExt[opt];
-    select_default_fileExt.appendChild(option);
-  }
 
-  span_buttons.appendChild(ok_button);
-  span_buttons.appendChild(cancel_button);
-  span_buttons.appendChild(apply_button);
+    span_buttons.appendChild(ok_button);
+    span_buttons.appendChild(cancel_button);
+    span_buttons.appendChild(apply_button);
 
-  ok_button.addEventListener("click", () => {
-      actionsInSettings()
-      get_settings_style.style.display = "none";
-      changeTitleTo("Code Editor(beta)");
-  });
+    ok_button.addEventListener("click", () => {
+          actionsInSettings()
+          get_settings_style.style.display = "none";
+          changeTitleTo("Code Editor(beta)");
+    });
 
-  cancel_button.addEventListener("click", () => {
-    get_settings_style.style.display = "none";
-    changeTitleTo("Code Editor(beta)");
-  });
-
-  apply_button.addEventListener("click", () => { actionsInSettings() });
+    cancel_button.addEventListener("click", () => {
+        get_settings_style.style.display = "none";
+        changeTitleTo("Code Editor(beta)");
+    });
+    apply_button.addEventListener("click", () => { actionsInSettings() });
 }
 
 function actionsInSettings() {
@@ -574,13 +553,8 @@ function enableSpellcheck() {
 
 function showLineColumnNumber() {
     const checkbox_line_column_number = document.getElementById('checkbox-line_column-number')
-    const label = document.getElementById('label-line_column-number')
     const span_line_column_number = document.getElementById('span-Line_Column-number')
 
-    label.addEventListener('click', () => {
-        const checkbox = label.previousElementSibling
-        checkbox.checked = !checkbox.checked
-    })
     checkbox_line_column_number.checked ?
         span_line_column_number.style.display = "flex" : span_line_column_number.style.display = "none"
 }
@@ -606,11 +580,11 @@ function changeColorOnDarkThemes(color) {
 function changeColorOnLightThemes() {
     const h1 = document.querySelector('h1')
     const buttons = document.querySelectorAll('button')
-    const textarea = document.querySelector('textarea')
+    // const textarea = document.querySelector('textarea')
 
     h1.style.color = themes['Black']
     buttons.forEach(button => {
-        if(!button.id.startsWith('open-plugins') && !button.id.startsWith('open-settings')) {
+        if(!button.id.startsWith('open-settings') && !button.id.startsWith('ok-btn')) {
             button.style.color = themes['Black']
             button.style.backgroundColor = 'buttonface'
         }

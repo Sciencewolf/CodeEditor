@@ -2,6 +2,18 @@
     box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: white;
+}
+
+::-webkit-scrollbar-track {
+    border: 1px solid black;
+}
+
 label {
     color: floralwhite;
     font-size: 19px;
@@ -161,12 +173,20 @@ input[type="checkbox"] {
 }
 
 @media (hover: hover) {
-    label:hover, input[type="checkbox"]:hover {
+    label:not(#label-choose-font-size, #label-select-default-file-ext, #label-theme):hover, input[type="checkbox"]:hover {
         cursor: pointer;
     }
 
     #span-buttons > button:hover {
         transition: .4s all;
         transform: scale(1.1);
+    }
+
+    select:hover {
+        cursor: pointer;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: grey;
     }
 }

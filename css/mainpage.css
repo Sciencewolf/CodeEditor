@@ -9,6 +9,18 @@
     font-family: 'Secular One', monospace;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: white;
+}
+
+::-webkit-scrollbar-track {
+    border: 1px solid black;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -143,7 +155,7 @@ textarea {
     left: 2em;
     border-radius: 12px;
     display: grid;
-    place-items: center;
+    place-items: flex-start;
 }
 
 .items-notification .item-notification {
@@ -378,5 +390,9 @@ textarea {
         transition: .4s all;
         transform: scale(1.1);
         cursor: pointer;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: grey;
     }
 }
