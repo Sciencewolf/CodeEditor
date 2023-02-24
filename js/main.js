@@ -111,6 +111,7 @@ function getTagsOnLoad() {
 function openNotificationWindow() {
     const button = document.querySelector('#notification-button')
     const close_btn = document.querySelector("#btn-not-close")
+    const button_clear = document.querySelector('#clear-btn-notification')
     const span_notification = document.querySelector('.span-notification')
 
     if(span_notification.style.display === 'flex') { span_notification.style.display = "none" }
@@ -118,6 +119,11 @@ function openNotificationWindow() {
 
     close_btn.addEventListener('click', () => {
         span_notification.style.display = "none"
+        if(notification_list.length === 0) { button.style.backgroundColor = "buttonface" }
+        countNotifications()
+    })
+
+    button_clear.addEventListener('click', () => {
         if(notification_list.length === 0) { button.style.backgroundColor = "buttonface" }
         countNotifications()
     })
@@ -230,7 +236,7 @@ function textArea() {
     textarea.style.resize = 'none'
     manipulateTextArea()
 
-    textarea.addEventListener('paste', () => { appendTextOnPaste() })
+    // textarea.addEventListener('paste', () => { appendTextOnPaste() })
     textarea.style.height = "unset"
 }
 
@@ -278,13 +284,6 @@ function manipulateTextArea() {
             if(cols > global_textarea_cols) get_textarea.cols -= 1
             updateCurrentLineColumnNumber()
         }
-    })
-}
-
-function appendTextOnPaste() {
-    const textarea = document.querySelector('textarea')
-    textarea.addEventListener('input', () => {
-        textarea.style.height = textarea.scrollHeight + 'px'
     })
 }
 
