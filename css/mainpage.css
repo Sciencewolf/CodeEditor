@@ -153,9 +153,8 @@ textarea {
     position: absolute;
     top: 6em;
     left: 2em;
-    border-radius: 12px;
     display: grid;
-    place-items: flex-start;
+    place-items: center;
 }
 
 .items-notification .item-notification {
@@ -165,10 +164,11 @@ textarea {
     align-items: center;
     background-color: black;
     color: white;
-    margin: 1em;
+    margin: 0.5em;
     width: 15em;
     height: 8em;
     position: relative;
+    border-radius: 10px;
 }
 
 .item-notification p {

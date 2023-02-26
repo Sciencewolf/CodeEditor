@@ -12,6 +12,10 @@ const listFileExt = [
     "(JavaScript) .js", "(TypeScript) .ts"
 ]
 
+const list_predictProgLangByKeywords = [
+    "#include", "using", "public static void main", "def", "<html>"
+]
+
 const themes = {
     Black: "#000",
     Dark: "#414A4C",
@@ -36,18 +40,12 @@ const log = console.log
 const error = console.error
 
 const onLoad = () => {
-    let _date = new Date()
-    let _year = _date.getUTCFullYear()
-    let _month = _date.getUTCMonth() + 1
-    let _day = _date.getUTCDate()
-
     getTagsOnLoad()
     // Open settings
     const get_settings = document.querySelector('.settings')
     const settings_btn = document.querySelector('#open-settings')
     settings_btn.addEventListener('click', () => {
         changeTitleTo("Settings")
-        vibrateOnMobileVersion()
         get_settings.style.display = 'block'
 
         // Add Event for label
@@ -60,10 +58,13 @@ const onLoad = () => {
         })
     })
     itemsInSettings()
-
-    if(_year < 2024 && _month < 3 && _day < 22) {
-        notification("New version is available", true, "2023 feb 14", "Version 0.9.2 <br> <a href='https://github.com/Sciencewolf' target='_blank'>See more</a>")
-    }
+    pinNotification(
+        "New Version Is Available",
+        "Version 0.9.3 <br> <a href='https://github.com/Sciencewolf' target='_blank'>See more</a>",
+        true,
+        "2023 feb 26",
+        3
+    )
 }
 
 function getTagsOnLoad() {
@@ -170,6 +171,17 @@ function notification(text, isVersion, versionDate, info) {
     // log(notification_list[0].flat()[0])
     countNotifications()
     itemNotification()
+}
+
+function pinNotification(text, info, isVersion, versionDate, month) {
+    let _date = new Date();
+    // let _year = _date.getUTCFullYear()
+    let _month = _date.getUTCMonth() + 1
+    // let _day = _date.getUTCDate()
+
+    if(_month <= month) {
+        notification(text, isVersion, versionDate, info)
+    }else log("Fail to pin notification ")
 }
 
 function countNotifications() {
@@ -347,6 +359,7 @@ function getFileExtension() {
     ok_button_tag.addEventListener('click', () => {
         changeTitleTo("Code Editor(beta)")
         saveFile()
+        // predictFileTypeByProgrammingLanguage()
         dialog_div.style.display = "none"
         inputFileExt_divtag.textContent = ""
         statusIsAnyWindowIsOpened = false
@@ -590,18 +603,14 @@ function changeColorOnLightThemes() {
     })
 }
 
-//  Need to develop
-function vibrateOnMobileVersion() {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if(window.navigator.vibrate && isMobile) {
-        alert("Working")
-        navigator.vibrate(100)
-    }
-    else if(!isMobile) {
-        log("Not working")
-    }
-    else {
-        alert("Not working")
+function predictFileTypeByProgrammingLanguage() {
+    const input = document.getElementById("textarea")
+    log(input.value)
+    let value = input.value;
+    log(value)
+
+    if(list_predictProgLangByKeywords.includes(value)){
+        log("f")
     }
 }
 
