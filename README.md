@@ -1,4 +1,4 @@
-# Code Editor v0.9.2
+# Code Editor v0.9.3
 
 * Version 0.1
 * Version 0.2 12/12/2022
@@ -11,6 +11,7 @@
 * Version 0.9 01/22/2023
 * Version 0.9.1. 02/01/2023
 * Version 0.9.2. 02/14/2023
+* Version 0.9.3. 02/26/2023
 
 # Preparing for Version 1.0
 ## Tasks To Do:
