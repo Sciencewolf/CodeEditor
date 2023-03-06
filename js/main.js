@@ -177,11 +177,9 @@ function pinNotification(text, info, isVersion, versionDate, month) {
     let _date = new Date();
     // let _year = _date.getUTCFullYear()
     let _month = _date.getUTCMonth() + 1
-    // let _day = _date.getUTCDate()
+    let _day = _date.getUTCDate()
 
-    if(_month <= month) {
-        notification(text, isVersion, versionDate, info)
-    }else log("Fail to pin notification ")
+    if(_month <= month && _day <= 12) notification(text, isVersion, versionDate, info)
 }
 
 function countNotifications() {
