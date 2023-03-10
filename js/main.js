@@ -41,7 +41,6 @@ const error = console.error
 
 const aboutDeveloper = () => { log("Created by: Aron Marton") }
 
-
 const onLoad = () => {
     getTagsOnLoad()
     aboutDeveloper()
