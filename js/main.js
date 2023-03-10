@@ -39,8 +39,11 @@ const title_ofThePage = document.querySelector('title')
 const log = console.log
 const error = console.error
 
+const aboutDeveloper = () => { log("Created by: Aron Marton") }
+
 const onLoad = () => {
     getTagsOnLoad()
+    aboutDeveloper()
     // Open settings
     const get_settings = document.querySelector('.settings')
     const settings_btn = document.querySelector('#open-settings')
@@ -153,7 +156,7 @@ function notification(text, isVersion, versionDate, info) {
         div.style.zIndex = `${1}`
 
         p.innerHTML = text
-        img.src = "icons8-alarm-24.png"
+        img.src = "img/icons8-alarm-24.png"
 
         div.appendChild(img)
         div.appendChild(p)
@@ -607,7 +610,7 @@ function predictFileTypeByProgrammingLanguage() {
     let value = input.value;
     log(value)
 
-    if(list_predictProgLangByKeywords.includes(value)){
+    if (list_predictProgLangByKeywords.includes(value)) {
         log("f")
     }
 }
